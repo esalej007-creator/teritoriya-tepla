@@ -1,0 +1,52 @@
+ErrorDocument 403 /404.html
+ErrorDocument 404 /404.html
+
+DirectoryIndex page70305347.html
+
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} /robots.txt
+RewriteCond "%{DOCUMENT_ROOT}/project12855071/robots_%{HTTP_HOST}.txt" -f
+RewriteRule ^(.*)$ robots_%{HTTP_HOST}.txt [NC,L]
+RewriteRule ^sitestype$ page70082815.html [NC]
+RewriteRule ^sitestype/$ page70082815.html [NC]
+
+RewriteRule ^commands$ page70097187.html [NC]
+RewriteRule ^commands/$ page70097187.html [NC]
+
+RewriteRule ^2variant$ page70647893.html [NC]
+RewriteRule ^2variant/$ page70647893.html [NC]
+
+RewriteRule ^hotel$ page70648065.html [NC]
+RewriteRule ^hotel/$ page70648065.html [NC]
+
+RewriteRule ^calculation$ page72147409.html [NC]
+RewriteRule ^calculation/$ page72147409.html [NC]
+
+RewriteRule ^yandex_2bc52bf486440272$ page97386026.html [NC]
+RewriteRule ^yandex_2bc52bf486440272/$ page97386026.html [NC]
+
+RewriteRule ^teleinspections$ page108611946.html [NC]
+RewriteRule ^teleinspections/$ page108611946.html [NC]
+
+RewriteRule ^about$ page108939136.html [NC]
+RewriteRule ^about/$ page108939136.html [NC]
+
+RewriteRule ^contacts$ page108944496.html [NC]
+RewriteRule ^contacts/$ page108944496.html [NC]
+
+RewriteRule ^order$ page108945656.html [NC]
+RewriteRule ^order/$ page108945656.html [NC]
+
+RewriteRule ^mechanics$ page110245326.html [NC]
+RewriteRule ^mechanics/$ page110245326.html [NC]
+
+RewriteRule ^hydra$ page110280646.html [NC]
+RewriteRule ^hydra/$ page110280646.html [NC]
+
+RewriteRule ^esnails$ page118823096.html [NC]
+RewriteRule ^esnails/$ page118823096.html [NC]
+
+RewriteRule ^members/ ma_start.html [NC,L]
+
+
