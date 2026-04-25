@@ -4989,14 +4989,12 @@ document.addEventListener('click', function (e) {
   overflow: hidden;
 }
 
-/* заголовок */
 #mapModalContainer h3 {
   margin: 0 0 12px;
   text-align: center;
   color: #002283;
 }
 
-/* iframe блок */
 #mapModalContainer .map-frame {
   width: 100%;
   height: 600px;
@@ -5011,7 +5009,6 @@ document.addEventListener('click', function (e) {
   border: 0;
 }
 
-/* ссылка */
 #mapModalContainer a {
   position: absolute;
   bottom: 8px;
@@ -5022,7 +5019,6 @@ document.addEventListener('click', function (e) {
   text-decoration: none;
 }
 
-/* крестик */
 #mapModalContainer .map-close {
   position: absolute;
   top: 12px;
@@ -5269,6 +5265,43 @@ color: #fff;
   font-weight: 600;
   margin-top: 6px;
 }
+@media (max-width: 768px) {
+  .buy-overlay-new {
+    align-items: flex-start;
+    justify-content: center;
+    padding: 80px 12px 20px;
+    overflow: hidden;
+  }
+
+  .buy-modal-new {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    transform: translateY(0);
+  }
+}
+.buy-success-new {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+  color: #fff;
+  animation: fadeIn 0.5s ease;
+}
+
+.buy-success-new h3 {
+  font-size: 28px;
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+.buy-success-new p {
+  font-size: 18px;
+  line-height: 1.6;
+  margin: 0;
+}
 </style>
 <div class="buy-overlay-new" id="buyModalNew">
   <div class="buy-modal-new">
@@ -5294,7 +5327,6 @@ color: #fff;
         </div>
       </div>
 
-      <!-- ПРАВО -->
       <div class="buy-right-new">
         <h2 id="buyTitleNew">Товар</h2>
 
@@ -5337,9 +5369,12 @@ color: #fff;
 
 </div>
 </form>
+<div class="buy-success-new" id="buySuccessNew">
+  <h3>Спасибо за отправленную заявку!</h3>
+  <p>В ближайшее время с вами свяжется менеджер.</p>
+</div>
       </div>
 
-      <!-- ИНФО -->
       <div class="buy-info-box">
         Доставка организуется индивидуально под каждый заказ.<br><br>
         Мы подбираем оптимальный вариант с учётом объёма, сроков и региона.<br><br>
@@ -5469,6 +5504,40 @@ form.addEventListener("submit", function(e) {
     return;
   }
 });
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const form = document.querySelector('#buyModalNew form');
+  const success = document.getElementById('buySuccessNew');
+
+  if (!form || !success) return;
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: formData
+      });
+
+      if (response.ok) {
+        form.style.display = 'none';
+        success.style.display = 'block';
+
+        setTimeout(() => {
+          success.style.display = 'none';
+          form.style.display = 'block';
+          form.reset();
+        }, 5000);
+      }
+    } catch (error) {
+      alert('Ошибка отправки. Попробуйте ещё раз.');
+    }
+  });
 });
 </script>
 <div id="policyModal" class="policy-modal">
