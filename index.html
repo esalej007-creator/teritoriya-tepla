@@ -1175,6 +1175,9 @@ li:hover > .submenu:not(.catalog-submenu) {
     overflow-y: auto;
     overflow-x: hidden;
 }
+ body.no-scroll {
+  overflow: hidden;
+}
 </style> 
 <header class="header"> 
 <div class="header-inner"> 
@@ -1276,26 +1279,38 @@ const catalogBtn = document.getElementById('catalogBtn');
 const catalogMenu = document.querySelector('.catalog-submenu');
 const overlay = document.querySelector('.overlay');
 
+function openMenu() {
+  catalogMenu.classList.add('active');
+  overlay.classList.add('active');
+  document.body.classList.add('no-scroll');
+}
+
+function closeMenu() {
+  catalogMenu.classList.remove('active');
+  overlay.classList.remove('active');
+  document.body.classList.remove('no-scroll');
+}
+
 catalogBtn.addEventListener('click', (e) => {
   e.preventDefault();
   e.stopPropagation();
-  const isActive = catalogMenu.classList.toggle('active');
-  overlay.classList.toggle('active', isActive);
+
+  const isActive = catalogMenu.classList.contains('active');
+
+  if (isActive) {
+    closeMenu();
+  } else {
+    openMenu();
+  }
 });
 
 catalogMenu.addEventListener('click', (e) => {
   e.stopPropagation();
 });
 
-overlay.addEventListener('click', () => {
-  catalogMenu.classList.remove('active');
-  overlay.classList.remove('active');
-});
+overlay.addEventListener('click', closeMenu);
 
-document.addEventListener('click', () => {
-  catalogMenu.classList.remove('active');
-  overlay.classList.remove('active');
-});
+document.addEventListener('click', closeMenu);
 </script> <script>
 document.addEventListener('DOMContentLoaded', () => {
   const searchInput = document.querySelector('.header-search input');
