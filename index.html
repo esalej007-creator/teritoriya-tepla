@@ -771,7 +771,7 @@ li:hover > .submenu:not(.catalog-submenu) {
   flex-direction: column;
   padding: 15px;
 
-  overflow: visible; /* ВАЖНО: чтобы правые меню могли вылезать */
+  overflow: hidden; /* ❗ ВАЖНО */
 
   transform: translateX(-100%);
   transition: transform 0.3s ease;
@@ -877,7 +877,7 @@ li:hover > .submenu:not(.catalog-submenu) {
   z-index: 2000; 
 
   border-radius: 12px; 
-  overflow-y: hidden;
+  overflow: visible;
 }
 
 .catalog-item.has-right-submenu:hover > .catalog-submenu-right {
@@ -1178,6 +1178,9 @@ li:hover > .submenu:not(.catalog-submenu) {
   overflow-y: auto;
   overflow-x: hidden;
   max-height: 100%;
+}
+ .catalog-item {
+  position: relative;
 }
 </style> 
 <header class="header"> 
