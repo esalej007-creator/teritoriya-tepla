@@ -4400,17 +4400,7 @@ Object.entries(it.params || {}).forEach(([k, v]) => {
 }
   </span> </div>
     `;
-
-    const actions = document.createElement('div');
-    actions.className = 'actions';
-    const more = document.createElement('button');
-    more.className = 'btn btn-black';
-    more.textContent = 'Подробнее';
-   more.onclick = (e) => {
-  e.stopPropagation();
-  window.location.href = 'products/' + it.id + '.html';
-};
-    const actions = document.createElement('div');
+const actions = document.createElement('div');
 actions.className = 'actions';
 
 const more = document.createElement('button');
