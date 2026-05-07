@@ -771,7 +771,7 @@ li:hover > .submenu:not(.catalog-submenu) {
   flex-direction: column;
   padding: 15px;
 
-  overflow: hidden; /* 👈 ВАЖНО */
+  overflow: visible;
 
   transform: translateX(-100%);
   transition: transform 0.3s ease;
@@ -918,9 +918,6 @@ li:hover > .submenu:not(.catalog-submenu) {
 
 .catalog-submenu-right .catalog-item:hover span {
   color: #fff !important;
-}
-.catalog-submenu {
-  overflow: visible !important;
 }
 .catalog-item.has-right-submenu {
   position: relative;
@@ -1176,6 +1173,11 @@ li:hover > .submenu:not(.catalog-submenu) {
   top: 0;
   left: 100%;
   z-index: 9999;
+}
+ .catalog-items {
+  max-height: calc(100vh - 90px);
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 </style> 
 <header class="header"> 
