@@ -3825,13 +3825,95 @@ html, body {
     height: 16px;
   }
 }
+  .floating-cart{
+  position:fixed;
+  top:100px;
+  right:20px;
+  z-index:9999;
+}
+
+.cart-icon-wrap{
+  width:64px;
+  height:64px;
+  border-radius:50%;
+  background:#FF0101;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:28px;
+  cursor:pointer;
+  box-shadow:0 8px 25px rgba(0,0,0,.25);
+  position:relative;
+}
+
+#cartCountBadge{
+  position:absolute;
+  top:-6px;
+  right:-6px;
+  background:#0026A9;
+  color:#fff;
+  width:24px;
+  height:24px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:12px;
+  font-weight:700;
+}
+  .qty-controls{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-left:12px;
+}
+
+.qty-minus,
+.qty-plus{
+  width:34px;
+  height:34px;
+  border:none;
+  border-radius:50%;
+  color:#fff;
+  font-size:22px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.qty-minus{
+  background:#0026A9;
+}
+
+.qty-plus{
+  background:#FF0101;
+}
+
+.qty-value{
+  min-width:20px;
+  text-align:center;
+  font-weight:700;
+  font-size:18px;
+}
   </style> </head> <body> <div class="wrap"> <div class="cats-wrapper"> <button class="cats-arrow left" id="catsLeft">‹</button> <div id="catsRow" class="cats-row" aria-label="Категории"></div> <button class="cats-arrow right" id="catsRight">›</button> </div> <div class="controls"> <div class="search"><input id="searchInput" placeholder="Поиск по названию или описанию"></div> <div><button id="favToggle" class="btn btn-outline">Избранное</button></div> </div> <div class="price-filter-row"> <!-- ЛЕВАЯ КОЛОНКА --> <div class="filters-left"> <div class="price-filter-wrapper"> <label class="price-label">Фильтр по цене</label> <div class="price-inputs"> <input type="number" id="priceMin" placeholder="Мин."> <span>–</span> <input type="number" id="priceMax" placeholder="Макс."> </div> <input type="range" id="priceRange"> </div> <!-- ВОТ ТУТ КНОПКА --> <button id="openFilters" class="filters-btn">
       Фильтры ›
     </button> </div> <div class="price-filter-text-wrapper">
 В каталоге «Территория тепла» представлен широкий выбор оборудования и комплектующих для систем отопления и водоснабжения.<br>
 Это решения для частных домов, квартир и коммерческих объектов — от базовых элементов до профессиональных инженерных систем.<br>
 Здесь собрано всё необходимое для стабильной, надёжной и безопасной работы оборудования на долгие годы.<br> </div> <!-- ПРАВАЯ КОЛОНКА --> <div class="filters-right" id="filtersImages"></div> </div> <div id="cards" class="cards"></div> <div class="load-more-wrap"><button id="loadMore" class="load-more">Показать ещё</button></div> </div> <div id="detailsModal" class="modal" aria-hidden="true"> <div class="dialog"> <button class="close-btn" id="closeDetails">&times;</button> <div style="display:flex;gap:18px;flex-wrap:wrap"> <div class="gallery-main"><img id="detailMainImg" src="" alt=""></div> <div style="min-width:220px;max-width:300px"><div id="detailThumbs" class="thumbs"></div></div> </div> <h2 id="detailTitle"></h2> <div id="detailPrice" class="price"></div> <div id="detailDesc"
-         style="white-space:pre-wrap; margin-top:14px; background:#0026A9; color:#fff; padding:14px 16px; border-radius:12px; line-height:1.5;"> </div> <div id="detailParams" style="margin-top:12px"></div> <div id="detailLinks" style="display:flex; gap:12px; margin-top:12px;"></div> <div style="margin-top:12px;display:flex;gap:8px"> <button id="openOrderFromDetails" class="btn btn-black">В корзину</button> <button id="salesBtn" class="btn btn-outline">Отдел продаж</button> </div> <div id="similarProducts" style="margin-top:24px;"> <h3 style="margin-bottom:12px; font-size:16px;">Похожие товары</h3> <div class="similar-row" style="display:flex; gap:12px; overflow-x:auto; padding-bottom:8px;"> </div> </div> </div> </div> <div id="orderModal" class="order-modal" aria-hidden="true"> <div class="dialog"> <button class="close-btn" id="closeOrder">&times;</button> <h3>Оформить заказ</h3> <div id="orderItemInfo" style="margin-bottom:10px"></div> <form id="orderForm" class="order-form"> <input name="name" placeholder="Ваше имя" required /> <input name="phone" placeholder="Телефон" required /> <input name="address" placeholder="Введите адрес доставки" required /> <textarea name="comment" rows="4" placeholder="Комментарий (опционально)"></textarea> <div style="display:flex; align-items:center; gap:8px; margin-top:6px; flex-wrap:wrap;"> <button type="submit" class="btn btn-black order-submit">Отправить</button> <div style="font-size:12px; line-height:1.2; max-width:400px; color:#333 !important;">
+         style="white-space:pre-wrap; margin-top:14px; background:#0026A9; color:#fff; padding:14px 16px; border-radius:12px; line-height:1.5;"> </div> <div id="detailParams" style="margin-top:12px"></div> <div id="detailLinks" style="display:flex; gap:12px; margin-top:12px;"></div> <div style="margin-top:12px;display:flex;gap:8px"> <div class="cart-controls" data-id="${item.id}">
+  <button class="add-to-cart btn btn-black">
+    В корзину
+  </button>
+
+  <div class="qty-controls" style="display:none">
+    <button class="qty-minus">−</button>
+    <span class="qty-value">1</span>
+    <button class="qty-plus">+</button>
+  </div>
+</div> <button id="salesBtn" class="btn btn-outline">Отдел продаж</button> </div> <div id="similarProducts" style="margin-top:24px;"> <h3 style="margin-bottom:12px; font-size:16px;">Похожие товары</h3> <div class="similar-row" style="display:flex; gap:12px; overflow-x:auto; padding-bottom:8px;"> </div> </div> </div> </div> <div id="orderModal" class="order-modal" aria-hidden="true"> <div class="dialog"> <button class="close-btn" id="closeOrder">&times;</button> <h3>Оформить заказ</h3> <div id="orderItemInfo" style="margin-bottom:10px"></div> <form id="orderForm" class="order-form"> <input name="name" placeholder="Ваше имя" required /> <input name="phone" placeholder="Телефон" required /> <input name="address" placeholder="Введите адрес доставки" required /> <textarea name="comment" rows="4" placeholder="Комментарий (опционально)"></textarea> <div style="display:flex; align-items:center; gap:8px; margin-top:6px; flex-wrap:wrap;"> <button type="submit" class="btn btn-black order-submit">Отправить</button> <div style="font-size:12px; line-height:1.2; max-width:400px; color:#333 !important;">
   Даю согласие на обработку моих персональных данных. Соглашаюсь с 
   <a href="#" id="openPolicy" style="color:#d00 !important;">Политикой конфиденциальности</a> и ознакомлен с 
   <a href="#" id="openOffer" style="color:#d00 !important;">Политикой в отношении обработки персональных данных</a>.
@@ -3905,6 +3987,22 @@ if (leftBtn && rightBtn) {
   let items = [];
 window.selectedCategory = '';
 let favorites = JSON.parse(localStorage.getItem('favorites')||'[]').map(String);
+  let cart = JSON.parse(localStorage.getItem('cart') || '{}');
+
+function saveCart(){
+  localStorage.setItem('cart', JSON.stringify(cart));
+  updateCartBadge();
+}
+
+function updateCartBadge(){
+  const badge = document.getElementById('cartCountBadge');
+
+  if(!badge) return;
+
+  const total = Object.values(cart).reduce((a,b)=>a+b,0);
+
+  badge.textContent = total;
+}
 let currentDetailItem = null;
 let favoritesToggle = false;
 let selectedSubcategory = null;
@@ -4497,6 +4595,68 @@ const PARAM_ICONS = {
   passport: "https://cdn-icons-png.flaticon.com/512/337/337946.png",
   certificate: "https://cdn-icons-png.flaticon.com/512/136/136524.png"
 };
+document.addEventListener('click', function(e){
+
+  /* ADD TO CART */
+
+  if(e.target.classList.contains('add-to-cart')){
+
+    const wrap = e.target.closest('.cart-controls');
+    const id = wrap.dataset.id;
+
+    cart[id] = 1;
+
+    saveCart();
+
+    e.target.style.display = 'none';
+
+    const qty = wrap.querySelector('.qty-controls');
+
+    qty.style.display = 'flex';
+
+    qty.querySelector('.qty-value').textContent = 1;
+  }
+
+  /* PLUS */
+
+  if(e.target.classList.contains('qty-plus')){
+
+    const wrap = e.target.closest('.cart-controls');
+    const id = wrap.dataset.id;
+
+    cart[id]++;
+
+    saveCart();
+
+    wrap.querySelector('.qty-value').textContent = cart[id];
+  }
+
+  /* MINUS */
+
+  if(e.target.classList.contains('qty-minus')){
+
+    const wrap = e.target.closest('.cart-controls');
+    const id = wrap.dataset.id;
+
+    cart[id]--;
+
+    if(cart[id] <= 0){
+
+      delete cart[id];
+
+      wrap.querySelector('.add-to-cart').style.display = 'inline-flex';
+
+      wrap.querySelector('.qty-controls').style.display = 'none';
+
+    } else {
+
+      wrap.querySelector('.qty-value').textContent = cart[id];
+    }
+
+    saveCart();
+  }
+
+});
 
 function renderProductLinks(paramsContainer, product) {
   paramsContainer.innerHTML = ""; // очищаем старые
@@ -4552,6 +4712,7 @@ function renderProductLinks(paramsContainer, product) {
     paramsContainer.appendChild(a);
   }
 }
+  updateCartBadge();
 })();
 </script> <div id="filtersBackdrop" class="filters-backdrop"></div> <div id="filtersDrawer" class="filters-drawer"> <h3 style="margin-bottom:12px;">Фильтры</h3> <div id="dynamicFilters"></div> <!-- 🔥 КНОПКА СБРОСА --> <button id="resetFilters" class="filters-reset-btn">
     Сбросить фильтры
@@ -4926,7 +5087,15 @@ setInterval(() => {
   }, 300);
 
 }, 10000); 
-</script> </body> </html> <!-- nominify end --> </div> </div> </div> </div> <div id="rec2159799491" class="r t-rec" style=" " data-record-type="215"> <a name="map" style="font-size:0;"></a> </div> <div id="rec2164131971" class="r t-rec" style=" " data-animationappear="off" data-record-type="131"> <!-- T123 --> <div class="t123"> <div class="t-container_100 "> <div class="t-width t-width_100 "> <!-- nominify begin --> <footer class="footer"> <div class="footer-inner"> <!-- ЛЕВАЯ ЧАСТЬ --> <div class="footer-left"> <img src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/%D0%9B%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF.png" class="footer-logo"> <div class="footer-socials"> <img src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/mail.png"> <img src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/tg.png"> <img src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/vk.png"> </div> <div class="footer-contacts"> <div>+7 (920) 103-80-87</div> <div>г. Владимир, ул. Куйбышева, 9а</div> <div>пн–пт: 9:00–19:00<br>сб: 9:00–17:00</div> <div>Territoriya-tepla@bk.ru</div> </div> </div> <div class="footer-map-wrap"> <div id="footer-map" class="footer-map"></div> </div> <div class="footer-faq"> <div class="footer-title">F.A.Q</div> <div class="footer-faq-list"> <a href="#">Как оформить заказ?</a> <a href="#">Сроки доставки</a> <a href="#">Гарантия на товары</a> <a href="#">Как вернуть товар?</a> </div> </div> <div class="footer-right"> <div class="footer-title">Навигация</div> <div class="footer-menu"> <a href="https://teritoriya-tepla.ru/">Главная</a> <a href="https://teritoriya-tepla.ru/catalog">Каталог</a> <a href="#">Акции</a> <a href="#" id="deliveryBtn">Доставка</a> <a href="#about">О компании</a> </div> </div> </div> <div class="footer-bottom"> <div class="footer-disclaimer">
+</script> 
+  <!-- FLOAT CART -->
+<div id="floatingCart" class="floating-cart">
+  <div class="cart-icon-wrap">
+    🛒
+    <span id="cartCountBadge">0</span>
+  </div>
+</div>
+</body> </html> <!-- nominify end --> </div> </div> </div> </div> <div id="rec2159799491" class="r t-rec" style=" " data-record-type="215"> <a name="map" style="font-size:0;"></a> </div> <div id="rec2164131971" class="r t-rec" style=" " data-animationappear="off" data-record-type="131"> <!-- T123 --> <div class="t123"> <div class="t-container_100 "> <div class="t-width t-width_100 "> <!-- nominify begin --> <footer class="footer"> <div class="footer-inner"> <!-- ЛЕВАЯ ЧАСТЬ --> <div class="footer-left"> <img src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/%D0%9B%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF.png" class="footer-logo"> <div class="footer-socials"> <img src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/mail.png"> <img src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/tg.png"> <img src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/vk.png"> </div> <div class="footer-contacts"> <div>+7 (920) 103-80-87</div> <div>г. Владимир, ул. Куйбышева, 9а</div> <div>пн–пт: 9:00–19:00<br>сб: 9:00–17:00</div> <div>Territoriya-tepla@bk.ru</div> </div> </div> <div class="footer-map-wrap"> <div id="footer-map" class="footer-map"></div> </div> <div class="footer-faq"> <div class="footer-title">F.A.Q</div> <div class="footer-faq-list"> <a href="#">Как оформить заказ?</a> <a href="#">Сроки доставки</a> <a href="#">Гарантия на товары</a> <a href="#">Как вернуть товар?</a> </div> </div> <div class="footer-right"> <div class="footer-title">Навигация</div> <div class="footer-menu"> <a href="https://teritoriya-tepla.ru/">Главная</a> <a href="https://teritoriya-tepla.ru/catalog">Каталог</a> <a href="#">Акции</a> <a href="#" id="deliveryBtn">Доставка</a> <a href="#about">О компании</a> </div> </div> </div> <div class="footer-bottom"> <div class="footer-disclaimer">
     Информация на сайте носит ознакомительный характер и не является публичной офертой, 
     определяемой положениями статьи 437 п.2 ГК РФ<br>
     Всю необходимую информацию уточняйте у менеджеров нашей компании
