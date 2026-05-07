@@ -758,42 +758,39 @@ li:hover > .submenu:not(.catalog-submenu) {
   display: flex;
 }
 
-/* шторка */
 .catalog-submenu {
   position: fixed;
-  top: 70px;
+  top: 50px;
   left: 0;
   width: 320px;
-  height: calc(100vh - 70px);
+  height: calc(100vh - 50px);
   background: #fff;
 
   display: flex;
   flex-direction: column;
   padding: 15px;
-
-  overflow: hidden; /* ❗ ВАЖНО */
+  overflow-y: auto;
 
   transform: translateX(-100%);
   transition: transform 0.3s ease;
 
   z-index: 1000;
+
   box-shadow: 20px 0 40px -10px rgba(0,0,0,0.3);
+    top: 70px;
+  
 }
 
-
-/* открытие */
 .catalog-submenu.active {
   transform: translateX(0);
 }
 
-/* список */
 .catalog-submenu .catalog-items {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-/* пункт */
 .catalog-submenu .catalog-item {
   display: flex;
   align-items: center;
@@ -834,14 +831,13 @@ li:hover > .submenu:not(.catalog-submenu) {
   color: #fff;
 }
 
-/* убираем ВСЕ старые эффекты */
 .catalog-submenu .catalog-item::before {
   display: none !important;
 }
 .header {
   position: fixed;
   z-index: 9999999;
-  isolation: isolate; /* 👈 ВАЖНО */
+  isolation: isolate; 
 }
 .overlay {
   position: fixed;
@@ -877,14 +873,13 @@ li:hover > .submenu:not(.catalog-submenu) {
   z-index: 2000; 
 
   border-radius: 12px; 
-  overflow: visible;
+  overflow-y: hidden;
 }
 
 .catalog-item.has-right-submenu:hover > .catalog-submenu-right {
   display: flex;
 }
 
-/* Подкатегории — как обычные catalog-item */
 .catalog-submenu-right .catalog-item {
   display: flex;
   align-items: center;
@@ -918,6 +913,9 @@ li:hover > .submenu:not(.catalog-submenu) {
 .catalog-submenu-right .catalog-item:hover span {
   color: #fff !important;
 }
+.catalog-submenu {
+  overflow: visible !important;
+}
 .catalog-item.has-right-submenu {
   position: relative;
 }
@@ -927,29 +925,26 @@ li:hover > .submenu:not(.catalog-submenu) {
   top: 0;
   left: 100%;
   display: none;
-  width: 320px; /* или auto */
+  width: 320px; 
   z-index: 2000;
 }
 
-/* Третий уровень — внутри второго */
 .catalog-submenu-right .catalog-item.has-right-submenu > .catalog-submenu-right {
   position: absolute;
   top: 0;
-  left: 100%; /* справа от родителя */
-  display: none; /* по умолчанию скрыт */
+  left: 100%; 
+  display: none; 
   z-index: 4000;
   width: 320px; 
   background: #fff;
   box-shadow: 4px 0 15px rgba(0,0,0,0.2);
 }
 
-/* Показать при hover */
 .catalog-submenu-right .catalog-item.has-right-submenu:hover > .catalog-submenu-right {
   display: flex;
   flex-direction: column;
 }
 
-/* Убедиться, что родитель не режет overflow */
 .catalog-submenu-right {
   overflow: visible !important;
 }
@@ -1006,9 +1001,8 @@ li:hover > .submenu:not(.catalog-submenu) {
   z-index: 9999;
 }
 
-/* Стиль скролла для браузеров на Webkit (Chrome, Edge, Safari) */
 .search-results::-webkit-scrollbar {
-  width: 6px; /* ширина скролла */
+  width: 6px; 
 }
 
 .search-results::-webkit-scrollbar-track {
@@ -1027,8 +1021,8 @@ li:hover > .submenu:not(.catalog-submenu) {
   color: #002283;
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
-  border-radius: 6px; /* скругление для каждой строки */
-  margin: 2px 6px; /* отступ от краев */
+  border-radius: 6px; 
+  margin: 2px 6px;
 }
 
 .search-results .item:hover {
@@ -1042,7 +1036,7 @@ li:hover > .submenu:not(.catalog-submenu) {
   left: 0;
   width: 100%;
 
-  height: 90%; /* 👈 оставляем 10% снизу белыми */
+  height: 90%; 
 
   background: linear-gradient(
     0.375turn,
@@ -1053,7 +1047,7 @@ li:hover > .submenu:not(.catalog-submenu) {
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
 
-  z-index: -1; /* под контентом */
+  z-index: -1; 
 }
 .header-search input {
   width: 100%;
@@ -1096,21 +1090,21 @@ li:hover > .submenu:not(.catalog-submenu) {
   position: absolute;
   bottom: 60px;
 
-  left: 5px; /* небольшой отступ от левого края */
-  right: auto; /* убираем растягивание */
+  left: 5px; 
+  right: auto;
 
   display: flex;
   align-items: center;
-  justify-content: flex-start; /* прижимаем содержимое влево */
+  justify-content: flex-start;
   gap: 8px;
 
   color: #002283;
   padding: 8px 12px;
 
-  border: 1px solid #002283; /* тонкая обводка */
-  border-radius: 8px; /* лёгкие скругления */
+  border: 1px solid #002283;
+  border-radius: 8px;
 
-  background: transparent; /* прозрачный фон */
+  background: transparent; 
   text-decoration: none;
   font-weight: 500;
 }
@@ -1131,7 +1125,6 @@ li:hover > .submenu:not(.catalog-submenu) {
     gap: 10px;
   }
 
-  /* меню компактнее */
   .desktop-menu {
     gap: 10px;
   }
@@ -1141,7 +1134,6 @@ li:hover > .submenu:not(.catalog-submenu) {
     padding: 2px 2px;
   }
 
-  /* поиск уменьшаем */
   .header-search {
     flex: 0 0 180px;
   }
@@ -1163,24 +1155,6 @@ li:hover > .submenu:not(.catalog-submenu) {
 .search-results a.item:hover {
   background: #002283;
   color: #fff !important;
-}
- body.no-scroll {
-  overflow: hidden;
-}
- .catalog-submenu-right {
-  position: absolute;
-  top: 0;
-  left: 100%;
-  z-index: 99999999;
-}
-.catalog-items {
-  flex: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
-  max-height: 100%;
-}
- .catalog-item {
-  position: relative;
 }
 </style> 
 <header class="header"> 
