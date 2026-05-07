@@ -3940,6 +3940,50 @@ html, body {
   text-align:center;
   font-weight:700;
 }
+  @media (max-width: 768px){
+
+  .actions{
+    display:flex;
+    gap:8px;
+    align-items:center;
+  }
+
+  .actions .btn{
+    flex:1;
+    height:42px;
+    padding:0 12px;
+    font-size:14px;
+  }
+
+  .cart-controls{
+    flex-shrink:0;
+  }
+
+  .qty-controls{
+    gap:4px;
+    padding:0;
+  }
+
+  .qty-minus,
+  .qty-plus{
+    width:30px;
+    height:30px;
+    font-size:18px;
+  }
+
+  .qty-value{
+    min-width:18px;
+    font-size:14px;
+  }
+
+  .add-to-cart{
+    height:42px !important;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+}
   </style> </head> <body> <div class="wrap"> <div class="cats-wrapper"> <button class="cats-arrow left" id="catsLeft">‹</button> <div id="catsRow" class="cats-row" aria-label="Категории"></div> <button class="cats-arrow right" id="catsRight">›</button> </div> <div class="controls"> <div class="search"><input id="searchInput" placeholder="Поиск по названию или описанию"></div> <div><button id="favToggle" class="btn btn-outline">Избранное</button></div> </div> <div class="price-filter-row"> <!-- ЛЕВАЯ КОЛОНКА --> <div class="filters-left"> <div class="price-filter-wrapper"> <label class="price-label">Фильтр по цене</label> <div class="price-inputs"> <input type="number" id="priceMin" placeholder="Мин."> <span>–</span> <input type="number" id="priceMax" placeholder="Макс."> </div> <input type="range" id="priceRange"> </div> <!-- ВОТ ТУТ КНОПКА --> <button id="openFilters" class="filters-btn">
       Фильтры ›
     </button> </div> <div class="price-filter-text-wrapper">
