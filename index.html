@@ -761,26 +761,24 @@ li:hover > .submenu:not(.catalog-submenu) {
 /* шторка */
 .catalog-submenu {
   position: fixed;
-  top: 50px;
+  top: 70px;
   left: 0;
   width: 320px;
-  height: calc(100vh - 50px);
+  height: calc(100vh - 70px);
   background: #fff;
 
   display: flex;
   flex-direction: column;
   padding: 15px;
-  overflow: visible;
+
+  overflow: hidden; /* 👈 ВАЖНО */
 
   transform: translateX(-100%);
   transition: transform 0.3s ease;
 
   z-index: 1000;
 
-  /* тень только справа */
   box-shadow: 20px 0 40px -10px rgba(0,0,0,0.3);
-    top: 70px;
-  
 }
 
 
@@ -1169,11 +1167,6 @@ li:hover > .submenu:not(.catalog-submenu) {
 .search-results a.item:hover {
   background: #002283;
   color: #fff !important;
-}
- .catalog-scroll {
-    max-height: 80vh;
-    overflow-y: auto;
-    overflow-x: hidden;
 }
  body.no-scroll {
   overflow: hidden;
