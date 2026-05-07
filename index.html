@@ -770,7 +770,7 @@ li:hover > .submenu:not(.catalog-submenu) {
   display: flex;
   flex-direction: column;
   padding: 15px;
-  overflow-y: auto;
+  overflow: visible;
 
   transform: translateX(-100%);
   transition: transform 0.3s ease;
@@ -1178,6 +1178,10 @@ li:hover > .submenu:not(.catalog-submenu) {
  body.no-scroll {
   overflow: hidden;
 }
+ .catalog-items {
+  max-height: calc(100vh - 90px);
+  overflow-y: auto;
+}
 </style> 
 <header class="header"> 
 <div class="header-inner"> 
@@ -1295,22 +1299,24 @@ catalogBtn.addEventListener('click', (e) => {
   e.preventDefault();
   e.stopPropagation();
 
-  const isActive = catalogMenu.classList.contains('active');
+  const isOpen = catalogMenu.classList.contains('active');
 
-  if (isActive) {
+  if (isOpen) {
     closeMenu();
   } else {
     openMenu();
   }
 });
 
+// чтобы клики внутри шторки не закрывали её
 catalogMenu.addEventListener('click', (e) => {
   e.stopPropagation();
 });
 
+// закрытие по затемнению
 overlay.addEventListener('click', closeMenu);
 
-document.addEventListener('click', closeMenu);
+// ❌ ВАЖНО: document.addEventListener('click') УДАЛЕН
 </script> <script>
 document.addEventListener('DOMContentLoaded', () => {
   const searchInput = document.querySelector('.header-search input');
