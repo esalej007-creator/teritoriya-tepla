@@ -1171,9 +1171,11 @@ li:hover > .submenu:not(.catalog-submenu) {
  body.no-scroll {
   overflow: hidden;
 }
- .catalog-items {
-  max-height: calc(100vh - 90px);
-  overflow-y: auto;
+ .catalog-submenu-right {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  z-index: 9999;
 }
 </style> 
 <header class="header"> 
