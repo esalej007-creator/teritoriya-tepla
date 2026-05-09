@@ -714,13 +714,14 @@ li:hover > .submenu:not(.catalog-submenu) {
   transform: translateX(-100%);
   transition: transform 0.3s ease;
 
-  overflow: hidden; /* важно */
+  /* ❌ БЫЛО hidden — ЭТО РЕЗАЛО ПОДМЕНЮ */
+  overflow: visible;
 }
 
-/* открытие */
 .catalog-submenu.active {
   transform: translateX(0);
 }
+
 
 /* =========================
    КОНТЕНТ + СКРОЛЛ
@@ -737,7 +738,9 @@ li:hover > .submenu:not(.catalog-submenu) {
   padding: 15px;
 
   overflow-y: auto;
-  overflow-x: visible;
+  overflow-x: visible; /* важно */
+
+  position: relative;
 }
 
 /* скроллбар */
@@ -792,7 +795,6 @@ li:hover > .submenu:not(.catalog-submenu) {
   position: relative;
 }
 
-/* само подменю */
 .catalog-submenu-right {
   position: absolute;
   top: 0;
@@ -806,12 +808,14 @@ li:hover > .submenu:not(.catalog-submenu) {
   background: #fff;
 
   padding: 15px;
-
   border-radius: 12px;
 
   box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 
   z-index: 999999;
+
+  /* 🔥 ключ */
+  overflow: visible;
 }
 
 /* показ */
