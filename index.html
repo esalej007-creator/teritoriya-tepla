@@ -479,32 +479,6 @@ li:hover > .submenu:not(.catalog-submenu) {
   display: flex;
 }
 
-/* шторка */
-.catalog-submenu {
-  position: fixed;
-  top: 50px;
-  left: 0;
-  width: 320px;
-  height: calc(100vh - 50px);
-  background: #fff;
-
-  display: flex;
-  flex-direction: column;
-  padding: 15px;
-  overflow-y: auto;
-
-  transform: translateX(-100%);
-  transition: transform 0.3s ease;
-
-  z-index: 1000;
-
-  /* тень только справа */
-  box-shadow: 20px 0 40px -10px rgba(0,0,0,0.3);
-    top: 70px;
-  
-}
-
-
 .catalog-submenu.active {
   transform: translateX(0);
 }
@@ -585,17 +559,23 @@ li:hover > .submenu:not(.catalog-submenu) {
 
 .catalog-submenu-right {
   position: absolute;
+  top: 0;
   left: 100%;
+
   width: 320px;
+
   background: #fff;
-  box-shadow: 4px 0 15px rgba(0,0,0,0.2);
+
   display: none;
   flex-direction: column;
-  padding: 15px;
-  z-index: 2000; 
 
-  border-radius: 12px; 
-  overflow-y: hidden;
+  padding: 15px;
+
+  border-radius: 12px;
+
+  box-shadow: 4px 0 15px rgba(0,0,0,0.2);
+
+  z-index: 9999;
 }
 
 .catalog-item.has-right-submenu:hover > .catalog-submenu-right {
@@ -635,9 +615,6 @@ li:hover > .submenu:not(.catalog-submenu) {
 
 .catalog-submenu-right .catalog-item:hover span {
   color: #fff !important;
-}
-.catalog-submenu {
-  overflow: visible !important;
 }
 .catalog-item.has-right-submenu {
   position: relative;
@@ -760,31 +737,34 @@ li:hover > .submenu:not(.catalog-submenu) {
 
 .catalog-submenu {
   position: fixed;
-  top: 50px;
+  top: 70px;
   left: 0;
+
   width: 320px;
-  height: calc(100vh - 50px);
+  height: calc(100vh - 70px);
+
   background: #fff;
 
   display: flex;
   flex-direction: column;
-  padding: 15px;
-  overflow-y: auto;
 
-  transform: translateX(-100%);
+  padding: 15px;
+
   transition: transform 0.3s ease;
 
   z-index: 1000;
 
   box-shadow: 20px 0 40px -10px rgba(0,0,0,0.3);
-    top: 70px;
-  
-}
 
-.catalog-submenu.active {
-  transform: translateX(0);
-}
+  overflow-y: auto;
+  overflow-x: visible;
 
+  scrollbar-width: none;
+}
+ .catalog-submenu::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
 .catalog-submenu .catalog-items {
   display: flex;
   flex-direction: column;
@@ -876,10 +856,6 @@ li:hover > .submenu:not(.catalog-submenu) {
   overflow-y: hidden;
 }
 
-.catalog-item.has-right-submenu:hover > .catalog-submenu-right {
-  display: flex;
-}
-
 .catalog-submenu-right .catalog-item {
   display: flex;
   align-items: center;
@@ -913,9 +889,7 @@ li:hover > .submenu:not(.catalog-submenu) {
 .catalog-submenu-right .catalog-item:hover span {
   color: #fff !important;
 }
-.catalog-submenu {
-  overflow: visible !important;
-}
+
 .catalog-item.has-right-submenu {
   position: relative;
 }
@@ -943,10 +917,6 @@ li:hover > .submenu:not(.catalog-submenu) {
 .catalog-submenu-right .catalog-item.has-right-submenu:hover > .catalog-submenu-right {
   display: flex;
   flex-direction: column;
-}
-
-.catalog-submenu-right {
-  overflow: visible !important;
 }
 .catalog-submenu-right .catalog-submenu-right .catalog-item span {
   color: #002283 !important;
@@ -1116,9 +1086,7 @@ li:hover > .submenu:not(.catalog-submenu) {
 .catalog-submenu-right {
   flex-direction: column !important;
 }
-.catalog-item.has-right-submenu:hover > .catalog-submenu-right {
-  display: block;
-}
+
 @media (max-width: 1280px) {
 
   .header-inner {
