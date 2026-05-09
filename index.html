@@ -686,13 +686,16 @@ li:hover > .submenu:not(.catalog-submenu) {
 
   padding: 15px;
 
+  transform: translateX(-100%);
   transition: transform 0.3s ease;
 
-  transform: translateX(-100%);
-  overflow: visible;
   z-index: 1000;
 
+  overflow-y: auto;
+  overflow-x: visible;
+
   box-shadow: 20px 0 40px -10px rgba(0,0,0,0.3);
+
   scrollbar-width: none;
 }
  .catalog-submenu::-webkit-scrollbar {
@@ -702,16 +705,7 @@ li:hover > .submenu:not(.catalog-submenu) {
 .catalog-submenu .catalog-items {
   display: flex;
   flex-direction: column;
-
   gap: 8px;
-
-  flex: 1;
-
-  overflow-y: auto;
-
-  min-height: 0;
-
-  scrollbar-width: none;
 }
 .catalog-submenu .catalog-items::-webkit-scrollbar {
   width: 0;
