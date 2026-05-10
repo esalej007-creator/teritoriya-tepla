@@ -5375,194 +5375,6 @@ method="POST"
 </div>
 
 </div>
-
-<script>
-
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-function updateCartIcon(){
-
-  const totalCount = cart.reduce((sum, item) => {
-    return sum + item.qty;
-  }, 0);
-
-  document.getElementById('cartCountBadge').innerText = totalCount;
-
-}
-
-function saveCart(){
-
-  localStorage.setItem('cart', JSON.stringify(cart));
-
-}
-
-function addToCart(product){
-
-  const existing = cart.find(item => item.id === product.id);
-
-  if(existing){
-
-    existing.qty += 1;
-
-  } else {
-
-    cart.push({
-      ...product,
-      qty: 1
-    });
-
-  }
-
-  saveCart();
-
-  updateCartIcon();
-
-}
-function changeCartQty(id, delta){
-
-  const item = cart.find(i => i.id === id);
-
-  if(!item) return;
-
-  item.qty += delta;
-
-  if(item.qty <= 0){
-
-    cart = cart.filter(i => i.id !== id);
-
-  }
-
-  saveCart();
-
-  renderCart();
-
-  updateCartIcon();
-
-}
-
-function renderCart(){
-
-  const container = document.getElementById('cartItems');
-
-  const totalBox = document.getElementById('cartTotal');
-
-  if(!cart.length){
-
-    container.innerHTML = `
-      <div class="empty-cart">
-        Корзина пуста
-      </div>
-    `;
-
-    totalBox.innerText = 0;
-
-    return;
-  }
-
-  let total = 0;
-
-  container.innerHTML = cart.map(item => {
-
-    const sum = item.price * item.qty;
-
-    total += sum;
-
-    return `
-
-      <div class="cart-item">
-
-        <img src="${item.img}" alt="">
-
-        <div class="cart-content">
-
-          <div class="cart-title">
-            ${item.title}
-          </div>
-
-          <div class="cart-price">
-            ${item.price.toLocaleString()} ₽
-          </div>
-
-          <div class="buy-qty-new">
-
-            <button onclick="changeCartQty(${item.id}, -1)">
-              −
-            </button>
-
-            <span>${item.qty}</span>
-
-            <button onclick="changeCartQty(${item.id}, 1)">
-              +
-            </button>
-
-          </div>
-
-        </div>
-
-        <div class="cart-sum">
-          ${sum.toLocaleString()} ₽
-        </div>
-
-      </div>
-
-    `;
-
-  }).join('');
-
-  totalBox.innerText = total.toLocaleString();
-
-  document.getElementById('formProduct').value = cart.map(item => {
-
-    return `
-Товар: ${item.title}
-Количество: ${item.qty}
-Цена: ${item.price}
-Сумма: ${item.price * item.qty}
-`;
-
-  }).join('\n');
-
-}
-
-
-function openCartModal(){
-
-  renderCart();
-
-  document
-    .getElementById('buyModalNew')
-    .classList.add('active');
-
-}
-
-function closeCartModal(){
-
-  document
-    .getElementById('buyModalNew')
-    .classList.remove('active');
-
-}
-
-
-document
-.getElementById('floatingCart')
-.addEventListener('click', openCartModal);
-
-document
-.getElementById('buyModalNew')
-.addEventListener('click', function(e){
-
-  if(e.target === this){
-
-    closeCartModal();
-
-  }
-
-});
-
-updateCartIcon();
-
-</script>
   <div id="rec2159801161" class="r t-rec t-rec_pt_45" style="padding-top:45px; " data-animationappear="off" data-record-type="131"> <!-- T123 --> <div class="t123"> <div class="t-container_100 "> <div class="t-width t-width_100 "> <!-- nominify begin --> <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script> <style>
 .advb-container {
     width: 1600px;
@@ -7411,5 +7223,192 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.target === overlay) closeMap();
   });
 });
-</script> <!-- nominify end --> </div> </div> </div> </div> </div> <!--/allrecords--> <!-- Stat --> <script type="text/javascript">if(!window.mainTracker) {window.mainTracker='tilda';}
+</script> 
+<script>
+
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+function updateCartIcon(){
+
+  const totalCount = cart.reduce((sum, item) => {
+    return sum + item.qty;
+  }, 0);
+
+  document.getElementById('cartCountBadge').innerText = totalCount;
+
+}
+
+function saveCart(){
+
+  localStorage.setItem('cart', JSON.stringify(cart));
+
+}
+
+function addToCart(product){
+
+  const existing = cart.find(item => item.id === product.id);
+
+  if(existing){
+
+    existing.qty += 1;
+
+  } else {
+
+    cart.push({
+      ...product,
+      qty: 1
+    });
+
+  }
+
+  saveCart();
+
+  updateCartIcon();
+
+}
+function changeCartQty(id, delta){
+
+  const item = cart.find(i => i.id === id);
+
+  if(!item) return;
+
+  item.qty += delta;
+
+  if(item.qty <= 0){
+
+    cart = cart.filter(i => i.id !== id);
+
+  }
+
+  saveCart();
+
+  renderCart();
+
+  updateCartIcon();
+
+}
+
+function renderCart(){
+
+  const container = document.getElementById('cartItems');
+
+  const totalBox = document.getElementById('cartTotal');
+
+  if(!cart.length){
+
+    container.innerHTML = `
+      <div class="empty-cart">
+        Корзина пуста
+      </div>
+    `;
+
+    totalBox.innerText = 0;
+
+    return;
+  }
+
+  let total = 0;
+
+  container.innerHTML = cart.map(item => {
+
+    const sum = item.price * item.qty;
+
+    total += sum;
+
+    return `
+
+      <div class="cart-item">
+
+        <img src="${item.img}" alt="">
+
+        <div class="cart-content">
+
+          <div class="cart-title">
+            ${item.title}
+          </div>
+
+          <div class="cart-price">
+            ${item.price.toLocaleString()} ₽
+          </div>
+
+          <div class="buy-qty-new">
+
+            <button onclick="changeCartQty(${item.id}, -1)">
+              −
+            </button>
+
+            <span>${item.qty}</span>
+
+            <button onclick="changeCartQty(${item.id}, 1)">
+              +
+            </button>
+
+          </div>
+
+        </div>
+
+        <div class="cart-sum">
+          ${sum.toLocaleString()} ₽
+        </div>
+
+      </div>
+
+    `;
+
+  }).join('');
+
+  totalBox.innerText = total.toLocaleString();
+
+  document.getElementById('formProduct').value = cart.map(item => {
+
+    return `
+Товар: ${item.title}
+Количество: ${item.qty}
+Цена: ${item.price}
+Сумма: ${item.price * item.qty}
+`;
+
+  }).join('\n');
+
+}
+
+
+function openCartModal(){
+
+  renderCart();
+
+  document
+    .getElementById('buyModalNew')
+    .classList.add('active');
+
+}
+
+function closeCartModal(){
+
+  document
+    .getElementById('buyModalNew')
+    .classList.remove('active');
+
+}
+
+
+document
+.getElementById('floatingCart')
+.addEventListener('click', openCartModal);
+
+document
+.getElementById('buyModalNew')
+.addEventListener('click', function(e){
+
+  if(e.target === this){
+
+    closeCartModal();
+
+  }
+
+});
+
+updateCartIcon();
+
+</script></div> </div> </div> </div> </div> <script type="text/javascript">if(!window.mainTracker) {window.mainTracker='tilda';}
 window.tildastatcookie='no';setTimeout(function(){(function(d,w,k,o,g) {var n=d.getElementsByTagName(o)[0],s=d.createElement(o),f=function(){n.parentNode.insertBefore(s,n);};s.type="text/javascript";s.async=true;s.key=k;s.id="tildastatscript";s.src=g;if(w.opera=="[object Opera]") {d.addEventListener("DOMContentLoaded",f,false);} else {f();}})(document,window,'e9c8cdc096bfc3296cfb1594f2adee0b','script','js/tilda-stat-1.0.min.js');},2000);</script> </body> </html>
