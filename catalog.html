@@ -5152,20 +5152,33 @@ document.addEventListener('DOMContentLoaded', () => {
 (function(){
 
   // =========================
-  // CART STATE
+  // STATE
   // =========================
   window.cart = window.cart || {};
 
   // =========================
-  // UPDATE ICON + BADGE
+  // HELPERS
+  // =========================
+  function getCount(){
+    return Object.values(window.cart).reduce((sum, item) => {
+      return sum + (item.qty || 0);
+    }, 0);
+  }
+
+  function getTotal(){
+    return Object.values(window.cart).reduce((sum, item) => {
+      return sum + (item.price * item.qty || 0);
+    }, 0);
+  }
+
+  // =========================
+  // UI UPDATE (ICON)
   // =========================
   function updateCartUI(){
     const cartEl = document.getElementById('floatingCart');
     const badge = document.getElementById('cartCountBadge');
 
-    const count = Object.values(window.cart).reduce((sum, item) => {
-      return sum + (item.qty || 0);
-    }, 0);
+    const count = getCount();
 
     if (badge) badge.textContent = count;
 
@@ -5175,23 +5188,70 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================
-  // OPEN MODAL
+  // RENDER MODAL
+  // =========================
+  function renderCart(){
+
+    const wrap = document.getElementById('cartItems');
+    const totalEl = document.getElementById('cartTotal');
+
+    if (!wrap || !totalEl) return;
+
+    const items = Object.values(window.cart);
+
+    wrap.innerHTML = '';
+
+    if (items.length === 0){
+      wrap.innerHTML = `<div class="empty-cart">Корзина пустая</div>`;
+      totalEl.textContent = 0;
+      return;
+    }
+
+    let total = 0;
+
+    items.forEach(item => {
+
+      total += item.price * item.qty;
+
+      const el = document.createElement('div');
+      el.className = 'cart-item';
+
+      el.innerHTML = `
+        <img src="${item.img || ''}">
+        <div class="cart-content">
+          <div class="cart-title">${item.title}</div>
+          <div class="cart-price">${item.price} ₽</div>
+
+          <div class="buy-qty-new">
+            <button onclick="changeCartQty('${item.id}', -1)">−</button>
+            <div>${item.qty}</div>
+            <button onclick="changeCartQty('${item.id}', 1)">+</button>
+          </div>
+        </div>
+      `;
+
+      wrap.appendChild(el);
+    });
+
+    totalEl.textContent = total;
+  }
+
+  // =========================
+  // OPEN / CLOSE MODAL
   // =========================
   function openCart(){
     const modal = document.getElementById('buyModalNew');
     if (modal) modal.classList.add('active');
+    renderCart();
   }
 
-  // =========================
-  // CLOSE MODAL
-  // =========================
   window.closeCartModal = function(){
     const modal = document.getElementById('buyModalNew');
     if (modal) modal.classList.remove('active');
   }
 
   // =========================
-  // ADD TO CART
+  // CART ACTIONS
   // =========================
   window.addToCart = function(item){
 
@@ -5204,30 +5264,28 @@ document.addEventListener('DOMContentLoaded', () => {
         qty: 1
       };
     } else {
-      window.cart[item.id].qty += 1;
+      window.cart[item.id].qty++;
     }
 
     updateCartUI();
   }
 
-  // =========================
-  // PLUS / MINUS (если используешь)
-  // =========================
   window.changeCartQty = function(id, delta){
 
     if (!window.cart[id]) return;
 
     window.cart[id].qty += delta;
 
-    if (window.cart[id].qty <= 0) {
+    if (window.cart[id].qty <= 0){
       delete window.cart[id];
     }
 
     updateCartUI();
+    renderCart();
   }
 
   // =========================
-  // CLICK ICON -> OPEN MODAL
+  // INIT
   // =========================
   document.addEventListener('DOMContentLoaded', () => {
 
@@ -5238,7 +5296,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     updateCartUI();
-
   });
 
 })();
