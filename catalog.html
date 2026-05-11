@@ -4232,6 +4232,7 @@ if (leftBtn && rightBtn) {
     { id: 'горизонталь', name: 'Горизонталь', img: 'https://via.placeholder.com/150?text=Детский+набор' },
   ];
   let items = [];
+  window.cart = JSON.parse(localStorage.getItem('cart') || '{}');
 window.selectedCategory = '';
 let favorites = JSON.parse(localStorage.getItem('favorites')||'[]').map(String);
 let currentDetailItem = null;
@@ -4491,7 +4492,33 @@ function normalizeCategory(catName, rawCategoryId) {
 
   return '';
 }
+function changeCartQty(id, delta){
 
+  window.cart = window.cart || {};
+
+  cart[id] = (cart[id] || 0) + delta;
+
+  if (cart[id] <= 0) delete cart[id];
+
+  localStorage.setItem('cart', JSON.stringify(cart));
+
+  updateFloatingCart();
+
+}
+  function updateFloatingCart() {
+  const el = document.getElementById('floatingCart');
+  const badge = document.getElementById('cartCountBadge');
+
+  const count = Object.values(window.cart || {}).reduce((a,b)=>a+b,0);
+
+  if (badge) badge.textContent = count;
+
+  if (count > 0) {
+    el.classList.add('visible');
+  } else {
+    el.classList.remove('visible');
+  }
+}
 function filterItems() {
   const q = searchInput.value.trim().toLowerCase();
 
@@ -4622,7 +4649,10 @@ window.cart = window.cart || {};
 
 const qty = cart[it.id] || 0;
 
-if(qty > 0){
+if (qty > 0) {
+
+  const controls = document.createElement('div');
+  controls.className = 'qty-controls';
 
   const minus = document.createElement('button');
   minus.className = 'qty-minus';
@@ -4636,63 +4666,34 @@ if(qty > 0){
   plus.className = 'qty-plus';
   plus.textContent = '+';
 
-  const controls = document.createElement('div');
-  controls.className = 'qty-controls';
-
-  controls.append(minus, value, plus);
-
-  cartWrap.append(controls);
-
- minus.onclick = (e) => {
-
-  e.stopPropagation();
-
-  if (typeof changeCartQty === 'function') {
-  changeCartQty(it.id, -1);
-}
-
-  renderCards();
-
-};
+  minus.onclick = (e) => {
+    e.stopPropagation();
+    changeCartQty(it.id, -1);
+    renderCards();
+  };
 
   plus.onclick = (e) => {
+    e.stopPropagation();
+    changeCartQty(it.id, 1);
+    renderCards();
+  };
 
-  e.stopPropagation();
+  controls.append(minus, value, plus);
+  cartWrap.append(controls);
 
-  if (typeof changeCartQty === 'function') {
-  changeCartQty(it.id, 1);
-}
-
-  renderCards();
-
-};
-
-}else{
+} else {
 
   const order = document.createElement('button');
-
   order.className = 'btn btn-outline';
-
   order.textContent = 'В корзину';
 
   order.onclick = (e) => {
+    e.stopPropagation();
 
-  e.stopPropagation();
+    changeCartQty(it.id, 1);
 
-  if (typeof addToCart === 'function') {
-
-  addToCart({
-    id: it.id,
-    title: it.name,
-    price: it.price,
-    img: it.pictures?.[0] || ''
-  });
-
-}
-
-  renderCards();
-
-};
+    renderCards();
+  };
 
   cartWrap.append(order);
 }
@@ -5023,6 +5024,13 @@ function renderProductLinks(paramsContainer, product) {
   }
 }
   updateCartIcon()
+  document.getElementById('floatingCart').onclick = () => {
+  document.getElementById('buyModalNew').classList.add('active');
+};
+  function closeCartModal() {
+  document.getElementById('buyModalNew').classList.remove('active');
+}
+  updateFloatingCart();
 })();
 </script> <div id="filtersBackdrop" class="filters-backdrop"></div> <div id="filtersDrawer" class="filters-drawer"> <h3 style="margin-bottom:12px;">Фильтры</h3> <div id="dynamicFilters"></div> <!-- 🔥 КНОПКА СБРОСА --> <button id="resetFilters" class="filters-reset-btn">
     Сбросить фильтры
