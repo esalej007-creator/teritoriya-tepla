@@ -4556,7 +4556,8 @@ more.onclick = (e) => {
 
 const cartWrap = document.createElement('div');
 
-const qty = cart[it.id] || 0;
+const cartItem = cart.find(i => i.id == it.id);
+const qty = cartItem ? cartItem.qty : 0;
 
 if(qty > 0){
 
@@ -7297,7 +7298,7 @@ function addToCart(product){
   renderCart();
 
   document
-    .querySelectorAll('.product-card')
+    .querySelectorAll('.card')
     .forEach(updateProductCard);
 
 }
@@ -7325,7 +7326,7 @@ function changeCartQty(id, delta){
   updateCartIcon();
 
   document
-    .querySelectorAll('.product-card')
+    .querySelectorAll('.card')
     .forEach(updateProductCard);
 
 }
@@ -7480,7 +7481,7 @@ document.addEventListener('click', function(e){
   if(addBtn){
 
     const card =
-      addBtn.closest('.product-card');
+      addBtn.closest('.card');
 
     if(!card) return;
 
@@ -7519,7 +7520,7 @@ document.addEventListener('click', function(e){
   if(plusBtn){
 
     const card =
-      plusBtn.closest('.product-card');
+      plusBtn.closest('.card');
 
     if(!card) return;
 
@@ -7538,7 +7539,7 @@ document.addEventListener('click', function(e){
   if(minusBtn){
 
     const card =
-      minusBtn.closest('.product-card');
+      minusBtn.closest('.card');
 
     if(!card) return;
 
@@ -7553,7 +7554,6 @@ document.addEventListener('click', function(e){
 
 /* СТАРТ */
 updateCartIcon();
-
 renderCart();
 
 document
