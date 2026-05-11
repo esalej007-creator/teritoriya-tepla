@@ -5149,24 +5149,99 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 <script>
+(function(){
+
+  // =========================
+  // CART STATE
+  // =========================
+  window.cart = window.cart || {};
+
+  // =========================
+  // UPDATE ICON + BADGE
+  // =========================
   function updateCartUI(){
-  const cartEl = document.getElementById('floatingCart');
-  const badge = document.getElementById('cartCountBadge');
+    const cartEl = document.getElementById('floatingCart');
+    const badge = document.getElementById('cartCountBadge');
 
-  const count = Object.values(window.cart || {}).reduce((a, b) => {
-    return a + (typeof b === 'object' ? (b.qty || 0) : b);
-  }, 0);
+    const count = Object.values(window.cart).reduce((sum, item) => {
+      return sum + (item.qty || 0);
+    }, 0);
 
-  if (badge) badge.textContent = count;
+    if (badge) badge.textContent = count;
 
-  if (cartEl) {
-    if (count > 0) {
-      cartEl.classList.add('visible');
-    } else {
-      cartEl.classList.remove('visible');
+    if (cartEl) {
+      cartEl.classList.toggle('visible', count > 0);
     }
   }
-}
+
+  // =========================
+  // OPEN MODAL
+  // =========================
+  function openCart(){
+    const modal = document.getElementById('buyModalNew');
+    if (modal) modal.classList.add('active');
+  }
+
+  // =========================
+  // CLOSE MODAL
+  // =========================
+  window.closeCartModal = function(){
+    const modal = document.getElementById('buyModalNew');
+    if (modal) modal.classList.remove('active');
+  }
+
+  // =========================
+  // ADD TO CART
+  // =========================
+  window.addToCart = function(item){
+
+    if (!window.cart[item.id]) {
+      window.cart[item.id] = {
+        id: item.id,
+        title: item.title,
+        price: item.price,
+        img: item.img,
+        qty: 1
+      };
+    } else {
+      window.cart[item.id].qty += 1;
+    }
+
+    updateCartUI();
+  }
+
+  // =========================
+  // PLUS / MINUS (если используешь)
+  // =========================
+  window.changeCartQty = function(id, delta){
+
+    if (!window.cart[id]) return;
+
+    window.cart[id].qty += delta;
+
+    if (window.cart[id].qty <= 0) {
+      delete window.cart[id];
+    }
+
+    updateCartUI();
+  }
+
+  // =========================
+  // CLICK ICON -> OPEN MODAL
+  // =========================
+  document.addEventListener('DOMContentLoaded', () => {
+
+    const cartBtn = document.getElementById('floatingCart');
+
+    if (cartBtn) {
+      cartBtn.addEventListener('click', openCart);
+    }
+
+    updateCartUI();
+
+  });
+
+})();
 </script>
 </div> </div> </div> </div> 
   <style>
