@@ -4811,8 +4811,22 @@ more.onclick = (e) => {
   window.location.href = 'products/' + it.id + '.html';
 };
 
-body.append(actions);
+const cartWrap = document.createElement('div');
 
+// ВРЕМЕННАЯ ЗАГЛУШКА КНОПКИ "В КОРЗИНУ"
+const order = document.createElement('button');
+order.className = 'btn btn-outline';
+order.textContent = 'В корзину';
+
+order.onclick = (e) => {
+  e.stopPropagation();
+  // потом подключишь свой отдельный скрипт
+};
+
+cartWrap.append(order);
+
+actions.append(more, cartWrap);
+body.append(actions);
     const fav = document.createElement('div');
     fav.className = 'card-fav';
     fav.innerHTML = `
