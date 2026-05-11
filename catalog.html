@@ -4171,33 +4171,6 @@ if (leftBtn && rightBtn) {
   let items = [];
 window.selectedCategory = '';
 let favorites = JSON.parse(localStorage.getItem('favorites')||'[]').map(String);
-  let cart = JSON.parse(localStorage.getItem('cart') || '{}');
-
-function saveCart(){
-  localStorage.setItem('cart', JSON.stringify(cart));
-  updateCartBadge();
-}
-
-function updateCartBadge(){
-
-  const badge = document.getElementById('cartCountBadge');
-
-  const floatingCart = document.getElementById('floatingCart');
-
-  const total = Object.values(cart).reduce((a,b)=>a+b,0);
-
-  badge.textContent = total;
-
-  if(total > 0){
-
-    floatingCart.classList.add('visible');
-
-  }else{
-
-    floatingCart.classList.remove('visible');
-
-  }
-}
 let currentDetailItem = null;
 let favoritesToggle = false;
 let selectedSubcategory = null;
@@ -4606,29 +4579,25 @@ if(qty > 0){
 
   cartWrap.append(controls);
 
-  minus.onclick = (e) => {
-    e.stopPropagation();
+ minus.onclick = (e) => {
 
-    cart[it.id]--;
+  e.stopPropagation();
 
-    if(cart[it.id] <= 0){
-      delete cart[it.id];
-    }
+  changeCartQty(it.id, -1);
 
-    saveCart();
-    updateCartBadge();
-    renderCards();
-  };
+  renderCards();
+
+};
 
   plus.onclick = (e) => {
-    e.stopPropagation();
 
-    cart[it.id]++;
+  e.stopPropagation();
 
-    saveCart();
-    updateCartBadge();
-    renderCards();
-  };
+  changeCartQty(it.id, 1);
+
+  renderCards();
+
+};
 
 }else{
 
@@ -4640,17 +4609,18 @@ if(qty > 0){
 
   order.onclick = (e) => {
 
-    e.stopPropagation();
+  e.stopPropagation();
 
-    cart[it.id] = 1;
+  addToCart({
+    id: it.id,
+    title: it.title,
+    price: it.price,
+    img: it.images?.[0] || ''
+  });
 
-    saveCart();
+  renderCards();
 
-    updateCartBadge();
-
-    renderCards();
-
-  };
+};
 
   cartWrap.append(order);
 }
@@ -4980,7 +4950,7 @@ function renderProductLinks(paramsContainer, product) {
     paramsContainer.appendChild(a);
   }
 }
-  updateCartBadge();
+  updateCartIcon()
 })();
 </script> <div id="filtersBackdrop" class="filters-backdrop"></div> <div id="filtersDrawer" class="filters-drawer"> <h3 style="margin-bottom:12px;">Фильтры</h3> <div id="dynamicFilters"></div> <!-- 🔥 КНОПКА СБРОСА --> <button id="resetFilters" class="filters-reset-btn">
     Сбросить фильтры
@@ -7254,10 +7224,10 @@ function addToCart(product){
 
   } else {
 
-    cart.push({
-      ...product,
-      qty: 1
-    });
+cart.push({
+  ...product,
+  qty: 1
+});
 
   }
 
