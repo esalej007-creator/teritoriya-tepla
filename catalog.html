@@ -5024,15 +5024,24 @@ function renderProductLinks(paramsContainer, product) {
     paramsContainer.appendChild(a);
   }
 }
-  document.getElementById('floatingCart').onclick = () => {
-  document.getElementById('buyModalNew').classList.add('active');
-};
-  function closeCartModal() {
-  document.getElementById('buyModalNew').classList.remove('active');
-}
-  document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
+
+  const cartEl = document.getElementById('floatingCart');
+  const modal = document.getElementById('buyModalNew');
+
+  if (cartEl && modal) {
+    cartEl.addEventListener('click', () => {
+      modal.classList.add('active');
+    });
+  }
+
   updateFloatingCart();
-})();
+});
+
+function closeCartModal() {
+  const modal = document.getElementById('buyModalNew');
+  if (modal) modal.classList.remove('active');
+}
 </script> <div id="filtersBackdrop" class="filters-backdrop"></div> <div id="filtersDrawer" class="filters-drawer"> <h3 style="margin-bottom:12px;">Фильтры</h3> <div id="dynamicFilters"></div> <!-- 🔥 КНОПКА СБРОСА --> <button id="resetFilters" class="filters-reset-btn">
     Сбросить фильтры
   </button> </div> <script>
