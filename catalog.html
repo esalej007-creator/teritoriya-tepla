@@ -7276,6 +7276,12 @@ document.addEventListener('click', function (e) {
   transform: scale(1);
   pointer-events: auto;
 }
+            .floating-cart {
+  position: fixed !important;
+  bottom: 20px !important;
+  right: 20px !important;
+  z-index: 999999999 !important;
+}
 </style> <script>
 document.addEventListener('DOMContentLoaded', () => {
   const overlay = document.getElementById('mapModal');
