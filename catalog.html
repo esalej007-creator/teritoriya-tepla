@@ -4143,31 +4143,6 @@ html, body {
   }
 
 }
-  .floating-cart {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  width: 60px;
-  height: 60px;
-  background: #000;
-  color: #fff;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 999999;
-
-  opacity: 0;
-  transform: scale(0.8);
-  pointer-events: none;
-  transition: 0.2s ease;
-}
-
-.floating-cart.visible {
-  opacity: 1;
-  transform: scale(1);
-  pointer-events: auto;
-}
   </style> </head> <body> <div class="wrap"> <div class="cats-wrapper"> <button class="cats-arrow left" id="catsLeft">‹</button> <div id="catsRow" class="cats-row" aria-label="Категории"></div> <button class="cats-arrow right" id="catsRight">›</button> </div> <div class="controls"> <div class="search"><input id="searchInput" placeholder="Поиск по названию или описанию"></div> <div><button id="favToggle" class="btn btn-outline">Избранное</button></div> </div> <div class="price-filter-row"> <!-- ЛЕВАЯ КОЛОНКА --> <div class="filters-left"> <div class="price-filter-wrapper"> <label class="price-label">Фильтр по цене</label> <div class="price-inputs"> <input type="number" id="priceMin" placeholder="Мин."> <span>–</span> <input type="number" id="priceMax" placeholder="Макс."> </div> <input type="range" id="priceRange"> </div> <!-- ВОТ ТУТ КНОПКА --> <button id="openFilters" class="filters-btn">
       Фильтры ›
     </button> </div> <div class="price-filter-text-wrapper">
@@ -7275,7 +7250,32 @@ document.addEventListener('click', function (e) {
   content: "×";
   font-size: 26px;
   color: #002283;
-}    
+}   
+    .floating-cart {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 60px;
+  height: 60px;
+  background: #000;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999999;
+
+  opacity: 0;
+  transform: scale(0.8);
+  pointer-events: none;
+  transition: 0.2s ease;
+}
+
+.floating-cart.visible {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
 </style> <script>
 document.addEventListener('DOMContentLoaded', () => {
   const overlay = document.getElementById('mapModal');
