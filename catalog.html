@@ -4750,10 +4750,12 @@ order.textContent = 'В корзину';
 order.onclick = (e) => {
   e.stopPropagation();
 
+  if (!it || !it.id) return; 
+
   addToCart({
-    id: it.id,
-    title: it.name,
-    price: it.price,
+    id: String(it.id),
+    title: it.name || 'Без названия',
+    price: Number(it.price) || 0,
     img: it.pictures?.[0] || ''
   });
 
@@ -5216,19 +5218,36 @@ document.addEventListener('DOMContentLoaded', () => {
       const el = document.createElement('div');
       el.className = 'cart-item';
 
-      el.innerHTML = `
-        <img src="${item.img || ''}">
-        <div class="cart-content">
-          <div class="cart-title">${item.title}</div>
-          <div class="cart-price">${item.price} ₽</div>
+el.innerHTML = `
+  <img src="${item.img || ''}">
+  <div class="cart-content">
 
-          <div class="buy-qty-new">
-            <button onclick="changeCartQty('${item.id}', -1)">−</button>
-            <div>${item.qty}</div>
-            <button onclick="changeCartQty('${item.id}', 1)">+</button>
-          </div>
-        </div>
-      `;
+    <div class="cart-title">${item.title || 'Без названия'}</div>
+
+    <div class="cart-price">${Number(item.price) || 0} ₽</div>
+
+    <div class="buy-qty-new">
+
+      <button onclick="
+        if('${item.id}' && '${item.id}' !== 'undefined') {
+          changeCartQty('${item.id}', -1);
+          typeof renderCartModal === 'function' && renderCartModal();
+        }
+      ">−</button>
+
+      <div>${item.qty || 1}</div>
+
+      <button onclick="
+        if('${item.id}' && '${item.id}' !== 'undefined') {
+          changeCartQty('${item.id}', 1);
+          typeof renderCartModal === 'function' && renderCartModal();
+        }
+      ">+</button>
+
+    </div>
+
+  </div>
+`;
 
       wrap.appendChild(el);
     });
