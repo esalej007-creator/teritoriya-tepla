@@ -5147,7 +5147,27 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 });
-</script> 
+</script>
+<script>
+  function updateCartUI(){
+  const cartEl = document.getElementById('floatingCart');
+  const badge = document.getElementById('cartCountBadge');
+
+  const count = Object.values(window.cart || {}).reduce((a, b) => {
+    return a + (typeof b === 'object' ? (b.qty || 0) : b);
+  }, 0);
+
+  if (badge) badge.textContent = count;
+
+  if (cartEl) {
+    if (count > 0) {
+      cartEl.classList.add('visible');
+    } else {
+      cartEl.classList.remove('visible');
+    }
+  }
+}
+</script>
 </div> </div> </div> </div> 
   <style>
 .cart-floating-btn {
