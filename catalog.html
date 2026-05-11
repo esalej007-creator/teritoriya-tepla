@@ -5100,125 +5100,120 @@ document.addEventListener('DOMContentLoaded', () => {
 <script>
 (function(){
 
-  // =========================
-  // STATE
-  // =========================
-  window.cart = window.cart || {};
+// =========================
+// INIT STATE
+// =========================
+window.cart = JSON.parse(localStorage.getItem('cart') || '{}');
 
-  // =========================
-  // HELPERS
-  // =========================
-  function getCount(){
-    return Object.values(window.cart).reduce((sum, item) => {
-      return sum + (item.qty || 0);
-    }, 0);
+// =========================
+// SAVE / LOAD
+// =========================
+function saveCart(){
+  localStorage.setItem('cart', JSON.stringify(window.cart));
+}
+
+// =========================
+// HELPERS
+// =========================
+function getCount(){
+  return Object.values(window.cart || {})
+    .reduce((sum, item) => sum + (item.qty || 0), 0);
+}
+
+function getTotal(){
+  return Object.values(window.cart || {})
+    .reduce((sum, item) => sum + ((item.price || 0) * (item.qty || 0)), 0);
+}
+
+// =========================
+// UI BADGE
+// =========================
+function updateCartUI(){
+  const badge = document.getElementById('cartCountBadge');
+  const count = getCount();
+
+  if (badge) {
+    badge.textContent = count;
+    badge.style.display = count > 0 ? 'flex' : 'none';
+  }
+}
+
+// =========================
+// RENDER CART MODAL
+// =========================
+function renderCart(){
+
+  const wrap = document.getElementById('cartItems');
+  const totalEl = document.getElementById('cartTotal');
+
+  if (!wrap || !totalEl) return;
+
+  const items = Object.values(window.cart || {});
+
+  wrap.innerHTML = '';
+
+  if (items.length === 0){
+    wrap.innerHTML = `<div class="empty-cart">Корзина пустая</div>`;
+    totalEl.textContent = 0;
+    return;
   }
 
-  function getTotal(){
-    return Object.values(window.cart).reduce((sum, item) => {
-      return sum + (item.price * item.qty || 0);
-    }, 0);
-  }
+  let total = 0;
 
-  // =========================
-  // UI UPDATE (ICON)
-  // =========================
-  function updateCartUI(){
-    const cartEl = document.getElementById('floatingCart');
-    const badge = document.getElementById('cartCountBadge');
+  items.forEach(item => {
 
-    const count = getCount();
+    const price = Number(item.price) || 0;
+    const qty = Number(item.qty) || 0;
 
-    if (badge) badge.textContent = count;
+    total += price * qty;
 
-    if (cartEl) {
-      cartEl.classList.toggle('visible', count > 0);
-    }
-  }
+    const el = document.createElement('div');
+    el.className = 'cart-item';
 
-  // =========================
-  // RENDER MODAL
-  // =========================
-  function renderCart(){
+    el.innerHTML = `
+      <img src="${item.img || ''}">
+      <div class="cart-content">
 
-    const wrap = document.getElementById('cartItems');
-    const totalEl = document.getElementById('cartTotal');
+        <div class="cart-title">${item.title || 'Без названия'}</div>
 
-    if (!wrap || !totalEl) return;
+        <div class="cart-price">${price} ₽</div>
 
-    const items = Object.values(window.cart);
+        <div class="buy-qty-new">
 
-    wrap.innerHTML = '';
+          <button onclick="changeCartQty('${item.id}', -1)">−</button>
 
-    if (items.length === 0){
-      wrap.innerHTML = `<div class="empty-cart">Корзина пустая</div>`;
-      totalEl.textContent = 0;
-      return;
-    }
+          <div>${qty}</div>
 
-    let total = 0;
+          <button onclick="changeCartQty('${item.id}', 1)">+</button>
 
-    items.forEach(item => {
+        </div>
 
-      total += item.price * item.qty;
+      </div>
+    `;
 
-      const el = document.createElement('div');
-      el.className = 'cart-item';
+    wrap.appendChild(el);
+  });
 
-el.innerHTML = `
-  <img src="${item.img || ''}">
-  <div class="cart-content">
+  totalEl.textContent = total;
+}
 
-    <div class="cart-title">${item.title || 'Без названия'}</div>
+// =========================
+// OPEN / CLOSE
+// =========================
+function openCart(){
+  const modal = document.getElementById('buyModalNew');
+  if (modal) modal.classList.add('active');
+  renderCart();
+}
 
-    <div class="cart-price">${Number(item.price) || 0} ₽</div>
+window.closeCartModal = function(){
+  const modal = document.getElementById('buyModalNew');
+  if (modal) modal.classList.remove('active');
+}
 
-    <div class="buy-qty-new">
-
-      <button onclick="
-        if('${item.id}' && '${item.id}' !== 'undefined') {
-          changeCartQty('${item.id}', -1);
-          typeof renderCartModal === 'function' && renderCartModal();
-        }
-      ">−</button>
-
-      <div>${item.qty || 1}</div>
-
-      <button onclick="
-        if('${item.id}' && '${item.id}' !== 'undefined') {
-          changeCartQty('${item.id}', 1);
-          typeof renderCartModal === 'function' && renderCartModal();
-        }
-      ">+</button>
-
-    </div>
-
-  </div>
-`;
-
-      wrap.appendChild(el);
-    });
-
-    totalEl.textContent = total;
-  }
-
-  // =========================
-  // OPEN / CLOSE MODAL
-  // =========================
-  function openCart(){
-    const modal = document.getElementById('buyModalNew');
-    if (modal) modal.classList.add('active');
-    renderCart();
-  }
-
-  window.closeCartModal = function(){
-    const modal = document.getElementById('buyModalNew');
-    if (modal) modal.classList.remove('active');
-  }
-
-  // =========================
-  // CART ACTIONS
-  // =========================
+// =========================
+// ADD TO CART
+// =========================
 window.addToCart = function(item){
 
   if (!item || !item.id || item.id === 'undefined') return;
@@ -5227,7 +5222,7 @@ window.addToCart = function(item){
 
   if (!window.cart[id]) {
     window.cart[id] = {
-      id: id,
+      id,
       title: item.title || 'Без названия',
       price: Number(item.price) || 0,
       img: item.img || '',
@@ -5237,40 +5232,42 @@ window.addToCart = function(item){
     window.cart[id].qty += 1;
   }
 
-  saveCart();       // 👈 сохраняем
-  updateCartUI();   // 👈 обновляем иконку
+  saveCart();
+  updateCartUI();
 };
-  function loadCart(){
-    window.cart = JSON.parse(localStorage.getItem('cart') || '{}');
+
+// =========================
+// CHANGE QTY
+// =========================
+window.changeCartQty = function(id, delta){
+
+  id = String(id);
+
+  if (!window.cart[id]) return;
+
+  window.cart[id].qty += delta;
+
+  if (window.cart[id].qty <= 0){
+    delete window.cart[id];
   }
 
-  window.changeCartQty = function(id, delta){
+  saveCart();
+  updateCartUI();
+  renderCart();
+};
 
-    if (!window.cart[id]) return;
+// =========================
+// INIT
+// =========================
+document.addEventListener('DOMContentLoaded', () => {
 
-    window.cart[id].qty += delta;
+  const btn = document.getElementById('floatingCart');
 
-    if (window.cart[id].qty <= 0){
-      delete window.cart[id];
-    }
+  if (btn) btn.addEventListener('click', openCart);
 
-    updateCartUI();
-    renderCart();
-  }
+  updateCartUI();
 
-  // =========================
-  // INIT
-  // =========================
-  document.addEventListener('DOMContentLoaded', () => {
-
-    const cartBtn = document.getElementById('floatingCart');
-
-    if (cartBtn) {
-      cartBtn.addEventListener('click', openCart);
-    }
-
-    updateCartUI();
-  });
+});
 
 })();
 </script>
