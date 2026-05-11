@@ -4508,24 +4508,17 @@ function changeCartQty(id, delta){
 
   updateFloatingCart();
 }
- function updateFloatingCart() {
+function updateFloatingCart() {
   const el = document.getElementById('floatingCart');
   const badge = document.getElementById('cartCountBadge');
 
-  if (!el) {
-    console.warn('floatingCart not found in DOM');
-    return;
-  }
+  if (!el || !badge) return;
 
-  const count = Object.values(window.cart || {}).reduce((a,b)=>a+b,0);
+  const count = Object.values(window.cart || {}).reduce((a, b) => a + b, 0);
 
-  if (badge) badge.textContent = count;
+  badge.textContent = count;
 
-  if (count > 0) {
-    el.classList.add('visible');
-  } else {
-    el.classList.remove('visible');
-  }
+  el.classList.toggle('visible', count > 0);
 }
 function filterItems() {
   const q = searchInput.value.trim().toLowerCase();
@@ -5037,6 +5030,7 @@ function renderProductLinks(paramsContainer, product) {
   function closeCartModal() {
   document.getElementById('buyModalNew').classList.remove('active');
 }
+  document.addEventListener('DOMContentLoaded', () => {
   updateFloatingCart();
 })();
 </script> <div id="filtersBackdrop" class="filters-backdrop"></div> <div id="filtersDrawer" class="filters-drawer"> <h3 style="margin-bottom:12px;">Фильтры</h3> <div id="dynamicFilters"></div> <!-- 🔥 КНОПКА СБРОСА --> <button id="resetFilters" class="filters-reset-btn">
