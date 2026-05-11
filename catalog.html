@@ -4616,8 +4616,9 @@ more.onclick = (e) => {
   e.stopPropagation();
   window.location.href = 'products/' + it.id + '.html';
 };
-
 const cartWrap = document.createElement('div');
+
+window.cart = window.cart || {};
 
 const qty = cart[it.id] || 0;
 
@@ -4646,7 +4647,9 @@ if(qty > 0){
 
   e.stopPropagation();
 
+  if (typeof changeCartQty === 'function') {
   changeCartQty(it.id, -1);
+}
 
   renderCards();
 
@@ -4656,7 +4659,9 @@ if(qty > 0){
 
   e.stopPropagation();
 
+  if (typeof changeCartQty === 'function') {
   changeCartQty(it.id, 1);
+}
 
   renderCards();
 
@@ -4674,12 +4679,16 @@ if(qty > 0){
 
   e.stopPropagation();
 
+  if (typeof addToCart === 'function') {
+
   addToCart({
     id: it.id,
-    title: it.title,
+    title: it.name,
     price: it.price,
-    img: it.images?.[0] || ''
+    img: it.pictures?.[0] || ''
   });
+
+}
 
   renderCards();
 
