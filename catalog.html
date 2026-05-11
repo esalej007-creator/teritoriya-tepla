@@ -3977,6 +3977,10 @@ html, body {
     height: 16px;
   }
 }
+/* =========================
+   FLOATING CART
+========================= */
+
 .floating-cart {
   position: fixed;
   right: 20px;
@@ -4003,10 +4007,11 @@ html, body {
   pointer-events: auto;
 }
 
-/* КНОПКА КОРЗИНЫ */
+/* иконка */
 .cart-icon-wrap {
   width: 50px;
   height: 50px;
+
   border-radius: 50%;
   border: 1px solid #0026A9;
   background: #fff;
@@ -4022,14 +4027,13 @@ html, body {
   box-shadow: 0 10px 30px rgba(0,0,0,.2);
 }
 
-/* ИКОНКА */
 .cart-icon-img {
   width: 28px;
   height: 28px;
   object-fit: contain;
 }
 
-/* БЕЙДЖ */
+/* бейдж */
 #cartCountBadge {
   position: absolute;
   top: -5px;
@@ -4049,13 +4053,113 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-
   line-height: 1;
 }
-  .floating-cart {
-  opacity: 1 !important;
-  visibility: visible !important;
-  transform: none !important;
+
+/* =========================
+   CART CONTROLS (+ / -)
+========================= */
+
+.cart-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* состояние активной корзины */
+.cart-controls.active .add-to-cart {
+  display: none;
+}
+
+.cart-controls.active .qty-controls {
+  display: flex;
+}
+
+/* кнопка "в корзину" */
+.add-to-cart {
+  background: #000;
+  color: #fff;
+
+  border: none;
+  border-radius: 8px;
+
+  padding: 8px 12px;
+
+  cursor: pointer;
+}
+
+/* блок qty */
+.qty-controls {
+  display: none;
+  align-items: center;
+  gap: 8px;
+}
+
+/* плюс / минус */
+.qty-minus,
+.qty-plus {
+  width: 32px;
+  height: 32px;
+
+  border-radius: 8px;
+
+  background: #fff;
+
+  font-size: 18px;
+  font-weight: 700;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+}
+
+/* минус */
+.qty-minus {
+  border: 1px solid #0026A9;
+  color: #0026A9;
+}
+
+/* плюс */
+.qty-plus {
+  border: 1px solid #F10600;
+  color: #000;
+}
+
+/* значение */
+.qty-value {
+  min-width: 20px;
+  text-align: center;
+  font-weight: 700;
+}
+
+/* =========================
+   MOBILE FIXES
+========================= */
+
+@media (max-width: 768px) {
+
+  .cart-controls {
+    flex-shrink: 0;
+  }
+
+  .qty-minus,
+  .qty-plus {
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+  }
+
+  .qty-value {
+    font-size: 14px;
+    min-width: 18px;
+  }
+
+  .add-to-cart {
+    height: 36px;
+    font-size: 14px;
+  }
 }
   </style> </head> <body> <div class="wrap"> <div class="cats-wrapper"> <button class="cats-arrow left" id="catsLeft">‹</button> <div id="catsRow" class="cats-row" aria-label="Категории"></div> <button class="cats-arrow right" id="catsRight">›</button> </div> <div class="controls"> <div class="search"><input id="searchInput" placeholder="Поиск по названию или описанию"></div> <div><button id="favToggle" class="btn btn-outline">Избранное</button></div> </div> <div class="price-filter-row"> <!-- ЛЕВАЯ КОЛОНКА --> <div class="filters-left"> <div class="price-filter-wrapper"> <label class="price-label">Фильтр по цене</label> <div class="price-inputs"> <input type="number" id="priceMin" placeholder="Мин."> <span>–</span> <input type="number" id="priceMax" placeholder="Макс."> </div> <input type="range" id="priceRange"> </div> <!-- ВОТ ТУТ КНОПКА --> <button id="openFilters" class="filters-btn">
       Фильтры ›
