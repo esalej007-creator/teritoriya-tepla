@@ -4496,18 +4496,22 @@ function changeCartQty(id, delta){
 
   window.cart = window.cart || {};
 
-  cart[id] = (cart[id] || 0) + delta;
+  window.cart[id] = (window.cart[id] || 0) + delta;
 
-  if (cart[id] <= 0) delete cart[id];
+  if (window.cart[id] <= 0) delete window.cart[id];
 
-  localStorage.setItem('cart', JSON.stringify(cart));
+  localStorage.setItem('cart', JSON.stringify(window.cart));
 
   updateFloatingCart();
-
 }
-  function updateFloatingCart() {
+ function updateFloatingCart() {
   const el = document.getElementById('floatingCart');
   const badge = document.getElementById('cartCountBadge');
+
+  if (!el) {
+    console.warn('floatingCart not found in DOM');
+    return;
+  }
 
   const count = Object.values(window.cart || {}).reduce((a,b)=>a+b,0);
 
