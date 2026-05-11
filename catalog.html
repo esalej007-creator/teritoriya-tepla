@@ -4555,27 +4555,11 @@ more.onclick = (e) => {
 };
 
 const cartWrap = document.createElement('div');
-    const addBtn = document.createElement('button');
-addBtn.className = 'add-to-cart btn btn-black';
-addBtn.textContent = 'В корзину';
-
-addBtn.onclick = (e) => {
-  e.stopPropagation();
-
-  addToCart({
-    id: it.id,
-    title: it.name,
-    price: it.price || 0,
-    img: it.pictures?.[0] || ''
-  });
-
-  renderCards();
-};
 
 const itemInCart = cart.find(i => i.id === it.id);
 const qty = itemInCart ? itemInCart.qty : 0;
 
-if(qty > 0){
+if (qty > 0) {
 
   const minus = document.createElement('button');
   minus.className = 'qty-minus';
@@ -4592,52 +4576,39 @@ if(qty > 0){
   const controls = document.createElement('div');
   controls.className = 'qty-controls';
 
-  controls.append(minus, value, plus);
-
-  cartWrap.append(controls);
-
- minus.onclick = (e) => {
-
-  e.stopPropagation();
-
-  changeCartQty(it.id, -1);
-
-  renderCards();
-
-};
+  minus.onclick = (e) => {
+    e.stopPropagation();
+    changeCartQty(it.id, -1);
+    renderCards();
+  };
 
   plus.onclick = (e) => {
+    e.stopPropagation();
+    changeCartQty(it.id, 1);
+    renderCards();
+  };
 
-  e.stopPropagation();
+  controls.append(minus, value, plus);
+  cartWrap.append(controls);
 
-  changeCartQty(it.id, 1);
-
-  renderCards();
-
-};
-
-}else{
+} else {
 
   const order = document.createElement('button');
-
   order.className = 'btn btn-outline';
-
   order.textContent = 'В корзину';
 
   order.onclick = (e) => {
+    e.stopPropagation();
 
-  e.stopPropagation();
+    addToCart({
+      id: it.id,
+      title: it.name,
+      price: it.price || 0,
+      img: it.pictures?.[0] || ''
+    });
 
- addToCart({
-  id: it.id,
-  title: it.name,
-  price: it.price || 0,
-  img: it.pictures?.[0] || ''
-});
-
-  renderCards();
-
-};
+    renderCards();
+  };
 
   cartWrap.append(order);
 }
@@ -7259,57 +7230,6 @@ function openCartModal(){
 function closeCartModal(){
   document.getElementById('buyModalNew')?.classList.remove('active');
 }
-
-/* EVENTS */
-document.addEventListener('click', function(e){
-
-  /* ADD */
-  const addBtn = e.target.closest('.add-to-cart');
-
-  if(addBtn){
-
-    const card = addBtn.closest('.product-card');
-    if(!card) return;
-
-    const product = {
-      id: card.dataset.id,
-      title: card.querySelector('.product-title')?.innerText || 'Товар',
-      price: parseInt(card.querySelector('.product-price')?.innerText?.replace(/\D/g,'')) || 0,
-      img: card.querySelector('img')?.src || ''
-    };
-
-    addToCart(product);
-  }
-
-  /* PLUS */
-  const plus = e.target.closest('.qty-plus');
-  if(plus){
-    const card = plus.closest('.product-card');
-    changeCartQty(card.dataset.id, 1);
-  }
-
-  /* MINUS */
-  const minus = e.target.closest('.qty-minus');
-  if(minus){
-    const card = minus.closest('.product-card');
-    changeCartQty(card.dataset.id, -1);
-  }
-
-});
-
-/* CART BUTTON */
-document.getElementById('floatingCart')
-  ?.addEventListener('click', openCartModal);
-
-/* CLOSE MODAL BACKDROP */
-document.getElementById('buyModalNew')
-  ?.addEventListener('click', function(e){
-    if(e.target === this) closeCartModal();
-  });
-
-/* START */
-updateCartIcon();
-renderCart();
 
 </script></div> </div> </div> </div> </div> <script type="text/javascript">if(!window.mainTracker) {window.mainTracker='tilda';}
 window.tildastatcookie='no';setTimeout(function(){(function(d,w,k,o,g) {var n=d.getElementsByTagName(o)[0],s=d.createElement(o),f=function(){n.parentNode.insertBefore(s,n);};s.type="text/javascript";s.async=true;s.key=k;s.id="tildastatscript";s.src=g;if(w.opera=="[object Opera]") {d.addEventListener("DOMContentLoaded",f,false);} else {f();}})(document,window,'e9c8cdc096bfc3296cfb1594f2adee0b','script','js/tilda-stat-1.0.min.js');},2000);</script> </body> </html>
