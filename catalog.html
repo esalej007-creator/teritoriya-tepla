@@ -5272,22 +5272,26 @@ el.innerHTML = `
   // =========================
   // CART ACTIONS
   // =========================
-  window.addToCart = function(item){
+ window.addToCart = function(item){
 
-    if (!window.cart[item.id]) {
-      window.cart[item.id] = {
-        id: item.id,
-        title: item.title,
-        price: item.price,
-        img: item.img,
-        qty: 1
-      };
-    } else {
-      window.cart[item.id].qty++;
-    }
+  if (!item || !item.id || item.id === 'undefined') return;
 
-    updateCartUI();
+  const id = String(item.id);
+
+  if (!window.cart[id]) {
+    window.cart[id] = {
+      id: id,
+      title: item.title || 'Без названия',
+      price: Number(item.price) || 0,
+      img: item.img || '',
+      qty: 1
+    };
+  } else {
+    window.cart[id].qty += 1;
   }
+
+  updateCartUI();
+};
 
   window.changeCartQty = function(id, delta){
 
