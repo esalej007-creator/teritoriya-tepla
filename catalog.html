@@ -4478,6 +4478,10 @@ function renderCards() {
       SETS_SUBCATEGORIES.forEach(sub => {
         const c = document.createElement('div');
         c.className = 'card';
+        c.dataset.id = it.id;
+c.dataset.title = it.name || '';
+c.dataset.price = it.price || 0;
+c.dataset.img = it.pictures?.[0] || '';
         c.innerHTML = `
           <img src="${sub.img}" alt="${sub.name}"> <div class="card-body"> <div class="title-wrapper"> <div class="title">${sub.name}</div> </div> </div>
         `;
@@ -7199,7 +7203,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-/* ОБНОВЛЕНИЕ ИКОНКИ */
+/* =========================================
+   СОХРАНЕНИЕ
+========================================= */
+
+function saveCart(){
+
+  localStorage.setItem(
+    'cart',
+    JSON.stringify(cart)
+  );
+
+}
+
+/* =========================================
+   ИКОНКА КОРЗИНЫ
+========================================= */
+
 function updateCartIcon(){
 
   const totalCount = cart.reduce((sum, item) => {
@@ -7210,23 +7230,20 @@ function updateCartIcon(){
     document.getElementById('cartCountBadge');
 
   if(badge){
+
     badge.innerText = totalCount;
+
   }
 
 }
 
-/* СОХРАНЕНИЕ */
-function saveCart(){
+/* =========================================
+   ОБНОВИТЬ КАРТОЧКУ
+========================================= */
 
-  localStorage.setItem(
-    'cart',
-    JSON.stringify(cart)
-  );
-
-}
-
-/* ОБНОВЛЕНИЕ КАРТОЧКИ */
 function updateProductCard(card){
+
+  if(!card) return;
 
   const id = card.dataset.id;
 
@@ -7272,11 +7289,14 @@ function updateProductCard(card){
 
 }
 
-/* ДОБАВИТЬ В КОРЗИНУ */
+/* =========================================
+   ДОБАВИТЬ
+========================================= */
+
 function addToCart(product){
 
   const existing =
-    cart.find(item => item.id === product.id);
+    cart.find(item => item.id == product.id);
 
   if(existing){
 
@@ -7303,7 +7323,10 @@ function addToCart(product){
 
 }
 
-/* ИЗМЕНИТЬ КОЛИЧЕСТВО */
+/* =========================================
+   ИЗМЕНИТЬ КОЛИЧЕСТВО
+========================================= */
+
 function changeCartQty(id, delta){
 
   const item =
@@ -7315,15 +7338,16 @@ function changeCartQty(id, delta){
 
   if(item.qty <= 0){
 
-    cart = cart.filter(i => i.id != id);
+    cart =
+      cart.filter(i => i.id != id);
 
   }
 
   saveCart();
 
-  renderCart();
-
   updateCartIcon();
+
+  renderCart();
 
   document
     .querySelectorAll('.card')
@@ -7331,7 +7355,10 @@ function changeCartQty(id, delta){
 
 }
 
-/* РЕНДЕР КОРЗИНЫ */
+/* =========================================
+   РЕНДЕР КОРЗИНЫ
+========================================= */
+
 function renderCart(){
 
   const container =
@@ -7340,7 +7367,12 @@ function renderCart(){
   const totalBox =
     document.getElementById('cartTotal');
 
+  const floatingCart =
+    document.getElementById('floatingCart');
+
   if(!container || !totalBox) return;
+
+  /* ПУСТАЯ */
 
   if(!cart.length){
 
@@ -7354,7 +7386,21 @@ function renderCart(){
 
     totalBox.innerText = '0';
 
+    if(floatingCart){
+
+      floatingCart.style.display = 'none';
+
+    }
+
     return;
+
+  }
+
+  /* ПОКАЗАТЬ КОРЗИНУ */
+
+  if(floatingCart){
+
+    floatingCart.style.display = 'flex';
 
   }
 
@@ -7363,7 +7409,7 @@ function renderCart(){
   container.innerHTML = cart.map(item => {
 
     const sum =
-      item.price * item.qty;
+      Number(item.price) * item.qty;
 
     total += sum;
 
@@ -7380,18 +7426,20 @@ function renderCart(){
           </div>
 
           <div class="cart-price">
-            ${item.price.toLocaleString()} ₽
+            ${Number(item.price).toLocaleString()} ₽
           </div>
 
           <div class="buy-qty-new">
 
-            <button onclick="changeCartQty('${item.id}', -1)">
+            <button
+              onclick="changeCartQty('${item.id}', -1)">
               −
             </button>
 
             <span>${item.qty}</span>
 
-            <button onclick="changeCartQty('${item.id}', 1)">
+            <button
+              onclick="changeCartQty('${item.id}', 1)">
               +
             </button>
 
@@ -7411,6 +7459,8 @@ function renderCart(){
 
   totalBox.innerText =
     total.toLocaleString();
+
+  /* ДАННЫЕ В ФОРМУ */
 
   const formProduct =
     document.getElementById('formProduct');
@@ -7432,7 +7482,10 @@ function renderCart(){
 
 }
 
-/* ОТКРЫТЬ КОРЗИНУ */
+/* =========================================
+   ОТКРЫТЬ МОДАЛКУ
+========================================= */
+
 function openCartModal(){
 
   renderCart();
@@ -7443,7 +7496,10 @@ function openCartModal(){
 
 }
 
-/* ЗАКРЫТЬ КОРЗИНУ */
+/* =========================================
+   ЗАКРЫТЬ МОДАЛКУ
+========================================= */
+
 function closeCartModal(){
 
   document
@@ -7452,12 +7508,21 @@ function closeCartModal(){
 
 }
 
-/* КЛИК ПО КОРЗИНЕ */
+/* =========================================
+   КЛИК ПО ИКОНКЕ КОРЗИНЫ
+========================================= */
+
 document
   .getElementById('floatingCart')
-  ?.addEventListener('click', openCartModal);
+  ?.addEventListener(
+    'click',
+    openCartModal
+  );
 
-/* ЗАКРЫТЬ ПО ФОНУ */
+/* =========================================
+   ЗАКРЫТЬ ПО ФОНУ
+========================================= */
+
 document
   .getElementById('buyModalNew')
   ?.addEventListener('click', function(e){
@@ -7470,10 +7535,13 @@ document
 
 });
 
-/* ГЛОБАЛЬНЫЕ КЛИКИ */
+/* =========================================
+   ГЛОБАЛЬНЫЕ КЛИКИ
+========================================= */
+
 document.addEventListener('click', function(e){
 
-  /* В КОРЗИНУ */
+  /* ДОБАВИТЬ */
 
   const addBtn =
     e.target.closest('.add-to-cart');
@@ -7485,30 +7553,21 @@ document.addEventListener('click', function(e){
 
     if(!card) return;
 
-    const product = {
+    addToCart({
 
       id:
-        card.dataset.id || Date.now(),
+        card.dataset.id,
 
       title:
-        card.querySelector('.product-title')
-        ?.innerText || 'Товар',
+        card.dataset.title || 'Товар',
 
       price:
-        parseInt(
-          card.querySelector('.product-price')
-          ?.innerText
-          .replace(/\s/g,'')
-          .replace(/[^\d]/g,'')
-        ) || 0,
+        Number(card.dataset.price || 0),
 
       img:
-        card.querySelector('img')
-        ?.src || ''
+        card.dataset.img || ''
 
-    };
-
-    addToCart(product);
+    });
 
   }
 
@@ -7552,13 +7611,13 @@ document.addEventListener('click', function(e){
 
 });
 
-/* СТАРТ */
-updateCartIcon();
-renderCart();
+/* =========================================
+   СТАРТ
+========================================= */
 
-document
-  .querySelectorAll('.product-card')
-  .forEach(updateProductCard);
+updateCartIcon();
+
+renderCart();
 
 </script></div> </div> </div> </div> </div> <script type="text/javascript">if(!window.mainTracker) {window.mainTracker='tilda';}
 window.tildastatcookie='no';setTimeout(function(){(function(d,w,k,o,g) {var n=d.getElementsByTagName(o)[0],s=d.createElement(o),f=function(){n.parentNode.insertBefore(s,n);};s.type="text/javascript";s.async=true;s.key=k;s.id="tildastatscript";s.src=g;if(w.opera=="[object Opera]") {d.addEventListener("DOMContentLoaded",f,false);} else {f();}})(document,window,'e9c8cdc096bfc3296cfb1594f2adee0b','script','js/tilda-stat-1.0.min.js');},2000);</script> </body> </html>
