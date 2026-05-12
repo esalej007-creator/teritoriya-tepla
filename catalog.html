@@ -4196,7 +4196,7 @@ html, body {
 "> <svg id="favIcon" width="40" height="20" viewBox="0 0 24 24" fill="white" stroke="none"> <path d="M12 21C12 21 5 13.5 5 8.5C5 5.5 7.5 3 10.5 3C12 3 12 5 12 5C12 5 12 3 13.5 3C16.5 3 19 5.5 19 8.5C19 13.5 12 21 12 21Z"/> </svg> </button> <div id="imageZoom" class="image-zoom" aria-hidden="true"> <div class="image-zoom-container"> <span class="image-zoom-close">&times;</span> <img id="imageZoomImg" src="" alt=""> </div> </div> 
   <div class="buy-overlay-new" id="buyModalNew">
 
-<div class="buy-modal-new">
+<div id="buyModalNew" class="buy-modal-new">
 
 <button class="buy-close-new" onclick="closeCartModal()">
 ×
@@ -4301,7 +4301,7 @@ function openCart(){
   modal.classList.add('active');
   renderCart();
 }
-
+window.openCart = openCart;
 window.closeCartModal = function(){
   const modal = document.getElementById('buyModalNew');
   if (!modal) return;
@@ -4411,9 +4411,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const btn = document.getElementById('floatingCart');
 
-  if (btn) {
-    btn.addEventListener('click', openCart);
-  }
+if (btn) {
+  btn.addEventListener('click', () => {
+    window.openCart();
+  });
+}
 
   updateBadge();
 });
@@ -4879,7 +4881,6 @@ order.onclick = (e) => {
     img: it.pictures?.[0] || ''
   });
 
-  window.updateCartUI?.(); // если есть
 };
 
 actions.append(more, order);
