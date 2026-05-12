@@ -477,30 +477,34 @@ li:hover > .submenu:not(.catalog-submenu) {
   display: flex;
 }
 .catalog-submenu {
-  position: fixed;
-  top: 50px;
-  left: 0;
-  width: 320px;
-  height: calc(100vh - 50px);
-  background: #fff;
+    position: fixed;
 
-  display: flex;
-  flex-direction: column;
-  padding: 15px;
-  overflow-y: auto;
+    top: 70px;
+    left: -320px;
 
-  transform: translateX(-100%);
-  transition: transform 0.3s ease;
+    width: 320px;
+    height: calc(100vh - 70px);
 
-  z-index: 1000;
+    background: #fff;
 
-  box-shadow: 20px 0 40px -10px rgba(0,0,0,0.3);
-    top: 68px;
-  
+    display: flex;
+    flex-direction: column;
+
+    padding: 15px;
+
+    overflow-y: auto;
+
+    transition: left .3s ease;
+
+    z-index: 1000;
+
+    box-shadow: 20px 0 40px -10px rgba(0,0,0,.3);
+
+    box-sizing: border-box;
 }
 
 .catalog-submenu.active {
-  transform: translateX(0);
+    left: 0;
 }
 
 .catalog-submenu .catalog-items {
@@ -521,8 +525,6 @@ li:hover > .submenu:not(.catalog-submenu) {
   cursor: pointer;
   transition: background 0.2s ease;
 }
-
-/* иконка */
 .catalog-submenu .catalog-item img {
   width: 40px;
   height: 40px;
@@ -532,13 +534,11 @@ li:hover > .submenu:not(.catalog-submenu) {
   flex-shrink: 0;
   object-fit: contain;
 }
-
 .catalog-submenu .catalog-item span {
   color: #002283;
   font-size: 15px;
   font-weight: 500;
 }
-
 .catalog-submenu .catalog-item:hover {
   background: #0026A9;
 }
@@ -549,11 +549,6 @@ li:hover > .submenu:not(.catalog-submenu) {
 
 .catalog-submenu .catalog-item::before {
   display: none !important;
-}
-.header {
-  position: fixed;
-  z-index: 9999999;
-  isolation: isolate; 
 }
 .overlay {
   position: fixed;
@@ -566,7 +561,7 @@ li:hover > .submenu:not(.catalog-submenu) {
   opacity: 0;
   pointer-events: none; 
   transition: opacity 0.3s ease;
-  z-index: 999998; 
+  z-index: 999; 
 }
 
 .overlay.active {
@@ -629,9 +624,6 @@ li:hover > .submenu:not(.catalog-submenu) {
 .catalog-submenu-right .catalog-item:hover span {
   color: #fff !important;
 }
-.catalog-submenu {
-  overflow: visible !important;
-}
 .catalog-item.has-right-submenu {
   position: relative;
 }
@@ -661,14 +653,18 @@ li:hover > .submenu:not(.catalog-submenu) {
   flex-direction: column;
 }
 
-.catalog-submenu-right {
-  overflow: visible !important;
-}
 .catalog-submenu-right .catalog-submenu-right .catalog-item span {
   color: #002283 !important;
 }
 .catalog-submenu-right .catalog-submenu-right .catalog-item:hover span {
   color: #fff !important;
+}
+ .catalog-submenu {
+  overflow: visible !important;
+}
+
+.catalog-submenu-right {
+  overflow: visible !important;
 }
 .popup {
   display: none;
@@ -833,7 +829,7 @@ li:hover > .submenu:not(.catalog-submenu) {
   flex-direction: column !important;
 }
 .catalog-item.has-right-submenu:hover > .catalog-submenu-right {
-  display: block;
+  display: flex;
 }
 @media (max-width: 1280px) {
 
@@ -969,63 +965,51 @@ li:hover > .submenu:not(.catalog-submenu) {
  <div class="submenu-footer"> <img src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/catalog/%D0%A0%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B%20%D0%BE%D1%82%D0%BE%D0%BF%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F/footerimg.png" alt=""> <a href="tel:+79201038087" class="submenu-phone"> <svg viewBox="0 0 24 24"> <path d="M6.6 10.8c1.6 3.1 3.5 5 6.6 6.6l2.2-2.2c.3-.3.8-.4 1.2-.2 1.3.5 2.7.8 4.2.8.7 0 1.2.5 1.2 1.2V20c0 .7-.5 1.2-1.2 1.2C10.7 21.2 2.8 13.3 2.8 3.2 2.8 2.5 3.3 2 4 2h3.6c.7 0 1.2.5 1.2 1.2 0 1.5.3 2.9.8 4.2.1.4 0 .9-.3 1.2L6.6 10.8z"/> </svg> <span>+7 (920) 103-80-87 Отдел продаж<br>
           territoriya-tepla@bk.ru</span> </a> </div> </div> </li> <li> <a href="#">Акции</a> </li> <li> <a href="#" id="companyBtn">Поставщикам</a> </li> <li> <a href="#" id="deliveryBtn">Доставка</a> </li> <li> <a href="#">О компании</a> <div class="submenu"> <a href="#others">отзывы</a> <a href="#about">о нас</a> <a href="#map">мы на карте</a> </div> </li> </ul> <div class="header-search"> <input type="text" placeholder="Поиск товара по названию" /> <button> <!-- SVG-иконка лупы --> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <circle cx="11" cy="11" r="8"></circle> <line x1="21" y1="21" x2="16.65" y2="16.65"></line> </svg> </button> <div id="searchResults" class="search-results"></div> </div> </div> <!-- Вынесено вне ul --> <div class="vertical-divider"></div> <div class="feedback-container"> <div class="messengers"> <img src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/mail.png" alt=""> <img src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/tg.png" alt=""> <img src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/vk.png" alt=""> </div> <button class="feedback-btn">Обратная связь</button> </div> <div class="contacts"> <span class="phone"><a href="tel:+79201038087">+7 (920) 103-80-87</a></span> <span class="email">г.Владимир, ул.Куйбышева, д. 9а</span> <span class="cta">пн.-пт. с 9:00 до 19:00<br>суббота с 9:00 до 17:00</span> </div> </header> <script>
   const burger = document.getElementById('burger');
-const menu = document.getElementById('menu');
+  const menu = document.getElementById('menu');
 
-if (burger && menu) {
   burger.addEventListener('click', () => {
     menu.classList.toggle('active');
     document.body.classList.toggle('menu-open');
   });
-}
 </script> <script>
 const catalogBtn = document.getElementById('catalogBtn');
 const catalogMenu = document.querySelector('.catalog-submenu');
 const overlay = document.querySelector('.overlay');
 
-if (catalogBtn && catalogMenu && overlay) {
-
-  catalogBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    const isActive = catalogMenu.classList.toggle('active');
-    overlay.classList.toggle('active', isActive);
-  });
-
-  catalogMenu.addEventListener('click', (e) => {
-    e.stopPropagation();
-  });
-
-  overlay.addEventListener('click', () => {
-    catalogMenu.classList.remove('active');
-    overlay.classList.remove('active');
-  });
-
-  document.addEventListener('click', () => {
-    catalogMenu.classList.remove('active');
-    overlay.classList.remove('active');
-  });
-
+function openMenu() {
+  catalogMenu.classList.add('active');
+  overlay.classList.add('active');
+  document.body.classList.add('no-scroll');
 }
+
+function closeMenu() {
+  catalogMenu.classList.remove('active');
+  overlay.classList.remove('active');
+  document.body.classList.remove('no-scroll');
+}
+
+catalogBtn.addEventListener('click', (e) => {
   e.preventDefault();
   e.stopPropagation();
-  const isActive = catalogMenu.classList.toggle('active');
-  overlay.classList.toggle('active', isActive);
+
+  const isOpen = catalogMenu.classList.contains('active');
+
+  if (isOpen) {
+    closeMenu();
+  } else {
+    openMenu();
+  }
 });
 
+// чтобы клики внутри шторки не закрывали её
 catalogMenu.addEventListener('click', (e) => {
   e.stopPropagation();
 });
 
-overlay.addEventListener('click', () => {
-  catalogMenu.classList.remove('active');
-  overlay.classList.remove('active');
-});
+// закрытие по затемнению
+overlay.addEventListener('click', closeMenu);
 
-document.addEventListener('click', () => {
-  catalogMenu.classList.remove('active');
-  overlay.classList.remove('active');
-});
+// ❌ ВАЖНО: document.addEventListener('click') УДАЛЕН
 </script> <script>
 document.addEventListener('DOMContentLoaded', () => {
   const searchInput = document.querySelector('.header-search input');
@@ -1046,44 +1030,8 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .catch(err => console.error('Ошибка загрузки XML:', err));
 
-  if (searchInput && resultsContainer) {
-
+  // Фильтруем при вводе
   searchInput.addEventListener('input', () => {
-
-    const query = searchInput.value.trim().toLowerCase();
-    resultsContainer.innerHTML = '';
-
-    if (!query) {
-      resultsContainer.style.display = 'none';
-      return;
-    }
-
-    const filtered = offers.filter(offer =>
-      offer.name.toLowerCase().includes(query)
-    );
-
-    if (filtered.length === 0) {
-      resultsContainer.style.display = 'none';
-      return;
-    }
-
-    filtered.forEach(offer => {
-      const link = document.createElement('a');
-
-      link.classList.add('item');
-      link.textContent = offer.name;
-
-      link.href = offer.url && offer.url !== '#'
-        ? offer.url
-        : `/products/${offer.id}.html`;
-
-      resultsContainer.appendChild(link);
-    });
-
-    resultsContainer.style.display = 'block';
-  });
-
-}
     const query = searchInput.value.trim().toLowerCase();
     resultsContainer.innerHTML = '';
 
@@ -1129,7 +1077,30 @@ document.addEventListener('DOMContentLoaded', () => {
   const mobileSearchIcon = document.getElementById('mobile-search-icon');
   const mobileSearch = document.getElementById('mobile-search');
 
-if (burger && mobileMenu && overlay) {
+  // Открытие/закрытие мобильного меню
+  burger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('active');
+    overlay.classList.toggle('active');
+  });
+
+  // Закрытие при клике на overlay
+  overlay.addEventListener('click', () => {
+    mobileMenu.classList.remove('active');
+    overlay.classList.remove('active');
+  });
+
+  // Открытие поиска
+  mobileSearchIcon.addEventListener('click', () => {
+    mobileSearch.classList.toggle('active');
+  });
+});
+</script> <script>
+document.addEventListener('DOMContentLoaded', () => {
+  const burger = document.getElementById('burger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const overlay = document.getElementById('overlay');
+  const mobileSearchIcon = document.getElementById('mobile-search-icon');
+  const mobileSearch = document.getElementById('mobile-search');
 
   burger.addEventListener('click', () => {
     mobileMenu.classList.toggle('active');
@@ -1141,8 +1112,7 @@ if (burger && mobileMenu && overlay) {
     overlay.classList.remove('active');
   });
 
-}
-
+  // Открытие поиска
   mobileSearchIcon.addEventListener('click', () => {
     mobileSearch.classList.toggle('active');
   });
