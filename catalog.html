@@ -4360,16 +4360,17 @@ method="POST"
 
   </div>
 </div>
-    <script>
+   <script>
 document.addEventListener("DOMContentLoaded", () => {
 
   const cartForm = document.querySelector(".cart-form");
 
   if (!cartForm) return;
 
-  cartForm.addEventListener("submit", function(e){
+  cartForm.addEventListener("submit", async function(e){
 
-    // ПРОВЕРКА ЧЕКБОКСОВ
+    e.preventDefault();
+
     const checkboxes =
       cartForm.querySelectorAll('input[type="checkbox"]');
 
@@ -4377,15 +4378,11 @@ document.addEventListener("DOMContentLoaded", () => {
       Array.from(checkboxes).every(c => c.checked);
 
     if (!allChecked){
-
-      e.preventDefault();
-
       alert("Нужно согласиться с политикой");
-
       return;
     }
 
-    // СОБИРАЕМ ТОВАРЫ
+    // ТОВАРЫ
     const items = Object.values(window.cart);
 
     const text = items.map(item => {
@@ -4400,6 +4397,57 @@ document.addEventListener("DOMContentLoaded", () => {
     }).join('\n-----------------\n');
 
     document.getElementById("cartData").value = text;
+
+    // ОТПРАВКА
+    const formData = new FormData(cartForm);
+
+    try {
+
+      const response = await fetch(
+        "https://api.staticforms.xyz/submit",
+        {
+          method: "POST",
+          body: formData
+        }
+      );
+
+      if (response.ok) {
+
+        cartForm.style.display = "none";
+
+        document.getElementById("cartSuccess")
+          .style.display = "block";
+
+        window.cart = {};
+        localStorage.removeItem("cart");
+
+        const badge =
+          document.getElementById("cartCountBadge");
+
+        if (badge) {
+          badge.style.display = "none";
+        }
+
+        const floating =
+          document.getElementById("floatingCart");
+
+        if (floating) {
+          floating.classList.remove("visible");
+        }
+
+      } else {
+
+        alert("Ошибка отправки");
+
+      }
+
+    } catch(err){
+
+      console.error(err);
+
+      alert("Ошибка соединения");
+
+    }
 
   });
 
@@ -5645,6 +5693,14 @@ document.addEventListener('DOMContentLoaded', () => {
     padding: 15px;
   }
 
+}
+    .buy-modal-new {
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
+}
+
+.buy-modal-new::-webkit-scrollbar {
+  display: none;
 }
 </style>
   <div id="rec2159801161" class="r t-rec t-rec_pt_45" style="padding-top:45px; " data-animationappear="off" data-record-type="131"> <!-- T123 --> <div class="t123"> <div class="t-container_100 "> <div class="t-width t-width_100 "> <!-- nominify begin --> <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script> <style>
@@ -7268,7 +7324,7 @@ showQuestions();
 
   transition: 0.25s ease;
 
-  z-index: 99999999;
+  z-index: 99999999 !important;
 }
 
 .policy-modal.active {
@@ -7297,7 +7353,7 @@ showQuestions();
   color: inherit;
   box-shadow: 0 0 30px rgba(0, 34, 131, 0.2);
 
-  transform: translateY(20px); /* 👈 чуть ниже */
+  transform: translateY(20px); 
   transition: 0.3s;
 }
 
@@ -7326,12 +7382,12 @@ showQuestions();
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
 }
 .policy-box {
-  scrollbar-width: none;      /* Firefox */
-  -ms-overflow-style: none;   /* IE/Edge старый */
+  scrollbar-width: none;      
+  -ms-overflow-style: none;   
 }
 
 .policy-box::-webkit-scrollbar {
-  display: none;              /* Chrome / Safari */
+  display: none;            
 }
 </style> <script>
 document.addEventListener('click', function (e) {
