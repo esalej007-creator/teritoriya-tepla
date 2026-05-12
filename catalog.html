@@ -1129,6 +1129,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const mobileSearchIcon = document.getElementById('mobile-search-icon');
   const mobileSearch = document.getElementById('mobile-search');
 
+if (burger && mobileMenu && overlay) {
+
   burger.addEventListener('click', () => {
     mobileMenu.classList.toggle('active');
     overlay.classList.toggle('active');
@@ -1138,6 +1140,8 @@ document.addEventListener('DOMContentLoaded', () => {
     mobileMenu.classList.remove('active');
     overlay.classList.remove('active');
   });
+
+}
 
   mobileSearchIcon.addEventListener('click', () => {
     mobileSearch.classList.toggle('active');
