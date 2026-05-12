@@ -4802,7 +4802,6 @@ Object.entries(it.params || {}).forEach(([k, v]) => {
 const actions = document.createElement('div');
 actions.className = 'actions';
 
-// КНОПКА "Подробнее"
 const more = document.createElement('button');
 more.className = 'btn btn-black';
 more.textContent = 'Подробнее';
@@ -4812,7 +4811,6 @@ more.onclick = (e) => {
   window.location.href = 'products/' + it.id + '.html';
 };
 
-// КНОПКА "В корзину"
 const order = document.createElement('button');
 order.className = 'btn btn-outline';
 order.textContent = 'В корзину';
@@ -4820,20 +4818,19 @@ order.textContent = 'В корзину';
 order.onclick = (e) => {
   e.stopPropagation();
 
-  addToCart({
+  console.log('ADD TO CART', it.id);
+
+  window.addToCart({
     id: String(it.id),
     title: it.name || 'Без названия',
     price: Number(it.price) || 0,
     img: it.pictures?.[0] || ''
   });
 
-  renderCards(); // если хочешь обновление UI
+  window.updateCartUI?.(); // если есть
 };
 
-// ВАЖНО: добавляем кнопки в actions
 actions.append(more, order);
-
-// и потом в карточку
 body.append(actions);
     const fav = document.createElement('div');
     fav.className = 'card-fav';
