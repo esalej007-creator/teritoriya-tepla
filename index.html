@@ -496,11 +496,13 @@ li:hover > .submenu:not(.catalog-submenu) {
 
     overflow-y: auto;
 
-    transition: left 0.3s ease;
+    transition: left .3s ease;
 
     z-index: 1000;
 
-    box-shadow: 20px 0 40px -10px rgba(0,0,0,0.3);
+    box-shadow: 20px 0 40px -10px rgba(0,0,0,.3);
+
+    box-sizing: border-box;
 }
 
 .catalog-submenu.active {
@@ -550,10 +552,6 @@ li:hover > .submenu:not(.catalog-submenu) {
 .catalog-submenu .catalog-item::before {
   display: none !important;
 }
-.header {
-  position: fixed;
-  z-index: 9999999;
-}
 .overlay {
   position: fixed;
   top: 0;
@@ -565,7 +563,7 @@ li:hover > .submenu:not(.catalog-submenu) {
   opacity: 0;
   pointer-events: none; 
   transition: opacity 0.3s ease;
-  z-index: 999998; 
+  z-index: 999; 
 }
 
 .overlay.active {
