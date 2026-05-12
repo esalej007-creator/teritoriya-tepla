@@ -481,6 +481,7 @@ li:hover > .submenu:not(.catalog-submenu) {
 }
 .catalog-submenu {
     position: fixed;
+
     top: 70px;
     left: -320px;
 
@@ -489,31 +490,20 @@ li:hover > .submenu:not(.catalog-submenu) {
 
     background: #fff;
 
+    display: flex;
+    flex-direction: column;
+
+    padding: 15px;
+
+    overflow-y: auto;
+
     transition: left .3s ease;
 
     z-index: 1000;
 
-    overflow: visible; /* ВАЖНО */
-}
+    box-shadow: 20px 0 40px -10px rgba(0,0,0,.3);
 
-.catalog-scroll {
-    height: 100%;
-    overflow-y: auto;
-    overflow-x: visible;
-
-    padding: 15px;
     box-sizing: border-box;
-}
-
-/* скролл */
-
-.catalog-scroll::-webkit-scrollbar {
-    width: 6px;
-}
-
-.catalog-scroll::-webkit-scrollbar-thumb {
-    background: rgba(0,0,0,.2);
-    border-radius: 10px;
 }
 
 .catalog-submenu.active {
@@ -890,7 +880,10 @@ li:hover > .submenu:not(.catalog-submenu) {
 <ul class="desktop-menu"> 
 <li> 
 <a href="#" id="catalogBtn">Каталог</a> 
-<div class="catalog-submenu"> <div class="catalog-scroll"> <div class="catalog-items">  
+ </li>
+ <li> <a href="#">Акции</a> </li> <li> <a href="#" id="companyBtn">Поставщикам</a> </li> <li> <a href="#" id="deliveryBtn">Доставка</a> </li> <li> <a href="#">О компании</a> <div class="submenu"> <a href="#others">отзывы</a> <a href="#about">о нас</a> <a href="#map">мы на карте</a> </div> </li> </ul> <div class="header-search"> <input type="text" placeholder="Поиск товара по названию" /> <button> <!-- SVG-иконка лупы --> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <circle cx="11" cy="11" r="8"></circle> <line x1="21" y1="21" x2="16.65" y2="16.65"></line> </svg> </button> <div id="searchResults" class="search-results"></div> </div> </div> <!-- Вынесено вне ul --> <div class="vertical-divider"></div> <div class="feedback-container"> <div class="messengers"> <img src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/mail.png" alt=""> <img src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/tg.png" alt=""> <img src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/vk.png" alt=""> </div> <button class="feedback-btn">Обратная связь</button> </div> <div class="contacts"> <span class="phone"><a href="tel:+79201038087">+7 (920) 103-80-87</a></span> <span class="email">г.Владимир, ул.Куйбышева, д. 9а</span> <span class="cta">пн.-пт. с 9:00 до 19:00<br>суббота с 9:00 до 17:00</span> </div> 
+</header>
+ <div class="catalog-submenu"> <div class="catalog-scroll"> <div class="catalog-items">  
 <div class="catalog-item has-right-submenu"> 
 <a href="https://teritoriya-tepla.ru/catalog?category=%D0%9A%D0%BE%D1%82%D0%BB%D1%8B_%D0%BE%D1%82%D0%BE%D0%BF%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F" class="catalog-link"> 
 <img src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/category/%D0%9A%D0%BE%D1%82%D0%BB%D1%8B%20%D0%BE%D1%82%D0%BE%D0%BF%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F.png" alt=""> <span>Котлы для отопления</span> </a> <!-- Первый уровень подкатегорий справа --> <div class="catalog-submenu-right"> <!-- Подкатегория с третьим уровнем --> <div class="catalog-item has-right-submenu"> <a href="https://teritoriya-tepla.ru/catalog?category=%D0%9A%D0%BE%D1%82%D0%BB%D1%8B_%D0%BE%D1%82%D0%BE%D0%BF%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F" class="catalog-link"> <img src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/catalog/%D0%BA%D0%BE%D1%82%D0%BB%D1%8B/%D0%9D%D0%B0%D1%81%D1%82%D0%B5%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B3%D0%B0%D0%B7%D0%BE%D0%B2%D1%8B%D0%B5/Ampera_Plus_003.webp" alt=""> 
@@ -976,7 +969,8 @@ li:hover > .submenu:not(.catalog-submenu) {
     </a>
   </div>
  <div class="submenu-footer"> <img src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/catalog/%D0%A0%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B%20%D0%BE%D1%82%D0%BE%D0%BF%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F/footerimg.png" alt=""> <a href="tel:+79201038087" class="submenu-phone"> <svg viewBox="0 0 24 24"> <path d="M6.6 10.8c1.6 3.1 3.5 5 6.6 6.6l2.2-2.2c.3-.3.8-.4 1.2-.2 1.3.5 2.7.8 4.2.8.7 0 1.2.5 1.2 1.2V20c0 .7-.5 1.2-1.2 1.2C10.7 21.2 2.8 13.3 2.8 3.2 2.8 2.5 3.3 2 4 2h3.6c.7 0 1.2.5 1.2 1.2 0 1.5.3 2.9.8 4.2.1.4 0 .9-.3 1.2L6.6 10.8z"/> </svg> <span>+7 (920) 103-80-87 Отдел продаж<br>
-          territoriya-tepla@bk.ru</span> </a> </div> </div> </li> <li> <a href="#">Акции</a> </li> <li> <a href="#" id="companyBtn">Поставщикам</a> </li> <li> <a href="#" id="deliveryBtn">Доставка</a> </li> <li> <a href="#">О компании</a> <div class="submenu"> <a href="#others">отзывы</a> <a href="#about">о нас</a> <a href="#map">мы на карте</a> </div> </li> </ul> <div class="header-search"> <input type="text" placeholder="Поиск товара по названию" /> <button> <!-- SVG-иконка лупы --> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <circle cx="11" cy="11" r="8"></circle> <line x1="21" y1="21" x2="16.65" y2="16.65"></line> </svg> </button> <div id="searchResults" class="search-results"></div> </div> </div> <!-- Вынесено вне ul --> <div class="vertical-divider"></div> <div class="feedback-container"> <div class="messengers"> <img src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/mail.png" alt=""> <img src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/tg.png" alt=""> <img src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/vk.png" alt=""> </div> <button class="feedback-btn">Обратная связь</button> </div> <div class="contacts"> <span class="phone"><a href="tel:+79201038087">+7 (920) 103-80-87</a></span> <span class="email">г.Владимир, ул.Куйбышева, д. 9а</span> <span class="cta">пн.-пт. с 9:00 до 19:00<br>суббота с 9:00 до 17:00</span> </div> </header> <script>
+          territoriya-tepla@bk.ru</span> </a> </div> </div> </li>
+ <script>
   const burger = document.getElementById('burger');
   const menu = document.getElementById('menu');
 
@@ -1022,7 +1016,6 @@ catalogMenu.addEventListener('click', (e) => {
 // закрытие по затемнению
 overlay.addEventListener('click', closeMenu);
 
-// ❌ ВАЖНО: document.addEventListener('click') УДАЛЕН
 </script> <script>
 document.addEventListener('DOMContentLoaded', () => {
   const searchInput = document.querySelector('.header-search input');
