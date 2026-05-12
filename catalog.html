@@ -4194,7 +4194,69 @@ html, body {
   align-items:center;
   justify-content:center;
 "> <svg id="favIcon" width="40" height="20" viewBox="0 0 24 24" fill="white" stroke="none"> <path d="M12 21C12 21 5 13.5 5 8.5C5 5.5 7.5 3 10.5 3C12 3 12 5 12 5C12 5 12 3 13.5 3C16.5 3 19 5.5 19 8.5C19 13.5 12 21 12 21Z"/> </svg> </button> <div id="imageZoom" class="image-zoom" aria-hidden="true"> <div class="image-zoom-container"> <span class="image-zoom-close">&times;</span> <img id="imageZoomImg" src="" alt=""> </div> </div> 
-<script>
+  <div class="buy-overlay-new" id="buyModalNew">
+
+<div class="buy-modal-new">
+
+<button class="buy-close-new" onclick="closeCartModal()">
+×
+</button>
+
+<div id="cartItems"></div>
+
+<div class="cart-total">
+Итого:
+<span id="cartTotal">0</span>
+₽
+</div>
+
+<form
+class="cart-form"
+action="https://api.staticforms.xyz/submit"
+method="POST"
+>
+
+<input type="hidden" name="accessKey" value="{{ACCESS_KEY}}">
+
+<input type="hidden" name="replyTo" value="esalej@mail.ru">
+
+<input type="hidden" name="email" value="esalej@mail.ru">
+
+<input type="hidden" name="subject" value="Новый заказ с сайта">
+
+<input type="hidden" name="honeypot" value="">
+
+<input type="hidden" name="product" id="formProduct">
+
+<input type="text" name="name" placeholder="Имя*" required>
+
+<input type="tel" name="phone" placeholder="Телефон*" required>
+
+<textarea name="comment" placeholder="Комментарий"></textarea>
+
+<button type="submit">
+Отправить заказ
+</button>
+
+</form>
+
+</div>
+
+</div>
+    <div id="floatingCart" class="floating-cart">
+  <div class="cart-icon-wrap">
+
+    <img
+      src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/catalog/%D0%BA%D0%BE%D1%82%D0%BB%D1%8B/urna.png"
+      class="cart-icon-img"
+      alt="Корзина"
+    >
+
+    <span id="cartCountBadge">0</span>
+
+  </div>
+</div>
+    <script>
 (function () {
 
 // =========================
@@ -5427,55 +5489,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 }
 </style>
-  <div class="buy-overlay-new" id="buyModalNew">
-
-<div class="buy-modal-new">
-
-<button class="buy-close-new" onclick="closeCartModal()">
-×
-</button>
-
-<div id="cartItems"></div>
-
-<div class="cart-total">
-Итого:
-<span id="cartTotal">0</span>
-₽
-</div>
-
-<form
-class="cart-form"
-action="https://api.staticforms.xyz/submit"
-method="POST"
->
-
-<input type="hidden" name="accessKey" value="{{ACCESS_KEY}}">
-
-<input type="hidden" name="replyTo" value="esalej@mail.ru">
-
-<input type="hidden" name="email" value="esalej@mail.ru">
-
-<input type="hidden" name="subject" value="Новый заказ с сайта">
-
-<input type="hidden" name="honeypot" value="">
-
-<input type="hidden" name="product" id="formProduct">
-
-<input type="text" name="name" placeholder="Имя*" required>
-
-<input type="tel" name="phone" placeholder="Телефон*" required>
-
-<textarea name="comment" placeholder="Комментарий"></textarea>
-
-<button type="submit">
-Отправить заказ
-</button>
-
-</form>
-
-</div>
-
-</div>
   <div id="rec2159801161" class="r t-rec t-rec_pt_45" style="padding-top:45px; " data-animationappear="off" data-record-type="131"> <!-- T123 --> <div class="t123"> <div class="t-container_100 "> <div class="t-width t-width_100 "> <!-- nominify begin --> <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script> <style>
 .advb-container {
     width: 1600px;
@@ -5793,19 +5806,6 @@ setInterval(() => {
 
 }, 10000); 
 </script> 
-<div id="floatingCart" class="floating-cart">
-  <div class="cart-icon-wrap">
-
-    <img
-      src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/catalog/%D0%BA%D0%BE%D1%82%D0%BB%D1%8B/urna.png"
-      class="cart-icon-img"
-      alt="Корзина"
-    >
-
-    <span id="cartCountBadge">0</span>
-
-  </div>
-</div>
 </body> </html> <!-- nominify end --> </div> </div> </div> </div> <div id="rec2159799491" class="r t-rec" style=" " data-record-type="215"> <a name="map" style="font-size:0;"></a> </div> <div id="rec2164131971" class="r t-rec" style=" " data-animationappear="off" data-record-type="131"> <!-- T123 --> <div class="t123"> <div class="t-container_100 "> <div class="t-width t-width_100 "> <!-- nominify begin --> <footer class="footer"> <div class="footer-inner"> <!-- ЛЕВАЯ ЧАСТЬ --> <div class="footer-left"> <img src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/%D0%9B%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF.png" class="footer-logo"> <div class="footer-socials"> <img src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/mail.png"> <img src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/tg.png"> <img src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/vk.png"> </div> <div class="footer-contacts"> <div>+7 (920) 103-80-87</div> <div>г. Владимир, ул. Куйбышева, 9а</div> <div>пн–пт: 9:00–19:00<br>сб: 9:00–17:00</div> <div>Territoriya-tepla@bk.ru</div> </div> </div> <div class="footer-map-wrap"> <div id="footer-map" class="footer-map"></div> </div> <div class="footer-faq"> <div class="footer-title">F.A.Q</div> <div class="footer-faq-list"> <a href="#">Как оформить заказ?</a> <a href="#">Сроки доставки</a> <a href="#">Гарантия на товары</a> <a href="#">Как вернуть товар?</a> </div> </div> <div class="footer-right"> <div class="footer-title">Навигация</div> <div class="footer-menu"> <a href="https://teritoriya-tepla.ru/">Главная</a> <a href="https://teritoriya-tepla.ru/catalog">Каталог</a> <a href="#">Акции</a> <a href="#" id="deliveryBtn">Доставка</a> <a href="#about">О компании</a> </div> </div> </div> <div class="footer-bottom"> <div class="footer-disclaimer">
     Информация на сайте носит ознакомительный характер и не является публичной офертой, 
     определяемой положениями статьи 437 п.2 ГК РФ<br>
