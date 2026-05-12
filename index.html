@@ -481,7 +481,6 @@ li:hover > .submenu:not(.catalog-submenu) {
 }
 .catalog-submenu {
     position: fixed;
-
     top: 70px;
     left: -320px;
 
@@ -490,20 +489,31 @@ li:hover > .submenu:not(.catalog-submenu) {
 
     background: #fff;
 
-    display: flex;
-    flex-direction: column;
-
-    padding: 15px;
-
-    overflow-y: auto;
-
     transition: left .3s ease;
 
     z-index: 1000;
 
-    box-shadow: 20px 0 40px -10px rgba(0,0,0,.3);
+    overflow: visible; /* ВАЖНО */
+}
 
+.catalog-scroll {
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: visible;
+
+    padding: 15px;
     box-sizing: border-box;
+}
+
+/* скролл */
+
+.catalog-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+
+.catalog-scroll::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,.2);
+    border-radius: 10px;
 }
 
 .catalog-submenu.active {
