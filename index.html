@@ -27,7 +27,8 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script></head
     left: 0;
     right: 0;
     width: 100%;
-    z-index: 9999999;
+    z-index: 2147483647 !important;
+    isolation: auto !important;
     box-sizing: border-box;
 
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); 
@@ -831,7 +832,7 @@ li:hover > .submenu:not(.catalog-submenu) {
   flex-direction: column !important;
 }
 .catalog-item.has-right-submenu:hover > .catalog-submenu-right {
-  display: block;
+  display: flex;
 }
 @media (max-width: 1280px) {
 
