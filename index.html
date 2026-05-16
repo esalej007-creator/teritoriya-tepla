@@ -1012,7 +1012,6 @@ catalogMenu.addEventListener('click', (e) => {
 // закрытие по затемнению
 overlay.addEventListener('click', closeMenu);
 
-// ❌ ВАЖНО: document.addEventListener('click') УДАЛЕН
 </script> <script>
 document.addEventListener('DOMContentLoaded', () => {
   const searchInput = document.querySelector('.header-search input');
@@ -1080,19 +1079,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const mobileSearchIcon = document.getElementById('mobile-search-icon');
   const mobileSearch = document.getElementById('mobile-search');
 
-  // Открытие/закрытие мобильного меню
   burger.addEventListener('click', () => {
     mobileMenu.classList.toggle('active');
     overlay.classList.toggle('active');
   });
 
-  // Закрытие при клике на overlay
   overlay.addEventListener('click', () => {
     mobileMenu.classList.remove('active');
     overlay.classList.remove('active');
   });
 
-  // Открытие поиска
   mobileSearchIcon.addEventListener('click', () => {
     mobileSearch.classList.toggle('active');
   });
@@ -1115,7 +1111,6 @@ document.addEventListener('DOMContentLoaded', () => {
     overlay.classList.remove('active');
   });
 
-  // Открытие поиска
   mobileSearchIcon.addEventListener('click', () => {
     mobileSearch.classList.toggle('active');
   });
@@ -1680,7 +1675,6 @@ document.addEventListener("DOMContentLoaded", function(){
     }
 }
 
-/* Твой нижний линийный эффект остаётся как есть */
 .btn-feedback1::after {
     content: '';
     position: absolute;
@@ -1704,11 +1698,11 @@ document.addEventListener("DOMContentLoaded", function(){
     text-decoration: underline;
 }
 .mobile-contacts div {
-  text-align: center; /* центрируем весь блок */
+  text-align: center; 
 }
 
 .mobile-contacts a {
-  display: inline-block; /* чтобы ссылка центрировалась вместе с текстом */
+  display: inline-block; 
   color: inherit;
   text-decoration: none;
 }
@@ -2281,7 +2275,7 @@ body {
 Доставка
 </a> <a href="#about">
 О нас
-</a> <div class="mobile-contacts" aria-hidden="false"> <div>Отдел продаж: <a href="tel:+79201038087">+7 (920) 103-80-87</a></div> <div>Электронная почта: territoriya-tepla@bk.ru</div> <div class="mobile-socials"> <a href="#"><img src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/vk.png" alt="s1"></a> <a href="#"><img src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/mail.png" alt="mail"></a> <a href="#"><img src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/tg.png" alt="tg"></a> </div> </div> <div class="mobile-banner mobile-banner-bottom"> <a href="#"> <img src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/catalog/%D0%A0%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B%20%D0%BE%D1%82%D0%BE%D0%BF%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F/footerimg.png" alt="banner"> </a> </div> </nav> <div id="trustModal" role="dialog" aria-modal="true" aria-hidden="true"> <div class="trust-window" role="document"> <button class="trust-close" aria-label="Закрыть">&times;</button> <h2 style="color:#fff;margin-top:0;text-align:center;">Нам доверяют</h2> <div class="trust-container"> <div class="trust-card"><img src="images/tild3063-6662-4536-b237-373366336461__1.png" alt=""></div> <div class="trust-card"><img src="images/tild3931-3133-4335-a661-643539306262__2.png" alt=""></div> <div class="trust-card"><img src="images/tild6539-3431-4639-a637-326664306161__3.png" alt=""></div> <div class="trust-card"><img src="images/tild3861-6461-4961-b365-616236376234__4.png" alt=""></div> <div class="trust-card"><img src="images/tild6364-3761-4461-a361-376663326530__5.png" alt=""></div> <div class="trust-card"><img src="images/tild3736-6235-4435-b765-386436376266__6.png" alt=""></div> <div class="trust-card"><img src="images/tild6431-6263-4361-a638-663362396165__7.png" alt=""></div> <div class="trust-card"><img src="images/tild6533-3338-4564-b164-326466343435__8.png" alt=""></div> <div class="trust-card"><img src="images/tild6266-3961-4365-b830-326632653738__9.png" alt=""></div> <div class="trust-card"><img src="images/tild6265-3064-4265-b464-623835623335__10.png" alt=""></div> <div class="trust-card"><img src="images/tild6366-3666-4462-b762-393164663161__11.png" alt=""></div> <div class="trust-card"><img src="images/tild3135-3663-4733-b133-653839666330__12.png" alt=""></div> <div class="trust-card"><img src="images/tild3365-3533-4637-b238-373464643866__13.png" alt=""></div> <div class="trust-card"><img src="images/tild6230-3730-4761-b063-313739343836__14.png" alt=""></div> </div> </div> </div> <div id="deliveryModal" role="dialog" aria-modal="true" aria-hidden="true"> <div class="trust-window"> <button class="trust-close" aria-label="Закрыть">&times;</button> <h2 style="color:#002283; margin-top:0; text-align:center;">Доставка</h2> <div style="color:#002283; font-size:14px; line-height:1.5; margin-bottom:20px;">
+</a> <div class="mobile-contacts" aria-hidden="false"> <div>Отдел продаж: <a href="tel:+79201038087">+7 (920) 103-80-87</a></div> <div>Электронная почта: territoriya-tepla@bk.ru</div> <div class="mobile-socials"> <a href="#"><img src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/vk.png" alt="s1"></a> <a href="#"><img src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/mail.png" alt="mail"></a> <a href="#"><img src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/tg.png" alt="tg"></a> </div> </div> <button class="feedback-btn">Обратная связь</button> <div class="mobile-banner mobile-banner-bottom"> <a href="#"> <img src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/catalog/%D0%A0%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B%20%D0%BE%D1%82%D0%BE%D0%BF%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F/footerimg.png" alt="banner"> </a> </div> </nav> <div id="trustModal" role="dialog" aria-modal="true" aria-hidden="true"> <div class="trust-window" role="document"> <button class="trust-close" aria-label="Закрыть">&times;</button> <h2 style="color:#fff;margin-top:0;text-align:center;">Нам доверяют</h2> <div class="trust-container"> <div class="trust-card"><img src="images/tild3063-6662-4536-b237-373366336461__1.png" alt=""></div> <div class="trust-card"><img src="images/tild3931-3133-4335-a661-643539306262__2.png" alt=""></div> <div class="trust-card"><img src="images/tild6539-3431-4639-a637-326664306161__3.png" alt=""></div> <div class="trust-card"><img src="images/tild3861-6461-4961-b365-616236376234__4.png" alt=""></div> <div class="trust-card"><img src="images/tild6364-3761-4461-a361-376663326530__5.png" alt=""></div> <div class="trust-card"><img src="images/tild3736-6235-4435-b765-386436376266__6.png" alt=""></div> <div class="trust-card"><img src="images/tild6431-6263-4361-a638-663362396165__7.png" alt=""></div> <div class="trust-card"><img src="images/tild6533-3338-4564-b164-326466343435__8.png" alt=""></div> <div class="trust-card"><img src="images/tild6266-3961-4365-b830-326632653738__9.png" alt=""></div> <div class="trust-card"><img src="images/tild6265-3064-4265-b464-623835623335__10.png" alt=""></div> <div class="trust-card"><img src="images/tild6366-3666-4462-b762-393164663161__11.png" alt=""></div> <div class="trust-card"><img src="images/tild3135-3663-4733-b133-653839666330__12.png" alt=""></div> <div class="trust-card"><img src="images/tild3365-3533-4637-b238-373464643866__13.png" alt=""></div> <div class="trust-card"><img src="images/tild6230-3730-4761-b063-313739343836__14.png" alt=""></div> </div> </div> </div> <div id="deliveryModal" role="dialog" aria-modal="true" aria-hidden="true"> <div class="trust-window"> <button class="trust-close" aria-label="Закрыть">&times;</button> <h2 style="color:#002283; margin-top:0; text-align:center;">Доставка</h2> <div style="color:#002283; font-size:14px; line-height:1.5; margin-bottom:20px;">
 Доставка организуется индивидуально под каждый заказ.
 
 Мы подбираем оптимальный вариант с учётом объёма, сроков и региона.
