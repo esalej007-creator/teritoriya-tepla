@@ -4253,61 +4253,45 @@ html, body {
 ₽
 </div>
 
-<form
-class="cart-form"
-action="https://api.web3forms.com/submit"
-method="POST"
->
-<input type="hidden" name="from_name" value="Территория Тепла">
-<input type="hidden" name="access_key" value="6704c806-af73-48e3-8ed1-e989daa9cba4">
+<form class="cart-form" action="https://api.web3forms.com/submit" method="POST">
 
-<input type="hidden" name="subject" value="Новый заказ с сайта">
+  <input type="hidden" name="access_key" value="6704c806-af73-48e3-8ed1-e989daa9cba4">
+  <input type="hidden" name="subject" value="Новый заказ с сайта">
 
-<input type="hidden" name="botcheck" value="">
-<input
-  type="hidden"
-  id="cartData"
-  name="cartData"
->
-<input type="hidden" name="product" id="formProduct">
+  <input type="hidden" name="cartData" id="cartData">
 
-<input type="text" name="name" placeholder="Имя*" required>
+  <input type="text" name="name" placeholder="Имя*" required>
+  <input type="tel" name="phone" placeholder="Телефон*" required>
+  <textarea name="comment" placeholder="Комментарий"></textarea>
 
-<input type="tel" name="phone" placeholder="Телефон*" required>
+  <div class="form-checkboxes">
 
-<textarea name="comment" placeholder="Комментарий"></textarea>
-<div class="form-checkboxes">
+    <label class="form-check">
+      <input type="checkbox" required>
+      <span class="checkmark"></span>
+      <span class="check-text">
+        Ознакомлен с
+        <a href="#" class="open-modal" data-modal="offerModal">
+          политикой в отношении обработки персональных данных
+        </a>
+      </span>
+    </label>
 
-<label class="form-check">
-  <input type="checkbox" required>
+    <label class="form-check">
+      <input type="checkbox" required>
+      <span class="checkmark"></span>
+      <span class="check-text">
+        Соглашаюсь с
+        <a href="#" class="open-modal" data-modal="policyModal">
+          политикой конфиденциальности
+        </a>
+      </span>
+    </label>
 
-  <span class="checkmark"></span>
+  </div>
 
-  <span class="check-text">
-    Ознакомлен с
-    <a href="#" class="open-modal" data-modal="offerModal">
-      политикой в отношении обработки персональных данных
-    </a>
-  </span>
-</label>
+  <button type="submit">Отправить заказ</button>
 
-<label class="form-check">
-  <input type="checkbox" required>
-
-  <span class="checkmark"></span>
-
-  <span class="check-text">
-    Соглашаюсь с
-    <a href="#" class="open-modal" data-modal="policyModal">
-      политикой конфиденциальности
-    </a>
-  </span>
-</label>
-
-</div>
-<button type="submit">
-Отправить заказ
-</button>
 
 </form>
 <div class="buy-success-new" id="cartSuccess">
@@ -4342,94 +4326,94 @@ method="POST"
 
   </div>
 </div>
-   <script>
+<script>
 document.addEventListener("DOMContentLoaded", () => {
 
   const cartForm = document.querySelector(".cart-form");
-
   if (!cartForm) return;
 
-  cartForm.addEventListener("submit", async function(e){
+  cartForm.addEventListener("submit", function(e) {
 
     e.preventDefault();
 
-    const checkboxes =
-      cartForm.querySelectorAll('input[type="checkbox"]');
+    // ======================
+    // 1. ЧЕКБОКСЫ (обязательно)
+    // ======================
+    const checkboxes = cartForm.querySelectorAll('input[type="checkbox"]');
+    const allChecked = Array.from(checkboxes).every(c => c.checked);
 
-    const allChecked =
-      Array.from(checkboxes).every(c => c.checked);
-
-    if (!allChecked){
+    if (!allChecked) {
       alert("Нужно согласиться с политикой");
       return;
     }
 
-    // ТОВАРЫ
-    const items = Object.values(window.cart);
+    // ======================
+    // 2. КОРЗИНА
+    // ======================
+    const items = Object.values(window.cart || {});
 
-    const text = items.map(item => {
+    let text = "";
 
-      return `
+    if (items.length === 0) {
+      text = "Корзина пустая";
+    } else {
+      text = items.map(item => {
+        return `
 Товар: ${item.title}
 Количество: ${item.qty}
 Цена: ${item.price} ₽
 Сумма: ${item.qty * item.price} ₽
 `;
+      }).join("\n-----------------\n");
+    }
 
-    }).join('\n-----------------\n');
+    // кладём в скрытое поле
+    const cartField = document.getElementById("cartData");
+    if (cartField) {
+      cartField.value = text;
+    }
 
-    document.getElementById("cartData").value = text;
-
-    // ОТПРАВКА
+    // ======================
+    // 3. ОТПРАВКА WEB3FORMS
+    // ======================
     const formData = new FormData(cartForm);
 
-    try {
+    fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
 
-      const response = await fetch(
-        "https://api.staticforms.xyz/submit",
-        {
-          method: "POST",
-          body: formData
-        }
-      );
+      if (data.success) {
 
-      if (response.ok) {
+        // ======================
+        // 4. УСПЕХ
+        // ======================
 
         cartForm.style.display = "none";
 
-        document.getElementById("cartSuccess")
-          .style.display = "block";
+        const success = document.getElementById("cartSuccess");
+        if (success) success.style.display = "block";
 
         window.cart = {};
         localStorage.removeItem("cart");
 
-        const badge =
-          document.getElementById("cartCountBadge");
+        const badge = document.getElementById("cartCountBadge");
+        if (badge) badge.style.display = "none";
 
-        if (badge) {
-          badge.style.display = "none";
-        }
-
-        const floating =
-          document.getElementById("floatingCart");
-
-        if (floating) {
-          floating.classList.remove("visible");
-        }
+        const floating = document.getElementById("floatingCart");
+        if (floating) floating.classList.remove("visible");
 
       } else {
-
-        alert("Ошибка отправки");
-
+        alert("Ошибка отправки: " + (data.message || "unknown"));
       }
 
-    } catch(err){
-
+    })
+    .catch(err => {
       console.error(err);
-
-      alert("Ошибка соединения");
-
-    }
+      alert("Ошибка соединения с сервером");
+    });
 
   });
 
