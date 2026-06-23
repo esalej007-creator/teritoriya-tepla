@@ -5031,9 +5031,24 @@ const more = document.createElement('button');
 more.className = 'btn btn-black';
 more.textContent = 'Подробнее';
 
+const productUrl = 'products/' + it.id + '.html';
+
 more.onclick = (e) => {
   e.stopPropagation();
-  window.location.href = 'products/' + it.id + '.html';
+  window.open(productUrl, '_blank');
+};
+
+more.oncontextmenu = (e) => {
+  e.preventDefault(); 
+  e.stopPropagation();  
+  window.open(productUrl, '_blank');
+};
+
+more.onauxclick = (e) => {
+  if (e.button === 1) { 
+    e.stopPropagation();
+    window.open(productUrl, '_blank');
+  }
 };
 
 const order = document.createElement('button');
@@ -5051,8 +5066,9 @@ order.onclick = (e) => {
     price: Number(it.price) || 0,
     img: it.pictures?.[0] || ''
   });
-
 };
+
+actions.append(more, order);
 
 actions.append(more, order);
 body.append(actions);
