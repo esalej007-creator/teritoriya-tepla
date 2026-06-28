@@ -4033,13 +4033,42 @@ const productId = urlParams.get('product');
 if (productId) {
   openProductById(productId);
 }
-</script> <!-- nominify end --> </div> </div> </div> </div> <div id="rec2164936501" class="r t-rec" style=" " data-animationappear="off" data-record-type="131"> <!-- T123 --> <div class="t123"> <div class="t-container_100 "> <div class="t-width t-width_100 "> <!-- nominify begin --> <div class="feedback2-overlay" id="form2"> <div class="feedback2-modal"> <button class="feedback2-close" aria-label="Закрыть"></button> <div class="feedback2-content"> <h2 class="feedback2-title">
-        Менеджер свяжется в удобное для вас время
-      </h2> <form> <input type="text" name="username" placeholder="Как к вам обращаться*" required> <input type="tel" name="phone" placeholder="Ваш номер телефона*" required> <textarea name="comment" placeholder="Комментарий или вопрос"></textarea> <button type="submit" class="feedback2-btn">Отправить</button> <div class="feedback2-checkboxes"> <label class="feedback2-check"> <input type="checkbox" required> <span class="feedback2-checkmark"></span> <span class="feedback2-check-text">
-              Ознакомлен с
-              <a href="#" class="open-modal" data-modal="policyModal">Политика конфиденциальности</a> </span> </label> <label class="feedback2-check"> <input type="checkbox" required> <span class="feedback2-checkmark"></span> <span class="feedback2-check-text">
-              Соглашаюсь с
-              <a href="#" class="open-modal" data-modal="offerModal">политикой в отношении обработки персональных данных</a> </span> </label> </div> </form> </div> </div> </div> <style>
+</script> <!-- nominify end --> </div> </div> </div> </div> <div id="rec2164936501" class="r t-rec" style=" " data-animationappear="off" data-record-type="131"> <!-- T123 --> <div class="t123"> <div class="t-container_100 "> <div class="t-width t-width_100 "> <!-- nominify begin --> 
+<div class="feedback2-overlay" id="form2"> 
+<div class="feedback2-modal"> 
+  <button class="feedback2-close" aria-label="Закрыть"></button> 
+  <div class="feedback2-content"> 
+    <h2 class="feedback2-title">Менеджер свяжется в удобное для вас время</h2> 
+    
+    <form action="https://api.web3forms.com/submit" method="POST">
+      <input type="hidden" name="access_key" value="6704c806-af73-48e3-8ed1-e989daa9cba4">
+      <input type="hidden" name="subject" value="Заявка из обратного звонка">
+      
+      <input type="text" name="username" placeholder="Как к вам обращаться*" required> 
+      <input type="tel" name="phone" placeholder="Ваш номер телефона*" required> 
+      <textarea name="comment" placeholder="Комментарий или вопрос"></textarea> 
+      
+      <button type="submit" class="feedback2-btn">Отправить</button> 
+      
+      <div class="feedback2-checkboxes"> 
+        <label class="feedback2-check"> 
+          <input type="checkbox" required> 
+          <span class="feedback2-checkmark"></span> 
+          <span class="feedback2-check-text">
+            Ознакомлен с <a href="#" class="open-modal" data-modal="policyModal">Политикой конфиденциальности</a> 
+          </span> 
+        </label> 
+        <label class="feedback2-check"> 
+          <input type="checkbox" required> 
+          <span class="feedback2-checkmark"></span> 
+          <span class="feedback2-check-text">
+            Соглашаюсь с <a href="#" class="open-modal" data-modal="offerModal">политикой в отношении обработки персональных данных</a> 
+          </span> 
+        </label> 
+      </div> 
+    </form> 
+  </div> 
+</div> <style>
 .feedback2-overlay {
   position: fixed;
   inset: 0;
@@ -5464,44 +5493,36 @@ color: #fff;
       <div class="buy-right-new">
         <h2 id="buyTitleNew">Товар</h2>
 
-<form action="https://api.staticforms.xyz/submit" method="POST">
-  <input type="hidden" name="accessKey" value="sf_381a97dc4c80c388792c19e4">
-  <input type="hidden" name="replyTo" value="esalej@mail.ru">
-  <input type="hidden" name="email" value="esalej@mail.ru"> 
+<form action="https://api.web3forms.com/submit" method="POST">
+  <input type="hidden" name="access_key" value="6704c806-af73-48e3-8ed1-e989daa9cba4">
   <input type="hidden" name="subject" value="Новый заказ с сайта">
-  <input type="hidden" name="honeypot" value="">
+  
   <input type="hidden" name="product" id="formProduct">
   <input type="hidden" name="price" id="formPrice">
   <input type="hidden" name="qty" id="formQty">
+  
   <input type="text" name="name" placeholder="Имя*" required>
   <input type="tel" name="phone" placeholder="Телефон*" required>
   <textarea name="comment" placeholder="Комментарий"></textarea>
+
+  <div class="form-checkboxes">
+    <label class="form-check">
+      <input type="checkbox" required>
+      <span class="checkmark"></span>
+      <span class="check-text">
+        Ознакомлен с <a href="#" class="open-modal" data-modal="offerModal">политикой обработки данных</a>
+      </span>
+    </label>
+    <label class="form-check">
+      <input type="checkbox" required>
+      <span class="checkmark"></span>
+      <span class="check-text">
+        Соглашаюсь с <a href="#" class="open-modal" data-modal="policyModal">политикой конфиденциальности</a>
+      </span>
+    </label>
+  </div>
+
   <button type="submit">Отправить заказ</button>
-<div class="form-checkboxes">
-
-<label class="form-check">
-  <input type="checkbox" required>
-  <span class="checkmark"></span>
-  <span class="check-text">
-    Ознакомлен с
-    <a href="#" class="open-modal" data-modal="offerModal">
-      политикой в отношении обработки персональных данных
-    </a>
-  </span>
-</label>
-
-<label class="form-check">
-  <input type="checkbox" required>
-  <span class="checkmark"></span>
-  <span class="check-text">
-    Соглашаюсь с
-    <a href="#" class="open-modal" data-modal="policyModal">
-      политикой конфиденциальности
-    </a>
-  </span>
-</label>
-
-</div>
 </form>
 <div class="buy-success-new" id="buySuccessNew">
   <h3>Спасибо за отправленную заявку!</h3>
