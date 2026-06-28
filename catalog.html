@@ -5031,19 +5031,24 @@ const more = document.createElement('button');
 more.className = 'btn btn-black';
 more.textContent = 'Подробнее';
 
+// Ссылка на товар
 const productUrl = 'products/' + it.id + '.html';
 
+// 1. Обычный клик ЛЕВОЙ кнопкой мыши — теперь открывает в НОВОЙ вкладке
 more.onclick = (e) => {
   e.stopPropagation();
   window.open(productUrl, '_blank');
 };
 
+// 2. Клик ПРАВОЙ кнопкой мыши — имитируем выбор "Открыть в новой вкладке"
+// При нажатии правой кнопкой товар сразу откроется в новой вкладке, не мешая листать каталог
 more.oncontextmenu = (e) => {
-  e.preventDefault(); 
-  e.stopPropagation();  
+  e.preventDefault();  // Отменяем дефолтное пустое контекстное меню кнопки
+  e.stopPropagation();   // Предотвращаем клик по всей карточке товара
   window.open(productUrl, '_blank');
 };
 
+// 3. Клик КОЛЕСИКОМ мыши (Middle click) — тоже откроет в фоновой вкладке
 more.onauxclick = (e) => {
   if (e.button === 1) { 
     e.stopPropagation();
@@ -5068,6 +5073,7 @@ order.onclick = (e) => {
   });
 };
 
+// Ничего не ломаем, передаем те же самые переменные в append
 actions.append(more, order);
 
 actions.append(more, order);
@@ -6400,13 +6406,41 @@ const productId = urlParams.get('product');
 if (productId) {
   openProductById(productId);
 }
-</script> <!-- nominify end --> </div> </div> </div> </div> <div id="rec2164320611" class="r t-rec" style=" " data-animationappear="off" data-record-type="131"> <!-- T123 --> <div class="t123"> <div class="t-container_100 "> <div class="t-width t-width_100 "> <!-- nominify begin --> <div class="feedback2-overlay" id="form2"> <div class="feedback2-modal"> <button class="feedback2-close" aria-label="Закрыть"></button> <div class="feedback2-content"> <h2 class="feedback2-title">
-        Менеджер свяжется в удобное для вас время
-      </h2> <form> <input type="text" name="username" placeholder="Как к вам обращаться*" required> <input type="tel" name="phone" placeholder="Ваш номер телефона*" required> <textarea name="comment" placeholder="Комментарий или вопрос"></textarea> <button type="submit" class="feedback2-btn">Отправить</button> <div class="feedback2-checkboxes"> <label class="feedback2-check"> <input type="checkbox" required> <span class="feedback2-checkmark"></span> <span class="feedback2-check-text">
-              Ознакомлен с
-              <a href="#" class="open-modal" data-modal="policyModal">Политика конфиденциальности</a> </span> </label> <label class="feedback2-check"> <input type="checkbox" required> <span class="feedback2-checkmark"></span> <span class="feedback2-check-text">
-              Соглашаюсь с
-              <a href="#" class="open-modal" data-modal="offerModal">политикой в отношении обработки персональных данных</a> </span> </label> </div> </form> </div> </div> </div> <style>
+</script> <!-- nominify end --> </div> </div> </div> </div> <div id="rec2164320611" class="r t-rec" style=" " data-animationappear="off" data-record-type="131"> <!-- T123 --> <div class="t123"> <div class="t-container_100 "> <div class="t-width t-width_100 "> <!-- nominify begin --> <div class="feedback2-overlay" id="form2"> 
+<div class="feedback2-modal"> 
+  <button class="feedback2-close" aria-label="Закрыть"></button> 
+  <div class="feedback2-content"> 
+    <h2 class="feedback2-title">Менеджер свяжется в удобное для вас время</h2> 
+    
+    <form action="https://api.web3forms.com/submit" method="POST">
+      <input type="hidden" name="access_key" value="6704c806-af73-48e3-8ed1-e989daa9cba4">
+      <input type="hidden" name="subject" value="Заявка из обратного звонка">
+      
+      <input type="text" name="username" placeholder="Как к вам обращаться*" required> 
+      <input type="tel" name="phone" placeholder="Ваш номер телефона*" required> 
+      <textarea name="comment" placeholder="Комментарий или вопрос"></textarea> 
+      
+      <button type="submit" class="feedback2-btn">Отправить</button> 
+      
+      <div class="feedback2-checkboxes"> 
+        <label class="feedback2-check"> 
+          <input type="checkbox" required> 
+          <span class="feedback2-checkmark"></span> 
+          <span class="feedback2-check-text">
+            Ознакомлен с <a href="#" class="open-modal" data-modal="policyModal">Политикой конфиденциальности</a> 
+          </span> 
+        </label> 
+        <label class="feedback2-check"> 
+          <input type="checkbox" required> 
+          <span class="feedback2-checkmark"></span> 
+          <span class="feedback2-check-text">
+            Соглашаюсь с <a href="#" class="open-modal" data-modal="offerModal">политикой в отношении обработки персональных данных</a> 
+          </span> 
+        </label> 
+      </div> 
+    </form> 
+  </div> 
+</div> <style>
 .feedback2-overlay {
   position: fixed;
   inset: 0;
