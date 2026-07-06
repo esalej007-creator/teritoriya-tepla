@@ -25,7 +25,6 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script></head
   font-family: 'TildaSans', sans-serif;
 }
 
-/* Позиционирование элементов меню */
 .menu-item.has-submenu {
   position: relative;
 }
@@ -44,14 +43,14 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script></head
     box-sizing: border-box;
 
     /* Новое для тени */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* горизонтальное, вертикальное смещение, размытие, цвет */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 }
 
 .logo-container {
     display: flex;
     align-items: center;
     color: #fff;
-    flex: 0 0 auto; /* не растягиваем */
+    flex: 0 0 auto; 
 }
 
   .logo {
@@ -112,11 +111,11 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script></head
 .desktop-menu {
     display: flex;
     align-items: center;
-    width: 100%;      /* растягиваем меню на всю ширину header */
+    width: 100%;      
     list-style: none;
     margin: 0;
     padding: 0;
-    gap: 20px;        /* расстояние между пунктами меню */
+    gap: 20px;    
 }
 .desktop-menu .contacts {
     margin-left: auto;
@@ -148,7 +147,7 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script></head
   min-width: 200px;
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 8px;
-  z-index: 10; /* ставим выше, чтобы быть поверх контактов */
+  z-index: 10; 
 }
 
 .submenu a {
@@ -163,7 +162,7 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script></head
 }
 
 .submenu a:hover {
-  background: #0033cc; /* чуть светлее синий */
+  background: #0033cc;
 }
   .submenu a:last-child {
     border-bottom: none;
@@ -189,12 +188,12 @@ li:hover > .submenu:not(.catalog-submenu) {
   transform: translateY(-5px);
   transition: #f10600;
   border-radius: 4px; 
-  border: #002283; /* <-- прозрачный бордюр по умолчанию */
+  border: #002283; 
 }
 
 .contacts:hover {
-  background-color: transparent; /* убрали красный фон */
-  color: #002283; /* оставили обычный цвет */
+  background-color: transparent; 
+  color: #002283; 
 }
 
   .contacts a {
@@ -317,8 +316,8 @@ li:hover > .submenu:not(.catalog-submenu) {
 .menu-item:hover::before {
   content: ">";
   display: inline-block;
-  margin-right: 8px; /* отступ от текста */
-  color: #f10600;       /* цвет стрелки */
+  margin-right: 8px; 
+  color: #f10600;     
   font-weight: bold;
   transition: transform 0.3s ease;
 }
@@ -327,20 +326,19 @@ li:hover > .submenu:not(.catalog-submenu) {
 .menu-item::before {
   content: ">";
   display: inline-block;
-  width: 12px;      /* ширина стрелки, резервируем место */
-  margin-right: 8px; /* расстояние от текста */
+  width: 12px;     
+  margin-right: 8px; 
   color: #fff;
   font-weight: bold;
-  opacity: 0;       /* невидимо по умолчанию */
-  transform: translateX(-5px); /* чуть сдвинуто влево */
+  opacity: 0;      
+  transform: translateX(-5px); 
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-/* При наведении делаем видимой */
 .desktop-menu > li > a:hover::before,
 .menu-item:hover::before {
   opacity: 1;
-  transform: translateX(0); /* плавно сдвигается на место */
+  transform: translateX(0); 
 }
 
 @media(max-width: 768px) {
@@ -397,7 +395,7 @@ li:hover > .submenu:not(.catalog-submenu) {
   position: absolute;
   inset: 0;
   border-radius: 6px;
-  background: rgba(241, 6, 0, 0.6); /* тот же цвет, но прозрачный */
+  background: rgba(241, 6, 0, 0.6); 
   z-index: -1;
   animation: pulse 1.5s infinite;
 }
@@ -421,7 +419,7 @@ li:hover > .submenu:not(.catalog-submenu) {
 .header-inner {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* логотип слева, меню по центру, кнопка и контакты справа */
+  justify-content: space-between;
   width: 100%;
   padding: 0 20px; 
   box-sizing: border-box;
@@ -485,10 +483,9 @@ li:hover > .submenu:not(.catalog-submenu) {
   display: block;
 }
 
-/* Адаптивно для мобильных */
 @media (max-width: 768px) {
   .header-search {
-    display: none; /* скрываем поиск на мобильных */
+    display: none; 
   }
 }
 li:hover > .submenu:not(.catalog-submenu) {
@@ -569,14 +566,13 @@ li:hover > .submenu:not(.catalog-submenu) {
   color: #fff;
 }
 
-/* убираем ВСЕ старые эффекты */
 .catalog-submenu .catalog-item::before {
   display: none !important;
 }
 .header {
   position: fixed;
   z-index: 9999999;
-  isolation: isolate; /* 👈 ВАЖНО */
+  isolation: isolate; 
 }
 .overlay {
   position: fixed;
@@ -619,7 +615,6 @@ li:hover > .submenu:not(.catalog-submenu) {
   display: flex;
 }
 
-/* Подкатегории — как обычные catalog-item */
 .catalog-submenu-right .catalog-item {
   display: flex;
   align-items: center;
@@ -669,12 +664,11 @@ li:hover > .submenu:not(.catalog-submenu) {
   z-index: 2000;
 }
 
-/* Третий уровень — внутри второго */
 .catalog-submenu-right .catalog-item.has-right-submenu > .catalog-submenu-right {
   position: absolute;
   top: 0;
-  left: 100%; /* справа от родителя */
-  display: none; /* по умолчанию скрыт */
+  left: 100%; 
+  display: none;
   z-index: 4000;
   width: 320px; 
   background: #fff;
@@ -687,7 +681,6 @@ li:hover > .submenu:not(.catalog-submenu) {
   flex-direction: column;
 }
 
-/* Убедиться, что родитель не режет overflow */
 .catalog-submenu-right {
   overflow: visible !important;
 }
@@ -728,7 +721,7 @@ li:hover > .submenu:not(.catalog-submenu) {
   display: flex;
   align-items: center;
   gap: 5px;
-  flex: 0 0 250px; /* ширина поля поиска */
+  flex: 0 0 250px;
 }
 
 .header-search input {
@@ -768,7 +761,7 @@ li:hover > .submenu:not(.catalog-submenu) {
 
 @media (max-width: 768px) {
   .header-search {
-    display: none; /* скрываем поиск на мобильных */
+    display: none; 
   }
 }
 li:hover > .submenu:not(.catalog-submenu) {
@@ -794,19 +787,16 @@ li:hover > .submenu:not(.catalog-submenu) {
 
   z-index: 1000;
 
-  /* тень только справа */
   box-shadow: 20px 0 40px -10px rgba(0,0,0,0.3);
     top: 70px;
   
 }
 
 
-/* открытие */
 .catalog-submenu.active {
   transform: translateX(0);
 }
 
-/* список */
 .catalog-submenu .catalog-items {
   display: flex;
   flex-direction: column;
@@ -827,7 +817,6 @@ li:hover > .submenu:not(.catalog-submenu) {
   transition: background 0.2s ease;
 }
 
-/* иконка */
 .catalog-submenu .catalog-item img {
   width: 50px;
   height: 50px;
@@ -2551,7 +2540,6 @@ body {
 document.addEventListener("DOMContentLoaded", () => {
   const body = document.body;
 
-  // ===== MOBILE MENU =====
   const mobileToggle = document.getElementById('mobileToggle');
   const mobileNav = document.getElementById('mobileNav');
   const mobileClose = document.getElementById('mobileClose');
@@ -2578,16 +2566,14 @@ document.querySelectorAll('.cat-toggle').forEach(btn => {
     const submenu = btn.nextElementSibling;
     if (!submenu) return;
 
-    const parent = btn.parentElement; // текущий уровень
+    const parent = btn.parentElement; 
 
-    // 🔴 закрываем соседей
     parent.parentElement.querySelectorAll(':scope > .cat-item .cat-submenu, :scope > .cat-submenu').forEach(el => {
       if (el !== submenu) {
         el.classList.remove('open');
       }
     });
 
-    // 🟢 открываем текущий
     submenu.classList.toggle('open');
   });
 });
@@ -2598,7 +2584,6 @@ document.querySelectorAll('.toggle-main').forEach(btn => {
     item.classList.toggle('open');
   });
 });
-  // ===== TRUST MODAL =====
   const trustModal = document.getElementById('trustModal');
   const trustClose = trustModal?.querySelector('.trust-close');
   const trustBtns = [document.getElementById('trustBtn'), document.getElementById('mobileTrustBtn')];
@@ -2625,8 +2610,6 @@ document.querySelectorAll('.toggle-main').forEach(btn => {
       body.style.overflow = '';
     }
   });
-
-  // ===== DELIVERY MODAL =====
   const deliveryModal = document.getElementById('deliveryModal');
   const deliveryBtns = document.querySelectorAll('.nav a[href="#delivery"], #mobileNav a[href="#delivery"]');
   const deliveryClose = deliveryModal?.querySelector('.trust-close');
@@ -2678,8 +2661,6 @@ feedbackModal?.addEventListener('click', e => {
     document.body.style.overflow = '';
   }
 });
-
-// ===== FORM SUBMISSION TO TELEGRAM =====
 const feedbackForm = document.getElementById('feedbackForm');
 
 feedbackForm?.addEventListener('submit', function(e) {
@@ -2735,19 +2716,16 @@ const message = `
         mobileToggle?.setAttribute('aria-expanded','false');
       }
 
-      // Trust modal
       if (trustModal?.style.display === 'flex') {
         trustModal.style.display = 'none';
         trustModal.setAttribute('aria-hidden','true');
       }
 
-      // Delivery modal
       if (deliveryModal?.classList.contains('active')) {
         deliveryModal.classList.remove('active');
         deliveryModal.setAttribute('aria-hidden','true');
       }
 
-      // Feedback modal
       if (feedbackModal?.style.display === 'flex') {
         feedbackModal.style.display = 'none';
         feedbackModal.setAttribute('aria-hidden','true');
@@ -2756,8 +2734,6 @@ const message = `
       body.style.overflow = '';
     }
   });
-
-  // ===== WINDOW RESIZE =====
   window.addEventListener('resize', () => {
     if (window.innerWidth > 900 && mobileNav?.classList.contains('active')) {
       mobileNav.classList.remove('active');
@@ -2812,7 +2788,7 @@ alt='' imgfield='tn_img_1774607108812'
 
 .pl-card-box {
     flex: 0 0 calc((100% - 60px) / 6);
-    height: 180px;          /* уменьшенная высота */
+    height: 180px;       
     border: 2px solid #002283;
     border-radius: 10px;
     background: #fff;
@@ -2820,7 +2796,7 @@ alt='' imgfield='tn_img_1774607108812'
     overflow: hidden;
     cursor: pointer;
     transition: transform .2s ease;
-    padding: 8px;           /* внутренние отступы */
+    padding: 8px;           
     box-sizing: border-box;
 }
 
@@ -2830,7 +2806,7 @@ alt='' imgfield='tn_img_1774607108812'
 
 .pl-card-title {
     display: inline-block;
-    max-width: 100%; /* чтобы не выходило за пределы карточки */
+    max-width: 100%; 
     padding: 2px 8px;
     background: #002283;
     color: #fff;
@@ -2921,8 +2897,8 @@ alt='' imgfield='tn_img_1774607108812'
 }
 @media(max-width: 600px) {
     .pl-card-box {
-        flex: 0 0 35%; /* уменьшаем ширину карточки */
-        height: 160px; /* уменьшаем высоту */
+        flex: 0 0 35%; 
+        height: 160px; 
     }
 
     .pl-card-title {
@@ -2951,8 +2927,8 @@ alt='' imgfield='tn_img_1774607108812'
 }
 @media (max-width: 480px) {
   .card-title {
-    padding: 2px 6px;   /* было 6px 10px */
-    font-size: 9px;     /* ты уже частично это сделал */
+    padding: 2px 6px; 
+    font-size: 9px;    
     border-radius: 4px;
   }
 }
@@ -3147,8 +3123,8 @@ plLoadAndRender();
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 .card-title:hover {
-  background: #f10600; /* фирменный красный */
-  color: #fff;          /* чтобы текст остался читаемым */
+  background: #f10600; 
+  color: #fff;          
   transition: background 0.3s;
 }
 
@@ -3299,8 +3275,6 @@ plLoadAndRender();
   opacity: 1;
   transform: translateX(0);
 }
-
-/* стиль кнопок подкатегорий */
 .subcategories a {
   background: #002283;
   color: #fff !important;
@@ -3315,23 +3289,23 @@ plLoadAndRender();
   background: #f10600;
 }
 .categories > .three-column-card {
-  grid-column: span 3; /* занимает 3 колонки из 4 */
+  grid-column: span 3; 
 }
 @media (max-width: 1024px) {
   .categories > .three-column-card {
-    grid-column: span 3; /* на 3 колонки из 3 */
+    grid-column: span 3; 
   }
 }
 
 @media (max-width: 768px) {
   .categories > .three-column-card {
-    grid-column: span 2; /* на планшете 2 колонки */
+    grid-column: span 2;
   }
 }
 
 @media (max-width: 480px) {
   .categories > .three-column-card {
-    grid-column: span 1; /* на телефоне 1 колонка */
+    grid-column: span 1; 
   }
 }
 .subcategories {
@@ -3348,7 +3322,6 @@ plLoadAndRender();
   align-items: flex-start;
 }
 
-/* Появление при hover */
 .card:hover .subcategories {
   opacity: 1;
   transform: translateX(0);
@@ -3453,7 +3426,24 @@ plLoadAndRender();
     margin-top: -10px; 
   }
 }
-</style> <div class="categories-wrapper"> <div class="categories"> <div class="card full-width-card"> <a href="https://teritoriya-tepla.ru/catalog?category=Котлы_отопления"> <img src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/category/%D0%9A%D0%BE%D1%82%D0%BB%D1%8B%20%D0%BE%D1%82%D0%BE%D0%BF%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F.png" alt="Котлы отопления"> <div class="card-title">Котлы отопления</div> </a> <div class="subcategories"> <div class="subcategory"> <a href="#">Газовые настенные</a> <div class="sub-subcategories"> <a href="https://teritoriya-tepla.ru/catalog?category=%D0%9A%D0%BE%D1%82%D0%BB%D1%8B_%D0%BE%D1%82%D0%BE%D0%BF%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F&brand=Navien&type=Настенный">Navien</a> <a href="https://teritoriya-tepla.ru/catalog?category=%D0%9A%D0%BE%D1%82%D0%BB%D1%8B_%D0%BE%D1%82%D0%BE%D0%BF%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F&brand=Baxi&type=Настенный">Baxi</a> 
+    .custom-bg-wrapper {
+  background-color: #ffffff;    
+  border-radius: 20px;         
+  padding: 40px 20px;         
+  margin: 20px auto;        
+  max-width: 1600px;        
+  min-height: 500px;          
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+}
+.categories-wrapper {
+  max-width: 100%; 
+  margin: 0 auto;
+  padding: 0;
+  margin-top: 0;
+}
+</style> 
+    <div class="custom-bg-wrapper">
+    <div class="categories-wrapper"> <div class="categories"> <div class="card full-width-card"> <a href="https://teritoriya-tepla.ru/catalog?category=Котлы_отопления"> <img src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/category/%D0%9A%D0%BE%D1%82%D0%BB%D1%8B%20%D0%BE%D1%82%D0%BE%D0%BF%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F.png" alt="Котлы отопления"> <div class="card-title">Котлы отопления</div> </a> <div class="subcategories"> <div class="subcategory"> <a href="#">Газовые настенные</a> <div class="sub-subcategories"> <a href="https://teritoriya-tepla.ru/catalog?category=%D0%9A%D0%BE%D1%82%D0%BB%D1%8B_%D0%BE%D1%82%D0%BE%D0%BF%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F&brand=Navien&type=Настенный">Navien</a> <a href="https://teritoriya-tepla.ru/catalog?category=%D0%9A%D0%BE%D1%82%D0%BB%D1%8B_%D0%BE%D1%82%D0%BE%D0%BF%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F&brand=Baxi&type=Настенный">Baxi</a> 
 <a href="https://teritoriya-tepla.ru/catalog?category=%D0%9A%D0%BE%D1%82%D0%BB%D1%8B_%D0%BE%D1%82%D0%BE%D0%BF%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F&brand=DAESUNG&type=Настенный">Daesung</a> <a href="https://teritoriya-tepla.ru/catalog?category=%D0%9A%D0%BE%D1%82%D0%BB%D1%8B_%D0%BE%D1%82%D0%BE%D0%BF%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F&brand=FERROLI&type=Настенный">Ferroli</a> </div> </div> <div class="subcategory"> <a href="#">Газовые напольные</a> <div class="sub-subcategories"> <a href="https://teritoriya-tepla.ru/catalog?category=%D0%9A%D0%BE%D1%82%D0%BB%D1%8B_%D0%BE%D1%82%D0%BE%D0%BF%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F&brand=Navien&type=Напольный">Navien</a> <a href="https://teritoriya-tepla.ru/catalog?category=%D0%9A%D0%BE%D1%82%D0%BB%D1%8B_%D0%BE%D1%82%D0%BE%D0%BF%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F&brand=Baxi&type=Напольный">Baxi</a> </div> </div> <div class="subcategory"> <a href="https://teritoriya-tepla.ru/catalog?category=%D0%9A%D0%BE%D1%82%D0%BB%D1%8B_%D0%BE%D1%82%D0%BE%D0%BF%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F&brand=Navien&type=Электрический">Электрические</a> <div class="sub-subcategories"> <a href="https://teritoriya-tepla.ru/catalog?category=%D0%9A%D0%BE%D1%82%D0%BB%D1%8B_%D0%BE%D1%82%D0%BE%D0%BF%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F&brand=Navien&type=Электрический">Navien</a> </div> </div> </div> </div> <div class="card"> <a href="https://teritoriya-tepla.ru/catalog?category=Радиаторы_отопления"> <img src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/category/%D0%A0%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B%20%D0%BE%D1%82%D0%BE%D0%BF%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F.png" alt="Радиаторы отопления"> <div class="card-title">Радиаторы отопления</div> </a> <div class="subcategories"> <!-- Стальные --> <div class="subcategory"> <a href="https://teritoriya-tepla.ru/catalog?category=%D0%A0%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B_%D0%BE%D1%82%D0%BE%D0%BF%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F&type=Стальные радиаторы">Стальные</a> <div class="sub-subcategories"> <a href="https://teritoriya-tepla.ru/catalog?category=%D0%A0%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B_%D0%BE%D1%82%D0%BE%D0%BF%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F&brand=VALFEX&type=Стальные радиаторы">VALFEX</a> <a href="https://teritoriya-tepla.ru/catalog?category=%D0%A0%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B_%D0%BE%D1%82%D0%BE%D0%BF%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F&brand=OASIS&type=Стальные радиаторы">Oasis</a> </div> </div> <!-- Алюминиевые --> <div class="subcategory"> <a href="https://teritoriya-tepla.ru/catalog?category=%D0%A0%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B_%D0%BE%D1%82%D0%BE%D0%BF%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F&type=Алюминиевые радиаторы">Алюминиевые</a> <div class="sub-subcategories"> <a href="https://teritoriya-tepla.ru/catalog?category=%D0%A0%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B_%D0%BE%D1%82%D0%BE%D0%BF%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F&brand=OASIS&type=Алюминиевые радиаторы">Oasis ECO</a> 
 <a href="https://teritoriya-tepla.ru/catalog?category=%D0%A0%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B_%D0%BE%D1%82%D0%BE%D0%BF%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F&brand=SOLUR&type=Алюминиевые радиаторы">SOLUR Premium</a> </div> </div> <!-- Биметаллические --> <div class="subcategory"> <a href="https://teritoriya-tepla.ru/catalog?category=%D0%A0%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B_%D0%BE%D1%82%D0%BE%D0%BF%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F&type=Биметаллические радиаторы">Биметаллические</a> <div class="sub-subcategories"> <a href="https://teritoriya-tepla.ru/catalog?category=%D0%A0%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B_%D0%BE%D1%82%D0%BE%D0%BF%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F&brand=Oasis&type=Биметаллические радиаторы">SOLUR Prestige</a> <a href="https://teritoriya-tepla.ru/catalog?category=%D0%A0%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B_%D0%BE%D1%82%D0%BE%D0%BF%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F&brand=Rifar">Rifar Base 500</a> </div> </div> <div class="subcategory"> 
 <a href="https://teritoriya-tepla.ru/catalog?category=%D0%A0%D0%B0%D0%B4%D0%B8%D0%B0%D1%82%D0%BE%D1%80%D1%8B_%D0%BE%D1%82%D0%BE%D0%BF%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F&type=Комплектующие для радиаторов">Радиаторная арматура</a> </div> </div> </div> <div class="card"> <a href="https://teritoriya-tepla.ru/catalog?category=Водяной_тёплый_пол"> <img src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/category/%D0%A2%D0%B5%D0%BF%D0%BB%D1%8B%D0%B9%20%D0%BF%D0%BE%D0%BB.png" alt="Водяной теплый пол"> <div class="card-title">Водяной теплый пол</div> </a> <div class="subcategories"> <a href="https://teritoriya-tepla.ru/catalog?category=Водяной_тёплый_пол&type=Коллекторная группа">Коллекторные группы</a> <a href="https://teritoriya-tepla.ru/catalog?category=Водяной_тёплый_пол&type=Насосно-смесительные узлы">Насосно-смесительные узлы и клапана</a> <a href="https://teritoriya-tepla.ru/catalog?category=Водяной_тёплый_пол&type=Труба">Трубы для теплого пола</a> <a href="https://teritoriya-tepla.ru/catalog?category=Водяной_тёплый_пол&type=Комплектующие">Комплектующие</a> </div> </div> <div class="card"> 
