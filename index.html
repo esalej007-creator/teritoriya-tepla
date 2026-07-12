@@ -3246,7 +3246,121 @@ plLoadAndRender();
     <div class="card"> <a href="https://teritoriya-tepla.ru/catalog?category=Запчасти_для_котлов"> <img src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/category/%D0%97%D0%B0%D0%BF%D1%87%D0%B0%D1%81%D1%82%D0%B8-%D0%B4%D0%BB%D1%8F-%D0%BA%D0%BE%D1%82%D0%BB%D0%BE%D0%B2.png" alt="Запчасти_для_котлов"> 
         <div class="card-title">Запчасти для котлов</div> </a> <div class="subcategories"> </div> </div>  
 </div> </div> <!-- nominify end --> </div> </div> </div> 
-</div> <div id="rec2089055291" class="r t-rec" style=" " data-animationappear="off" data-record-type="131"> <!-- T123 --> <div class="t123"> <div class="t-container_100 "> <div class="t-width t-width_100 "> <!-- nominify begin --> <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script> <style>
+</div>
+<html lang="ru">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .unique-slider-container {
+            position: relative;
+            max-width: 1600px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .unique-slider-wrapper {
+            position: relative;
+            width: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .unique-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out; 
+            pointer-events: none;
+            display: block;
+        }
+
+        .unique-slide.active {
+            opacity: 1;
+            position: relative; 
+            pointer-events: auto;
+        }
+
+.unique-slide img {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 21 / 6; 
+            object-fit: cover;
+            display: block;
+        }
+        .unique-slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 38, 169, 0.9);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .unique-prev { left: -25px; }
+        .unique-next { right: -25px; }
+
+        .unique-slider-container:hover .unique-slider-arrow { opacity: 1; }
+        .unique-slider-arrow:hover { background: rgba(0, 38, 169, 0.9); transform: translateY(-50%) scale(1.1); }
+
+        @media (max-width: 768px) {
+            .unique-slider-arrow { width: 30px; height: 30px; opacity: 1; }
+            .unique-prev { left: 10px; }
+            .unique-next { right: 10px; }
+            .unique-slider-wrapper { border-radius: 10px; }
+        }
+    </style>
+
+<div class="unique-slider-container" id="unique-slider">
+    <div class="unique-slider-wrapper">
+        <a href="#" class="unique-slide active">
+            <img src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/slider_sale.png" alt="Slide 1">
+        </a>
+        <a href="#" class="unique-slide">
+            <img src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/slider_sale3.png" alt="Slide 2">
+        </a>
+                <a href="#" class="unique-slide">
+            <img src="https://s3.twcstorage.ru/df06c409-d71b78f0-64cf-4b11-a85a-d2bdbccb2f77/%D0%A2%D0%B5%D1%80%D1%80%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F%20%D1%82%D0%B5%D0%BF%D0%BB%D0%B0/slider_sale2.png" alt="Slide 2">
+        </a>
+    </div>
+
+    <button class="unique-slider-arrow unique-prev" onclick="changeSlide(-1)">&#10094;</button>
+    <button class="unique-slider-arrow unique-next" onclick="changeSlide(1)">&#10095;</button>
+</div>
+
+<script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.unique-slide');
+
+    function changeSlide(step) {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + step + slides.length) % slides.length;
+        slides[currentSlide].classList.add('active');
+        resetInterval();
+    }
+
+    let slideInterval = setInterval(() => changeSlide(1), 7000);
+
+    function resetInterval() {
+        clearInterval(slideInterval);
+        slideInterval = setInterval(() => changeSlide(1), 7000);
+    }
+</script>
+    <div id="rec2089055291" class="r t-rec" style=" " data-animationappear="off" data-record-type="131"> <!-- T123 --> <div class="t123"> <div class="t-container_100 "> <div class="t-width t-width_100 "> <!-- nominify begin --> <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script> <style>
 .advb-container {
     width: 1600px;
     margin: 0 auto 0px;
