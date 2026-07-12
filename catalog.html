@@ -4673,7 +4673,9 @@ function renderCategoryBar(){
          style="width:100%;height:100%;object-fit:cover;border-radius:6px"> </div> <div class="cat-label">Все</div>
 `;
 all.onclick = () => { 
-  selectedCategory=''; 
+  selectedCategory='';
+  window.selectedBrand = '';
+  window.selectedType = '';
   visible=PAGE_STEP; 
 
   buildFilters();
@@ -4692,6 +4694,8 @@ all.onclick = () => {
     
 el.onclick = () => {
   selectedCategory = c.id;
+window.selectedBrand = '';
+  window.selectedType = '';
   visible = PAGE_STEP;
 
   buildFilters();
