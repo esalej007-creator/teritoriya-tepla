@@ -4676,8 +4676,8 @@ all.onclick = () => {
   selectedCategory='';
   window.selectedBrand = '';
   window.selectedType = '';
-  visible=PAGE_STEP; 
-  items.reverse();
+  visible=PAGE_STEP;
+    
   buildFilters();
   renderCards(); 
   renderCategoryBar(); 
@@ -4824,6 +4824,7 @@ return {
       }
 
       items = parsedItems;
+     items.reverse();
       buildFilters();
       console.log('parsed offer IDs:', parsedItems.map(o => o.id));
 console.log('parsed offer names:', parsedItems.map(o => o.name));
@@ -4834,7 +4835,6 @@ console.log('parsed offer pictures:', parsedItems.map(o => o.pictures));
       renderFilterImages();
     } catch(err){ console.error(err); cardsEl.innerHTML='<div style="padding:18px;color:#900">Ошибка загрузки фида</div>'; }
   }
-
  const CATEGORY_ID_MAP = {
   "12": "Котлы_отопления",
   "5643": "Котлы_отопления",
