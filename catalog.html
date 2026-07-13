@@ -7601,48 +7601,70 @@ document.addEventListener('DOMContentLoaded', () => {
 <!-- nominify begin -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  // Класс цены внутри карточки (js-product-price, product-price или price)
-  const PRODUCT_PRICE_SELECTOR = '.js-product-price, .product-price, .price'; 
+  // === НАСТРОЙКА КЛАССОВ ===
+  // Класс цены внутри карточки
+  const PRODUCT_PRICE_SELECTOR = '.js-product-price, .product-price, .price, .t-store__card__price_value'; 
   // Класс самой карточки товара на странице
-  const PRODUCT_CARD_SELECTOR = '.product-card, .js-product-card, .t-store__card';
+  const PRODUCT_CARD_SELECTOR = '.product-card, .js-product-card, .t-store__card, .cards > div';
+  // ID контейнера, где лежат карточки (в твоем HTML это <div id="cards" class="cards">)
+  const CONTAINER_SELECTOR = '#cards';
+  // =========================
 
   const sortSelect = document.getElementById('productSort');
   if (!sortSelect) return;
 
+  // Функция получения чистой цены из карточки
   function getProductPrice(card) {
     const priceEl = card.querySelector(PRODUCT_PRICE_SELECTOR);
     if (!priceEl) return 0;
+    // Очищаем от валюты, пробелов и букв, оставляем только цифры
     const priceVal = parseInt(priceEl.textContent.replace(/[^0-9]/g, ''), 10);
     return isNaN(priceVal) ? 0 : priceVal;
   }
 
-  // Небольшая задержка, чтобы карточки успели загрузиться в браузер
-  setTimeout(() => {
-    const cards = Array.from(document.querySelectorAll(PRODUCT_CARD_SELECTOR));
-    if (cards.length === 0) return;
+  // Массив для хранения изначального порядка товаров (на случай сброса "По умолчанию")
+  let originalOrder = [];
 
-    const container = cards[0].parentNode;
-    const originalOrder = [...cards];
+  sortSelect.addEventListener('change', (e) => {
+    const container = document.querySelector(CONTAINER_SELECTOR);
+    if (!container) {
+      console.error('Контейнер с карточками не найден!');
+      return;
+    }
 
-    sortSelect.addEventListener('change', (e) => {
-      const sortedCards = [...cards];
-      const type = e.target.value;
+    // Собираем актуальные карточки прямо в момент выбора сортировки
+    const cards = Array.from(container.querySelectorAll(PRODUCT_CARD_SELECTOR));
+    if (cards.length === 0) {
+      console.warn('Карточки товаров пока не загрузились или не найдены.');
+      return;
+    }
 
-      if (type === 'price-asc') {
-        sortedCards.sort((a, b) => getProductPrice(a) - getProductPrice(b));
-      } else if (type === 'price-desc') {
-        sortedCards.sort((a, b) => getProductPrice(b) - getProductPrice(a));
-      } else {
-        sortedCards.push(...originalOrder);
-      }
+    // Запоминаем исходный порядок один раз, когда первый раз сортируем
+    if (originalOrder.length === 0) {
+      originalOrder = [...cards];
+    }
 
-      sortedCards.forEach(card => {
-        container.appendChild(card);
-      });
+    const type = e.target.value;
+    let sortedCards = [...cards];
+
+    if (type === 'price-asc') {
+      // От дешевых к дорогим
+      sortedCards.sort((a, b) => getProductPrice(a) - getProductPrice(b));
+    } else if (type === 'price-desc') {
+      // От дорогих к дешевым
+      sortedCards.sort((a, b) => getProductPrice(b) - getProductPrice(a));
+    } else {
+      // Сброс на исходный порядок
+      sortedCards = [...originalOrder];
+    }
+
+    // Очищаем контейнер и вставляем отсортированные карточки обратно
+    container.innerHTML = '';
+    sortedCards.forEach(card => {
+      container.appendChild(card);
     });
-  }, 300);
+  });
 });
 </script>
-<!-- nominify end -->
 </div> </div> </div> </div> </div> <script type="text/javascript">if(!window.mainTracker) {window.mainTracker='tilda';}
 window.tildastatcookie='no';setTimeout(function(){(function(d,w,k,o,g) {var n=d.getElementsByTagName(o)[0],s=d.createElement(o),f=function(){n.parentNode.insertBefore(s,n);};s.type="text/javascript";s.async=true;s.key=k;s.id="tildastatscript";s.src=g;if(w.opera=="[object Opera]") {d.addEventListener("DOMContentLoaded",f,false);} else {f();}})(document,window,'e9c8cdc096bfc3296cfb1594f2adee0b','script','js/tilda-stat-1.0.min.js');},2000);</script> </body> </html>
