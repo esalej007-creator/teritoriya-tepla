@@ -7585,95 +7585,148 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 </script>
-    <script>
+<script>
 document.addEventListener('DOMContentLoaded', () => {
-  // === НАСТРОЙКА КЛАССА ЦЕНЫ ===
-  // Укажи здесь класс, в котором лежит цена товара в твоих карточках:
+  // === 1. НАСТРОЙКА КЛАССОВ И ЗАЗОРА ===
   const PRODUCT_PRICE_SELECTOR = '.js-product-price, .product-price, .price'; 
-  // =============================
+  const PRODUCT_CARD_SELECTOR = '.product-card, .js-product-card, .t-store__card';
+  // Минимальный шаг-разрыв между ценами "От" и "До", чтобы они не слипались
+  const MIN_PRICE_GAP = 500; // в рублях (или твоей валюте)
+  // =====================================
 
   const priceMinInput = document.getElementById('priceMin');
   const priceMaxInput = document.getElementById('priceMax');
-  const priceRange = document.getElementById('priceRange');
+  const rangeMin = document.getElementById('priceRangeMin');
+  const rangeMax = document.getElementById('priceRangeMax');
+  const track = document.querySelector('.slider-track');
 
-  if (!priceMinInput || !priceMaxInput || !priceRange) {
-    console.error('Ошибка: Не найдены инпуты фильтра цен в HTML!');
+  if (!priceMinInput || !priceMaxInput || !rangeMin || !rangeMax || !track) {
+    console.error('Ошибка: Не найдены элементы фильтра в HTML!');
     return;
   }
 
-  // 1. Собираем все цены с карточек товаров
+  // Собираем реальные цены с карточек
   const priceElements = document.querySelectorAll(PRODUCT_PRICE_SELECTOR);
   let prices = [];
 
   priceElements.forEach(el => {
-    const priceText = el.textContent.replace(/[^0-9]/g, '');
-    const priceVal = parseInt(priceText, 10);
+    const priceVal = parseInt(el.textContent.replace(/[^0-9]/g, ''), 10);
     if (!isNaN(priceVal) && priceVal > 0) {
       prices.push(priceVal);
     }
   });
 
-  if (prices.length === 0) {
-    console.warn('Цены на странице не найдены. Проверь класс в PRODUCT_PRICE_SELECTOR.');
-    // Дефолтные значения на случай, если каталог грузится асинхронно
-    prices = [0, 10000]; 
-  }
+  const minPrice = prices.length ? Math.min(...prices) : 0;
+  const maxPrice = prices.length ? Math.max(...prices) : 10000;
 
-  const minPrice = Math.min(...prices);
-  const maxPrice = Math.max(...prices);
+  // Стартовая инициализация диапазонов
+  rangeMin.min = minPrice;
+  rangeMin.max = maxPrice;
+  rangeMin.value = minPrice;
 
-  // 2. Инициализируем границы для инпутов и ползунка
-  priceRange.min = minPrice;
-  priceRange.max = maxPrice;
-  priceRange.value = maxPrice; // Ползунок по умолчанию на максимум
+  rangeMax.min = minPrice;
+  rangeMax.max = maxPrice;
+  rangeMax.value = maxPrice;
 
   priceMinInput.value = minPrice;
-  priceMinInput.placeholder = minPrice;
   priceMaxInput.value = maxPrice;
-  priceMaxInput.placeholder = maxPrice;
 
-  // Функция для фильтрации карточек на странице
+  // Отрисовка активной полосы между бегунками
+  function fillTrack() {
+    const percent1 = ((rangeMin.value - minPrice) / (maxPrice - minPrice)) * 100;
+    const percent2 = ((rangeMax.value - minPrice) / (maxPrice - minPrice)) * 100;
+    track.style.background = `linear-gradient(to right, #e1e1e1 ${percent1}%, #000 ${percent1}%, #000 ${percent2}%, #e1e1e1 ${percent2}%)`;
+  }
+
+  // Фильтрация товаров на странице
   function filterProducts() {
     const currentMin = parseInt(priceMinInput.value, 10) || minPrice;
     const currentMax = parseInt(priceMaxInput.value, 10) || maxPrice;
 
-    // Находим все карточки товаров (подставь свой класс карточки, если нужно)
-    const cards = document.querySelectorAll('.product-card, .js-product-card, .t-store__card');
-    
+    const cards = document.querySelectorAll(PRODUCT_CARD_SELECTOR);
     cards.forEach(card => {
       const priceEl = card.querySelector(PRODUCT_PRICE_SELECTOR);
       if (priceEl) {
         const price = parseInt(priceEl.textContent.replace(/[^0-9]/g, ''), 10);
         if (price >= currentMin && price <= currentMax) {
-          card.style.display = ''; // Показываем
+          card.style.display = '';
         } else {
-          card.style.display = 'none'; // Скрываем
+          card.style.display = 'none';
         }
       }
     });
   }
 
-  // 3. Связываем ползунок с правым инпутом (Макс. цена)
-  priceRange.addEventListener('input', (e) => {
-    priceMaxInput.value = e.target.value;
-    filterProducts();
-  });
+  // Обработка движения ЛЕВОГО ползунка (Минимум)
+  rangeMin.addEventListener('input', () => {
+    let rMin = parseInt(rangeMin.value, 10);
+    let rMax = parseInt(rangeMax.value, 10);
 
-  // 4. Вешаем события на ручной ввод в инпуты "Мин" и "Макс"
-  priceMinInput.addEventListener('input', () => {
-    // Если ввели меньше минимума, ползунок не ломаем
-    filterProducts();
-  });
-
-  priceMaxInput.addEventListener('input', (e) => {
-    const val = parseInt(e.target.value, 10);
-    if (!isNaN(val) && val >= minPrice && val <= maxPrice) {
-      priceRange.value = val;
+    // Если левый бегунок слишком близко подошел к правому, отбрасываем его назад на величину зазора
+    if (rMax - rMin < MIN_PRICE_GAP) {
+      rangeMin.value = rMax - MIN_PRICE_GAP;
     }
+    
+    priceMinInput.value = rangeMin.value;
+    fillTrack();
     filterProducts();
   });
 
-  console.log(`Фильтр успешно запущен! Диапазон: ${minPrice} - ${maxPrice}`);
+  // Обработка движения ПРАВОГО ползунка (Максимум)
+  rangeMax.addEventListener('input', () => {
+    let rMin = parseInt(rangeMin.value, 10);
+    let rMax = parseInt(rangeMax.value, 10);
+
+    // Если правый бегунок слишком близко подошел к левому, отбрасываем его вперед на величину зазора
+    if (rMax - rMin < MIN_PRICE_GAP) {
+      rangeMax.value = rMin + MIN_PRICE_GAP;
+    }
+    
+    priceMaxInput.value = rangeMax.value;
+    fillTrack();
+    filterProducts();
+  });
+
+  // Ручной ввод в инпут MIN
+  priceMinInput.addEventListener('change', () => {
+    let val = parseInt(priceMinInput.value, 10);
+    let maxVal = parseInt(priceMaxInput.value, 10);
+
+    if (isNaN(val) || val < minPrice) {
+      val = minPrice;
+    }
+    // Не даем опустить планку "До" ручным вводом в "От"
+    if (maxVal - val < MIN_PRICE_GAP) {
+      val = maxVal - MIN_PRICE_GAP;
+    }
+
+    priceMinInput.value = val;
+    rangeMin.value = val;
+    fillTrack();
+    filterProducts();
+  });
+
+  // Ручной ввод в инпут MAX
+  priceMaxInput.addEventListener('change', () => {
+    let val = parseInt(priceMaxInput.value, 10);
+    let minVal = parseInt(priceMinInput.value, 10);
+
+    if (isNaN(val) || val > maxPrice) {
+      val = maxPrice;
+    }
+    // Не даем поднять планку "От" ручным вводом в "До"
+    if (val - minVal < MIN_PRICE_GAP) {
+      val = minVal + MIN_PRICE_GAP;
+    }
+
+    priceMaxInput.value = val;
+    rangeMax.value = val;
+    fillTrack();
+    filterProducts();
+  });
+
+  // Первичная отрисовка линии при загрузке
+  fillTrack();
 });
 </script>
 </div> </div> </div> </div> </div> <script type="text/javascript">if(!window.mainTracker) {window.mainTracker='tilda';}
