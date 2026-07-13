@@ -4227,7 +4227,19 @@ html, body {
   color: #002283;
   font-weight: 700;
 }
-  </style> </head> <body> <div class="wrap"> <div class="cats-wrapper"> <button class="cats-arrow left" id="catsLeft">‹</button> <div id="catsRow" class="cats-row" aria-label="Категории"></div> <button class="cats-arrow right" id="catsRight">›</button> </div> <div class="controls"> <div class="search"><input id="searchInput" placeholder="Поиск по названию или описанию"></div> <div><button id="favToggle" class="btn btn-outline">Избранное</button></div> </div> <div class="price-filter-row"> <!-- ЛЕВАЯ КОЛОНКА --> <div class="filters-left"> <div class="price-filter-wrapper"> <label class="price-label">Фильтр по цене</label> <div class="price-inputs"> <input type="number" id="priceMin" placeholder="Мин."> <span>–</span> <input type="number" id="priceMax" placeholder="Макс."> </div> <input type="range" id="priceRange"> </div> <!-- ВОТ ТУТ КНОПКА --> <button id="openFilters" class="filters-btn">
+  </style> </head> <body> <div class="wrap"> <div class="cats-wrapper"> <button class="cats-arrow left" id="catsLeft">‹</button> <div id="catsRow" class="cats-row" aria-label="Категории"></div> <button class="cats-arrow right" id="catsRight">›</button> </div> <div class="controls"> <div class="search"><input id="searchInput" placeholder="Поиск по названию или описанию"></div> <div><button id="favToggle" class="btn btn-outline">Избранное</button></div> </div> 
+      <div class="price-filter-row"> <!-- ЛЕВАЯ КОЛОНКА --> 
+  <div class="filters-left"> 
+    <div class="price-filter-wrapper"> 
+      <label class="price-label" for="productSort">Сортировка товаров</label> 
+      <div class="price-inputs"> 
+        <select id="productSort" style="width: 100%; padding: 8px 12px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; font-size: 14px; background-color: #fff; cursor: pointer;">
+          <option value="default">По умолчанию</option>
+          <option value="price-asc">Сначала дешевые</option>
+          <option value="price-desc">Сначала дорогие</option>
+        </select>
+      </div> 
+              <!-- ВОТ ТУТ КНОПКА --> <button id="openFilters" class="filters-btn">
       Фильтры ›
     </button> </div> <div class="price-filter-text-wrapper">
 В каталоге «Территория тепла» представлен широкий выбор оборудования и комплектующих для систем отопления и водоснабжения.<br>
