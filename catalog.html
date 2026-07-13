@@ -5243,7 +5243,37 @@ if(priceRange) {
 }
   function numberWithSpaces(n){ return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,' '); }
   function escapeHtml(s){ return (s||'').toString().replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[c])); }
+function initPriceSlider() {
+  const priceMinInput = document.getElementById('priceMin');
+  const priceMaxInput = document.getElementById('priceMax');
+  const priceRange = document.getElementById('priceRange');
 
+  if (priceRange && items && items.length) {
+    // Вытаскиваем только корректные числовые цены
+    const prices = items.map(it => parseFloat(it.price)).filter(p => !isNaN(p) && p > 0);
+    
+    if (prices.length > 0) {
+      const minPrice = Math.min(...prices);
+      const maxPrice = Math.max(...prices);
+
+      // Устанавливаем ползунку реальные границы товаров
+      priceRange.min = minPrice;
+      priceRange.max = maxPrice;
+      priceRange.step = 10; // Шаг изменения цены
+
+      // Устанавливаем текущее значение на минимум (или максимум, как вам удобнее)
+      priceRange.value = minPrice; 
+
+      // Заполняем плейсхолдеры у текстовых инпутов
+      if (priceMinInput && !priceMinInput.value) {
+        priceMinInput.placeholder = `от ${numberWithSpaces(minPrice)}`;
+      }
+      if (priceMaxInput && !priceMaxInput.value) {
+        priceMaxInput.placeholder = `до ${numberWithSpaces(maxPrice)}`;
+      }
+    }
+  }
+}
   renderCategoryBar();
   if(FEED_URL && !FEED_URL.includes('PASTE_YOUR_FEED_URL_HERE')) {
   loadFeed().then(() => {
