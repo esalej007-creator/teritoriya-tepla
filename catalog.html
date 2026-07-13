@@ -7587,55 +7587,93 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
     <script>
 document.addEventListener('DOMContentLoaded', () => {
-  // Функция инициализации диапазона цен
-  function initPriceFilter() {
-    // Находим все элементы с ценами на странице
-    const priceElements = document.querySelectorAll('.js-product-price, .t-store__card__price_value');
-    if (priceElements.length === 0) return;
+  // === НАСТРОЙКА КЛАССА ЦЕНЫ ===
+  // Укажи здесь класс, в котором лежит цена товара в твоих карточках:
+  const PRODUCT_PRICE_SELECTOR = '.js-product-price, .product-price, .price'; 
+  // =============================
 
-    let prices = [];
-    priceElements.forEach(el => {
-      // Очищаем текст от пробелов, валюты и преобразуем в число
-      const priceText = el.textContent.replace(/[^0-9]/g, '');
-      const priceVal = parseInt(priceText, 10);
-      if (!isNaN(priceVal) && priceVal > 0) {
-        prices.push(priceVal);
-      }
-    });
+  const priceMinInput = document.getElementById('priceMin');
+  const priceMaxInput = document.getElementById('priceMax');
+  const priceRange = document.getElementById('priceRange');
 
-    if (prices.length === 0) return;
-
-    // Вычисляем реальные границы цен
-    const minPrice = Math.min(...prices);
-    const maxPrice = Math.max(...prices);
-
-    // Ищем элементы ползунка Tilda (input-range)
-    const rangeInputs = document.querySelectorAll('.t-store__filter__input-range, input[data-filter-type="price"]');
-    
-    rangeInputs.forEach(input => {
-      // Устанавливаем новые границы диапазона
-      input.setAttribute('min', minPrice);
-      input.setAttribute('max', maxPrice);
-      
-      // Если это ползунок "От", ставим ему минимальную цену, если "До" — максимальную
-      if (input.classList.contains('t-store__filter__input-range_min') || input.name === 'price_min') {
-        input.value = minPrice;
-        input.placeholder = minPrice;
-      } else if (input.classList.contains('t-store__filter__input-range_max') || input.name === 'price_max') {
-        input.value = maxPrice;
-        input.placeholder = maxPrice;
-      }
-      
-      // Вызываем событие изменения, чтобы системные скрипты Tilda обновили интерфейс
-      input.dispatchEvent(new Event('change', { bubbles: true }));
-      input.dispatchEvent(new Event('input', { bubbles: true }));
-    });
-    
-    console.log(`Диапазон цен успешно установлен: от ${minPrice} до ${maxPrice} руб.`);
+  if (!priceMinInput || !priceMaxInput || !priceRange) {
+    console.error('Ошибка: Не найдены инпуты фильтра цен в HTML!');
+    return;
   }
 
-  // Запуск с небольшой задержкой, чтобы Tilda успела отрисовать каталог товаров
-  setTimeout(initPriceFilter, 800);
+  // 1. Собираем все цены с карточек товаров
+  const priceElements = document.querySelectorAll(PRODUCT_PRICE_SELECTOR);
+  let prices = [];
+
+  priceElements.forEach(el => {
+    const priceText = el.textContent.replace(/[^0-9]/g, '');
+    const priceVal = parseInt(priceText, 10);
+    if (!isNaN(priceVal) && priceVal > 0) {
+      prices.push(priceVal);
+    }
+  });
+
+  if (prices.length === 0) {
+    console.warn('Цены на странице не найдены. Проверь класс в PRODUCT_PRICE_SELECTOR.');
+    // Дефолтные значения на случай, если каталог грузится асинхронно
+    prices = [0, 10000]; 
+  }
+
+  const minPrice = Math.min(...prices);
+  const maxPrice = Math.max(...prices);
+
+  // 2. Инициализируем границы для инпутов и ползунка
+  priceRange.min = minPrice;
+  priceRange.max = maxPrice;
+  priceRange.value = maxPrice; // Ползунок по умолчанию на максимум
+
+  priceMinInput.value = minPrice;
+  priceMinInput.placeholder = minPrice;
+  priceMaxInput.value = maxPrice;
+  priceMaxInput.placeholder = maxPrice;
+
+  // Функция для фильтрации карточек на странице
+  function filterProducts() {
+    const currentMin = parseInt(priceMinInput.value, 10) || minPrice;
+    const currentMax = parseInt(priceMaxInput.value, 10) || maxPrice;
+
+    // Находим все карточки товаров (подставь свой класс карточки, если нужно)
+    const cards = document.querySelectorAll('.product-card, .js-product-card, .t-store__card');
+    
+    cards.forEach(card => {
+      const priceEl = card.querySelector(PRODUCT_PRICE_SELECTOR);
+      if (priceEl) {
+        const price = parseInt(priceEl.textContent.replace(/[^0-9]/g, ''), 10);
+        if (price >= currentMin && price <= currentMax) {
+          card.style.display = ''; // Показываем
+        } else {
+          card.style.display = 'none'; // Скрываем
+        }
+      }
+    });
+  }
+
+  // 3. Связываем ползунок с правым инпутом (Макс. цена)
+  priceRange.addEventListener('input', (e) => {
+    priceMaxInput.value = e.target.value;
+    filterProducts();
+  });
+
+  // 4. Вешаем события на ручной ввод в инпуты "Мин" и "Макс"
+  priceMinInput.addEventListener('input', () => {
+    // Если ввели меньше минимума, ползунок не ломаем
+    filterProducts();
+  });
+
+  priceMaxInput.addEventListener('input', (e) => {
+    const val = parseInt(e.target.value, 10);
+    if (!isNaN(val) && val >= minPrice && val <= maxPrice) {
+      priceRange.value = val;
+    }
+    filterProducts();
+  });
+
+  console.log(`Фильтр успешно запущен! Диапазон: ${minPrice} - ${maxPrice}`);
 });
 </script>
 </div> </div> </div> </div> </div> <script type="text/javascript">if(!window.mainTracker) {window.mainTracker='tilda';}
