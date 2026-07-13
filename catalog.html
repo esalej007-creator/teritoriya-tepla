@@ -7598,31 +7598,22 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 </script>
-<!-- nominify begin -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  // === НАСТРОЙКА КЛАССОВ ===
-  // Класс цены внутри карточки
   const PRODUCT_PRICE_SELECTOR = '.js-product-price, .product-price, .price, .t-store__card__price_value'; 
-  // Класс самой карточки товара на странице
   const PRODUCT_CARD_SELECTOR = '.product-card, .js-product-card, .t-store__card, .cards > div';
-  // ID контейнера, где лежат карточки (в твоем HTML это <div id="cards" class="cards">)
   const CONTAINER_SELECTOR = '#cards';
-  // =========================
 
   const sortSelect = document.getElementById('productSort');
   if (!sortSelect) return;
 
-  // Функция получения чистой цены из карточки
   function getProductPrice(card) {
     const priceEl = card.querySelector(PRODUCT_PRICE_SELECTOR);
     if (!priceEl) return 0;
-    // Очищаем от валюты, пробелов и букв, оставляем только цифры
     const priceVal = parseInt(priceEl.textContent.replace(/[^0-9]/g, ''), 10);
     return isNaN(priceVal) ? 0 : priceVal;
   }
 
-  // Массив для хранения изначального порядка товаров (на случай сброса "По умолчанию")
   let originalOrder = [];
 
   sortSelect.addEventListener('change', (e) => {
@@ -7632,14 +7623,12 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // Собираем актуальные карточки прямо в момент выбора сортировки
     const cards = Array.from(container.querySelectorAll(PRODUCT_CARD_SELECTOR));
     if (cards.length === 0) {
       console.warn('Карточки товаров пока не загрузились или не найдены.');
       return;
     }
 
-    // Запоминаем исходный порядок один раз, когда первый раз сортируем
     if (originalOrder.length === 0) {
       originalOrder = [...cards];
     }
@@ -7648,17 +7637,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let sortedCards = [...cards];
 
     if (type === 'price-asc') {
-      // От дешевых к дорогим
       sortedCards.sort((a, b) => getProductPrice(a) - getProductPrice(b));
     } else if (type === 'price-desc') {
-      // От дорогих к дешевым
       sortedCards.sort((a, b) => getProductPrice(b) - getProductPrice(a));
     } else {
-      // Сброс на исходный порядок
       sortedCards = [...originalOrder];
     }
 
-    // Очищаем контейнер и вставляем отсортированные карточки обратно
     container.innerHTML = '';
     sortedCards.forEach(card => {
       container.appendChild(card);
