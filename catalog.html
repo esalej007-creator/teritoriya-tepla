@@ -5064,8 +5064,6 @@ order.onclick = (e) => {
 };
 
 actions.append(more, order);
-
-actions.append(more, order);
 body.append(actions);
     const fav = document.createElement('div');
     fav.className = 'card-fav';
@@ -5229,7 +5227,12 @@ if(priceMinInput) {
     renderCards();
   });
 }
-
+if(priceMaxInput) {
+  priceMaxInput.addEventListener('input', () => {
+    visibleCount = PAGE_STEP;
+    renderCards();
+  });
+}
 if(priceRange) {
   priceRange.addEventListener('input', () => {
     const val = parseInt(priceRange.value) || 0;
