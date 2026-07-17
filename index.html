@@ -3422,7 +3422,6 @@ plLoadAndRender();
     
 }
 
-/* LEFT SIDE */
 .advb-left {
     width: 50%;
     padding: 40px;
@@ -3464,7 +3463,7 @@ plLoadAndRender();
 .advb-video video {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* чтобы красиво заполняло */
+  object-fit: cover; 
 }
 
 /* RIGHT SIDE */
@@ -3565,30 +3564,28 @@ plLoadAndRender();
     width: fit-content;
 }
 
-/* Горизонтальная красная линия */
 .advb-main-title::after {
     content: "";
     position: absolute;
     top: 50%;
-    left: 100%; /* от конца плашки */
-    height: 2px; /* толщина линии */
-    width: 583px; /* длину подгоняем до вертикальной линии */
+    left: 100%; 
+    height: 2px; 
+    width: 583px; 
     background: #002283;
     transform: translateY(-50%);
 }
 
-/* Красный шарик на конце линии */
 .advb-main-title::before {
     content: "";
     position: absolute;
     top: 50%;
-    left: calc(100% + 574px); /* конец линии */
-    width: 14px; /* размер шарика, как у точек преимуществ */
+    left: calc(100% + 574px);
+    width: 14px; 
     height: 14px;
     background: #002283;
     border-radius: 50%;
     transform: translateY(-50%);
-    z-index: 2; /* чтобы был поверх линии */
+    z-index: 2; 
 }
 @media (max-width: 768px) {
 
@@ -3608,12 +3605,10 @@ plLoadAndRender();
     box-sizing: border-box;
   }
 
-  /* видео */
   .advb-video {
     height: 200px !important;
   }
 
-  /* карточки */
   .advb-card {
     width: 100% !important;
     max-width: 100% !important;
@@ -3625,18 +3620,15 @@ plLoadAndRender();
     gap: 10px !important;
   }
 
-  /* убираем вылет текста вправо */
   .advb-line {
     width: 20px !important;
   }
 
-  /* критично: убираем огромную декоративную линию */
   .advb-main-title::after,
   .advb-main-title::before {
     display: none !important;
   }
 
-  /* чтобы ничего не раздувало экран */
   .advb-icon {
         width: 50px !important;
     height: 50px !important;
@@ -3644,7 +3636,7 @@ plLoadAndRender();
   }
     .advb-text-wrap {
     flex: 1;
-    min-width: 0; /* важно — чтобы текст не ломал строку */
+    min-width: 0; 
   }
 
 
@@ -3672,7 +3664,7 @@ html, body {
   overflow-x: hidden !important;
 }
 .advb-item {
-  margin-bottom: 18px !important; /* было 30px — это много на мобиле */
+  margin-bottom: 18px !important; 
 }
 }
 @media (max-width: 1280px) {
@@ -3719,7 +3711,7 @@ setInterval(() => {
 
   setTimeout(() => {
     imgEl.src = images[current];
-    imgEl.style.opacity = 1;
+    imgEl.style.opacity = 0;
   }, 300);
 
 }, 10000);
