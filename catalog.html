@@ -3036,6 +3036,34 @@ plLoadAndRender();
   transform: translateY(0);
   opacity: 0;
 }
+    .card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  
+  /* Создаем полупрозрачный белый градиент под углом */
+  background: linear-gradient(
+    120deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.4) 40%, /* Яркость блика */
+    rgba(255, 255, 255, 0.4) 45%,
+    transparent 55%
+  );
+  
+  /* Сдвигаем его полностью влево за пределы карточки */
+  transform: translateX(-100%); 
+}
+
+/* 3. Запускаем движение при наведении */
+.card:hover::before {
+  /* Перемещаем блик вправо через всю карточку */
+  transform: translateX(100%);
+  /* Настраиваем время анимации (0.6 секунды) и плавность */
+  transition: transform 0.6s ease-in-out; 
+}
 
 
 .param-item {
