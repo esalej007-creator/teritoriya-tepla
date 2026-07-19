@@ -2854,14 +2854,16 @@ const message = `
     font-size: 9px;    
     border-radius: 4px;
   }
-    .pl-cards-wrapper {
-    margin-top: 80px;
-}
     }
 .pl-card-box {
   display: block;
   text-decoration: none;
   color: inherit;
+}
+    @media (max-width: 767px) {
+    .pl-cards-wrapper {
+        margin-top: 80px;
+    }
 }
 </style> </head> <body> <div class="pl-cards-wrapper" id="plCards"></div> <script>
 async function plLoadAndRender() {
