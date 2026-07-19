@@ -5570,20 +5570,20 @@ window.tildastatcookie='no';setTimeout(function(){(function(d,w,k,o,g) {var n=d.
 .buy-overlay-new {
   position: fixed;
   inset: 0;
-
   background: rgba(0,0,0,0.4);
   backdrop-filter: blur(8px);        
   -webkit-backdrop-filter: blur(8px);
-
   display: flex;
-  align-items: center;
+  align-items: safe center; 
   justify-content: center;
-
   opacity: 0;
   pointer-events: none;
   transition: 0.3s;
-
   z-index: 2147483647;
+ 
+  overflow-y: auto;
+  padding: 90px 20px 30px; 
+  box-sizing: border-box;
 }
 
 .buy-overlay-new.active {
@@ -5603,14 +5603,13 @@ window.tildastatcookie='no';setTimeout(function(){(function(d,w,k,o,g) {var n=d.
   -webkit-backdrop-filter: blur(20px);
 
   position: relative;
-
-  transform: translateY(-20px);
+  transform: scale(0.95); 
   opacity: 0;
   transition: 0.3s;
 }
 
 .buy-overlay-new.active .buy-modal-new {
-  transform: translateY(0);
+  transform: scale(1);
   opacity: 1;
 }
 
